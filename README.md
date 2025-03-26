@@ -1,5 +1,8 @@
-# godot-cpp template
-This repository serves as a quickstart template for GDExtension development with Godot 4.0+.
+![logo](https://raw.githubusercontent.com/tkmfujise/ReDScribe/refs/heads/main/icon/icon_with_title.png)
+
+# ReDScribe
+Re-describe your code better with ruby on Godot.
+
 
 ## Contents
 * An empty Godot project (`demo/`)
