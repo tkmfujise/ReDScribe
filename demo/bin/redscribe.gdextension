@@ -1,0 +1,25 @@
+[configuration]
+
+entry_symbol = "redscribe_library_init"
+compatibility_minimum = "4.1"
+
+[libraries]
+; Relative paths ensure that our GDExtension can be placed anywhere in the project directory.
+macos.debug = "./macos/macos.framework/libredscribe.macos.template_debug.universal"
+macos.release = "./macos/macos.framework/libredscribe.macos.template_release.universal"
+ios.debug = "./ios/ios.framework/libredscribe.ios.template_debug.arm64"
+ios.release = "./ios/ios.framework/libredscribe.ios.template_release.arm64"
+windows.debug.x86_32 = "./windows/libredscribe.windows.template_debug.x86_32.dll"
+windows.release.x86_32 = "./windows/libredscribe.windows.template_release.x86_32.dll"
+windows.debug.x86_64 = "./windows/libredscribe.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "./windows/libredscribe.windows.template_release.x86_64.dll"
+linux.debug.x86_64 = "./linux/libredscribe.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "./linux/libredscribe.linux.template_release.x86_64.so"
+linux.debug.arm64 = "./linux/libredscribe.linux.template_debug.arm64.so"
+linux.release.arm64 = "./linux/libredscribe.linux.template_release.arm64.so"
+linux.debug.rv64 = "./linux/libredscribe.linux.template_debug.rv64.so"
+linux.release.rv64 = "./linux/libredscribe.linux.template_release.rv64.so"
+android.debug.x86_64 = "./android/libredscribe.android.template_debug.x86_64.so"
+android.release.x86_64 = "./android/libredscribe.android.template_release.x86_64.so"
+android.debug.arm64 = "./android/libredscribe.android.template_debug.arm64.so"
+android.release.arm64 = "./android/libredscribe.android.template_release.arm64.so"

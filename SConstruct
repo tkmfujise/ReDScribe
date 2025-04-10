@@ -5,8 +5,11 @@ import sys
 from methods import print_error
 
 
-libname = "EXTENSION-NAME"
+libname = "redscribe"
 projectdir = "demo"
+
+mruby_include_path = "mruby/build/host/include"
+mruby_library_path = "mruby/build/host/lib"
 
 localEnv = Environment(tools=["default"], PLATFORM="")
 
@@ -19,6 +22,16 @@ opts.Update(localEnv)
 Help(opts.GenerateHelpText(localEnv))
 
 env = localEnv.Clone()
+
+# mruby
+env.Append(CPPPATH=[mruby_include_path])
+env.Append(LIBPATH=[mruby_library_path])
+env.Append(LIBS=["libmruby"])
+
+# リンカフラグの追加
+# env.Append(LINKFLAGS=["/NODEFAULTLIB:MSVCRT"])
+# env.Append(LINKFLAGS=["/VERBOSE:LIB"])
+env.Append(LIBS=["Ws2_32"])
 
 submodule_initialized = False
 dir_name = 'godot-cpp'
