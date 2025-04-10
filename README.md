@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/tkmfujise/ReDScribe/refs/heads/main/icon/icon_with_title.png)
+<img src="icon/icon_with_title.png" alt="logo">
 
 # ReDScribe
 Re-describe your code better with ruby on Godot.
