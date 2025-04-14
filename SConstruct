@@ -28,10 +28,10 @@ env.Append(CPPPATH=[mruby_include_path])
 env.Append(LIBPATH=[mruby_library_path])
 env.Append(LIBS=["libmruby"])
 
-# リンカフラグの追加
-# env.Append(LINKFLAGS=["/NODEFAULTLIB:MSVCRT"])
-# env.Append(LINKFLAGS=["/VERBOSE:LIB"])
-env.Append(LIBS=["Ws2_32"])
+# Windows用に追加
+if (os.name != 'posix'):
+    env.Append(LIBS=["Ws2_32"])
+
 
 submodule_initialized = False
 dir_name = 'godot-cpp'

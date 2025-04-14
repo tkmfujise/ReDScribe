@@ -9,7 +9,13 @@ end
 task :mruby_build do
   cd 'mruby' do
     ENV['CFLAGS'] = '/MT'
-    sh 'rake clean'
     sh 'rake'
+  end
+end
+
+
+task :clean do
+  cd 'mruby' do
+    sh 'rake clean'
   end
 end

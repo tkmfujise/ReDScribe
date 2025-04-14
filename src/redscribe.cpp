@@ -18,6 +18,13 @@ ReDScribe::~ReDScribe() {
   // cleanup
 }
 
+
+static mrb_value
+mrb_foo_bar(mrb_state *mrb, mrb_value recv)
+{
+  return mrb_fixnum_value(1);
+}
+
 void ReDScribe::test_ruby() {
   mrb_state* mrb = mrb_open();
   if (!mrb) {
@@ -25,6 +32,9 @@ void ReDScribe::test_ruby() {
     return;
   }
 
-  mrb_load_string(mrb, "1+1");
+  struct RClass *r = mrb_define_module(mrb, "Foo");
+  mrb_define_module_function(mrb, r, "bar", mrb_foo_bar, MRB_ARGS_NONE());
+  
+  mrb_load_string(mrb, "Foo.bar");
   mrb_close(mrb);
 }
