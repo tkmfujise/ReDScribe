@@ -1,4 +1,5 @@
 extends ReDScribe
-class_name TestDSL
+class_name SimpleDSL
 
-signal foo
+func foo() -> void:
+	print("foo called")
