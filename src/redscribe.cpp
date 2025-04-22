@@ -1,50 +1,62 @@
 #include "redscribe.h"
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 #include <mruby.h>
 #include <mruby/compile.h>
 #include <mruby/data.h>
+#include <mruby/variable.h>
 #include <mruby/string.h>
 
 
 using namespace godot;
 
+#define PRINT(s) UtilityFunctions::print(s)
+
+ReDScribe *gd_context = nullptr;
+
+void set_gdcontext(ReDScribe *r);
+static ReDScribe* get_gdcontext(void);
+static mrb_value method_missing(mrb_state *mrb, mrb_value self);
+
 
 void ReDScribe::_bind_methods() {
-  ClassDB::bind_method(D_METHOD("execute_dsl"), &ReDScribe::execute_dsl);
+  ClassDB::bind_method(D_METHOD("perform", "dsl"), &ReDScribe::perform);
 
-  ClassDB::bind_method(D_METHOD("set_dsl", "dsl"), &ReDScribe::set_dsl);
-  ClassDB::bind_method(D_METHOD("get_dsl"), &ReDScribe::get_dsl);
-  ADD_PROPERTY(PropertyInfo(Variant::STRING, "dsl"), "set_dsl", "get_dsl");
+  ClassDB::bind_method(D_METHOD("set_exception", "exception"), &ReDScribe::set_exception);
+  ClassDB::bind_method(D_METHOD("get_exception"), &ReDScribe::get_exception);
+  ADD_PROPERTY(PropertyInfo(Variant::STRING, "exception"), "set_exception", "get_exception");
 
-  ClassDB::bind_method(D_METHOD("set_dsl_error", "dsl_error"), &ReDScribe::set_dsl_error);
-  ClassDB::bind_method(D_METHOD("get_dsl_error"), &ReDScribe::get_dsl_error);
-  ADD_PROPERTY(PropertyInfo(Variant::STRING, "dsl_error"), "set_dsl_error", "get_dsl_error");
+  ADD_SIGNAL(MethodInfo("method_missing", 
+    PropertyInfo(Variant::STRING, "method_name"))
+  );
 }
 
 ReDScribe::ReDScribe() {
-  // initialize
+  mrb = mrb_open();
+  if (!mrb) {
+    // handle error
+    return;
+  }
+  set_gdcontext(this);
+  struct RClass* base_class = mrb->object_class;
+
+  mrb_define_method(mrb, base_class, "method_missing", method_missing, MRB_ARGS_ANY());
 }
 
 ReDScribe::~ReDScribe() {
-  // cleanup
+  if (mrb) {
+    mrb_close(mrb);
+  }
 }
 
 
-void ReDScribe::set_dsl(const String &p_dsl) {
-  dsl = p_dsl;
+void ReDScribe::set_exception(const String &p_exception) {
+  exception = p_exception;
 }
 
-String ReDScribe::get_dsl() const {
-  return dsl;
-}
-
-void ReDScribe::set_dsl_error(const String &p_dsl_error) {
-  dsl_error = p_dsl_error;
-}
-
-String ReDScribe::get_dsl_error() const {
-  return dsl_error;
+String ReDScribe::get_exception() const {
+  return exception;
 }
 
 
@@ -59,28 +71,36 @@ method_missing(mrb_state *mrb, mrb_value self)
 
   const char *method_name_str = mrb_sym2name(mrb, method_name);
 
-  return mrb_str_new_cstr(mrb, "method not found: ");
+  ReDScribe *instance = get_gdcontext();
+
+  if (instance) {
+    instance->emit_signal("method_missing", String(method_name_str));
+  }
+
+  return mrb_nil_value();
 }
 
 
-void ReDScribe::execute_dsl() {
-  mrb_state* mrb = mrb_open();
-  if (!mrb) {
-    // handle error
-    return;
-  }
+void set_gdcontext(ReDScribe *r) {
+  gd_context = r;
+}
 
-  struct RClass* base_class = mrb->object_class;
+static ReDScribe* get_gdcontext(void) {
+  return gd_context;
+}
 
-  mrb_define_method(mrb, base_class, "method_missing", method_missing, MRB_ARGS_ANY());
+void clear_gdcontext(void) {
+  gd_context = nullptr;
+}
 
+
+void ReDScribe::perform(const String &dsl) {
   mrb_load_string(mrb, dsl.utf8().get_data());
   if (mrb->exc) {
-    dsl_error = "error";
+    exception = "error";
   } else {
-    dsl_error = "";
+    exception = "";
   }
-  mrb_close(mrb);
 }
 
 

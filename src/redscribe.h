@@ -11,8 +11,9 @@ class ReDScribe : public Resource {
   GDCLASS(ReDScribe, Resource)
   
 private:
-  void set_dsl_error(const String &p_dsl_error);
-  String get_dsl_error() const;
+  mrb_state* mrb;
+  void set_exception(const String &p_exception);
+  String get_exception() const;
 
 protected:
   static void _bind_methods();
@@ -21,13 +22,9 @@ public:
   ReDScribe();
   ~ReDScribe();
 
-  String dsl = "";
-  String dsl_error = "";
+  String exception = "";
 
-  void set_dsl(const String &p_dsl);
-  String get_dsl() const;
-
-  void execute_dsl();
+  void perform(const String &dsl);
 };
 
 }
