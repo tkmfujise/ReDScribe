@@ -7,6 +7,8 @@
 #include <mruby/data.h>
 #include <mruby/variable.h>
 #include <mruby/string.h>
+#include <mruby/hash.h>
+#include <mruby/array.h>
 
 
 using namespace godot;
@@ -18,6 +20,7 @@ ReDScribe *gd_context = nullptr;
 void set_gdcontext(ReDScribe *r);
 static ReDScribe* get_gdcontext(void);
 static mrb_value method_missing(mrb_state *mrb, mrb_value self);
+Variant mrb_variant(mrb_state *mrb, mrb_value value);
 
 
 void ReDScribe::_bind_methods() {
@@ -28,7 +31,8 @@ void ReDScribe::_bind_methods() {
   ADD_PROPERTY(PropertyInfo(Variant::STRING, "exception"), "set_exception", "get_exception");
 
   ADD_SIGNAL(MethodInfo("method_missing", 
-    PropertyInfo(Variant::STRING, "method_name"))
+    PropertyInfo(Variant::STRING, "method_name"),
+    PropertyInfo(Variant::ARRAY,  "args"))
   );
 }
 
@@ -59,6 +63,69 @@ String ReDScribe::get_exception() const {
   return exception;
 }
 
+static int
+mrb_hash_variant_set(mrb_state *mrb, mrb_value key, mrb_value value, void *data)
+{
+  Dictionary *dict = static_cast<Dictionary *>(data);
+
+  Variant godot_key   = mrb_variant(mrb, key);
+  Variant godot_value = mrb_variant(mrb, value);
+
+  dict->operator[](godot_key) = godot_value;
+
+  return 0; // 継続
+}
+
+
+Dictionary
+mrb_hash_variant(mrb_state *mrb, mrb_value hash)
+{
+  Dictionary dict;
+
+  if (mrb_hash_p(hash)) {
+    struct RHash *hash_ptr = mrb_hash_ptr(hash);
+    mrb_hash_foreach(mrb, hash_ptr, mrb_hash_variant_set, &dict);
+  }
+
+  return dict;
+}
+
+
+Variant
+mrb_variant(mrb_state *mrb, mrb_value value)
+{
+  switch (mrb_type(value)) {
+  case MRB_TT_TRUE:
+    return true;
+  case MRB_TT_FALSE:
+    if (mrb_nil_p(value)) {
+      return Variant();
+    }
+    return false;
+  case MRB_TT_INTEGER:
+    return mrb_integer(value);
+  case MRB_TT_FLOAT:
+    return mrb_float(value);
+  case MRB_TT_SYMBOL:
+    return String(mrb_sym2name(mrb, mrb_symbol(value)));
+  case MRB_TT_STRING:
+    return String(mrb_str_to_cstr(mrb, value));
+  case MRB_TT_HASH:
+    return mrb_hash_variant(mrb, value);
+  case MRB_TT_ARRAY: {
+    Array godot_array;
+    mrb_int len = RARRAY_LEN(value);
+    for (mrb_int i = 0; i < len; i++) {
+      mrb_value element = mrb_ary_entry(value, i);
+      godot_array.append(mrb_variant(mrb, element));
+    }
+    return godot_array;
+  }
+  default:
+    return Variant();
+  }
+}
+
 
 static mrb_value
 method_missing(mrb_state *mrb, mrb_value self)
@@ -69,12 +136,17 @@ method_missing(mrb_state *mrb, mrb_value self)
 
   mrb_get_args(mrb, "n*", &method_name, &args, &arg_count);
 
-  const char *method_name_str = mrb_sym2name(mrb, method_name);
+  String method_name_str = String(mrb_sym2name(mrb, method_name));
 
   ReDScribe *instance = get_gdcontext();
 
   if (instance) {
-    instance->emit_signal("method_missing", String(method_name_str));
+    Array godot_args;
+    for (mrb_int i = 0; i < arg_count; i++) {
+      godot_args.append(mrb_variant(mrb, args[i]));
+    }
+    
+    instance->emit_signal("method_missing", method_name_str, godot_args);
   }
 
   return mrb_nil_value();
