@@ -2,11 +2,9 @@ name: Build GDExtension
 on:
   workflow_call:
   push:
-    # branches: ['main']
-    branches: []
+    branches: ['main-dummy']
   pull_request:
-    # branches: ['main']
-    branches: []
+    branches: ['main-dummy']
   merge_group:
 
 jobs:
