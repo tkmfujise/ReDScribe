@@ -1,19 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk2ofed5aex75"]
+[gd_scene load_steps=3 format=3 uid="uid://bk2ofed5aex75"]
 
 [ext_resource type="Script" uid="uid://57dhbuhscgsa" path="res://main.gd" id="1_ig7tw"]
 
-[sub_resource type="GDScript" id="GDScript_ig7tw"]
-script/source = "extends ReDScribe
-class_name SimpleDSL
-
-func foo() -> String:
-	print_debug('foo called gdscript')
-	return 'foo called'
-"
-
-[sub_resource type="ReDScribe" id="ReDScribe_h2yge"]
-script = SubResource("GDScript_ig7tw")
-metadata/_custom_type_script = "uid://q4xwd5idf33b"
+[sub_resource type="ReDScribe" id="ReDScribe_ig7tw"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -23,4 +12,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
-resource = SubResource("ReDScribe_h2yge")
+resource = SubResource("ReDScribe_ig7tw")

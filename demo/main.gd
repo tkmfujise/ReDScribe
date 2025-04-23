@@ -1,6 +1,6 @@
 extends Control
 
-@export var resource : SimpleDSL
+@export var resource : ReDScribe
 
 
 func _ready() -> void:
