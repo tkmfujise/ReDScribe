@@ -1,7 +1,7 @@
 <img src="icon/icon_with_title.png" alt="logo">
 
 # ReDScribe
-Re-describe your code better with mruby on Godot.
+Re-describe your code friendly as domain-specific language with mruby on Godot.
 
 
 ## Usage
