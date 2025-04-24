@@ -137,21 +137,15 @@ mrb_variant(mrb_state *mrb, mrb_value value)
 static mrb_value
 emit_signal(mrb_state *mrb, mrb_value self)
 {
-  mrb_sym method_name;
-  mrb_value *args;
-  mrb_int arg_count;
+  mrb_sym key;
+  mrb_value payload;
+  mrb_get_args(mrb, "no", &key, &payload);
 
-  mrb_get_args(mrb, "no", &method_name, &args, &arg_count);
-
-  // TODO
   ReDScribe *instance = get_gdcontext();
   if (instance) {
-    // instance->emit_signal("channel",
-    //                       String(mrb_variant(mrb, args[0])),
-    //                       mrb_variant(mrb, args[1]));
     instance->emit_signal("channel",
-                          "foo",
-                          "bar");
+                          String(mrb_sym2name(mrb, key)),
+                          mrb_variant(mrb, payload));
   }
   return mrb_true_value();
 }

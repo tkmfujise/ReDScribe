@@ -6,7 +6,7 @@ func _ready() -> void:
 	res.method_missing.connect(_method_missing)
 	res.channel.connect(_subscribe)
 	res.perform("""
-		Godot.emit_signal :foo, 'test'
+		Godot.emit_signal :foo, [1, 2]
 	""")
 
 func _subscribe(key: String, payload: Variant) -> void:
