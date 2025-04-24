@@ -1,5 +1,6 @@
 #include "redscribe.h"
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
 #include <mruby.h>
@@ -19,6 +20,7 @@ ReDScribe *gd_context = nullptr;
 
 void set_gdcontext(ReDScribe *r);
 static ReDScribe* get_gdcontext(void);
+static void mrb_define_godot_module(mrb_state *mrb);
 static mrb_value method_missing(mrb_state *mrb, mrb_value self);
 Variant mrb_variant(mrb_state *mrb, mrb_value value);
 
@@ -34,6 +36,10 @@ void ReDScribe::_bind_methods() {
     PropertyInfo(Variant::STRING, "method_name"),
     PropertyInfo(Variant::ARRAY,  "args"))
   );
+  ADD_SIGNAL(MethodInfo("channel", 
+    PropertyInfo(Variant::STRING, "name"),
+    PropertyInfo(Variant::NIL,    "payload"))
+  );
 }
 
 ReDScribe::ReDScribe() {
@@ -45,6 +51,7 @@ ReDScribe::ReDScribe() {
   set_gdcontext(this);
   struct RClass* base_class = mrb->object_class;
 
+  mrb_define_godot_module(mrb);
   mrb_define_method(mrb, base_class, "method_missing", method_missing, MRB_ARGS_ANY());
 }
 
@@ -124,6 +131,49 @@ mrb_variant(mrb_state *mrb, mrb_value value)
   default:
     return Variant();
   }
+}
+
+
+static mrb_value
+emit_signal(mrb_state *mrb, mrb_value self)
+{
+  mrb_sym method_name;
+  mrb_value *args;
+  mrb_int arg_count;
+
+  mrb_get_args(mrb, "no", &method_name, &args, &arg_count);
+
+  // TODO
+  ReDScribe *instance = get_gdcontext();
+  if (instance) {
+    // instance->emit_signal("channel",
+    //                       String(mrb_variant(mrb, args[0])),
+    //                       mrb_variant(mrb, args[1]));
+    instance->emit_signal("channel",
+                          "foo",
+                          "bar");
+  }
+  return mrb_true_value();
+}
+
+
+String get_godot_version() {
+  Dictionary version_info = Engine::get_singleton()->get_version_info();
+  int major     = version_info["major"];
+  int minor     = version_info["minor"];
+  String status = version_info["status"];
+  return String("v{0}.{1}.{2}").format(Array::make(major, minor, status));
+}
+
+
+static void
+mrb_define_godot_module(mrb_state *mrb)
+{
+  struct RClass *godot_module;
+  godot_module = mrb_define_module(mrb, "Godot");
+  mrb_define_const(mrb, godot_module, "VERSION",
+                   mrb_str_new_cstr(mrb, get_godot_version().utf8().get_data()));
+  mrb_define_class_method(mrb, godot_module, "emit_signal", emit_signal, MRB_ARGS_REQ(2));
 }
 
 
