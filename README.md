@@ -25,3 +25,21 @@ func _method_missing(method_name: String, args: Array) -> void:
     #   bar: [{ "piyo": 1, "bar": 2 }]
     #   piyo: [[1, 2.3, "bar"]]
 ```
+
+## Roadmap
+
+### v0.1.0
+* [x] method_missing signal
+* [x] channel signal
+* [x] Godot module
+* [x] puts
+* [ ] boot.rb
+* [ ] require
+
+### v0.2.0
+* [ ] REPL
+* [ ] cross-compiling
+
+
+
+
