@@ -22,6 +22,7 @@ void set_gdcontext(ReDScribe *r);
 static ReDScribe* get_gdcontext(void);
 static void mrb_define_godot_module(mrb_state *mrb);
 static mrb_value method_missing(mrb_state *mrb, mrb_value self);
+static void mrb_define_utility_methods(mrb_state *mrb);
 Variant mrb_variant(mrb_state *mrb, mrb_value value);
 
 
@@ -52,6 +53,7 @@ ReDScribe::ReDScribe() {
   struct RClass* base_class = mrb->object_class;
 
   mrb_define_godot_module(mrb);
+  mrb_define_utility_methods(mrb);
   mrb_define_method(mrb, base_class, "method_missing", method_missing, MRB_ARGS_ANY());
 }
 
@@ -168,6 +170,29 @@ mrb_define_godot_module(mrb_state *mrb)
   mrb_define_const(mrb, godot_module, "VERSION",
                    mrb_str_new_cstr(mrb, get_godot_version().utf8().get_data()));
   mrb_define_class_method(mrb, godot_module, "emit_signal", emit_signal, MRB_ARGS_REQ(2));
+}
+
+
+static mrb_value
+puts(mrb_state *mrb, mrb_value self)
+{
+  mrb_value *args;
+  mrb_int arg_count;
+
+  mrb_get_args(mrb, "*", &args, &arg_count);
+  for (mrb_int i = 0; i < arg_count; i++) {
+    PRINT(mrb_variant(mrb, args[i]));
+  }
+
+  return mrb_nil_value();
+}
+
+
+static void
+mrb_define_utility_methods(mrb_state *mrb)
+{
+  struct RClass* base_class = mrb->object_class;
+  mrb_define_method(mrb, base_class, "puts", puts, MRB_ARGS_ANY());
 }
 
 
