@@ -1,6 +1,7 @@
 #include "redscribe.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
 #include <mruby.h>
@@ -21,6 +22,8 @@ ReDScribe *gd_context = nullptr;
 void set_gdcontext(ReDScribe *r);
 static ReDScribe* get_gdcontext(void);
 static void mrb_define_godot_module(mrb_state *mrb);
+static bool mrb_execute_file(mrb_state *mrb, String path);
+static mrb_value require(mrb_state *mrb, mrb_value self);
 static mrb_value method_missing(mrb_state *mrb, mrb_value self);
 static void mrb_define_utility_methods(mrb_state *mrb);
 Variant mrb_variant(mrb_state *mrb, mrb_value value);
@@ -28,6 +31,10 @@ Variant mrb_variant(mrb_state *mrb, mrb_value value);
 
 void ReDScribe::_bind_methods() {
   ClassDB::bind_method(D_METHOD("perform", "dsl"), &ReDScribe::perform);
+
+  ClassDB::bind_method(D_METHOD("set_boot_file", "boot_file"), &ReDScribe::set_boot_file);
+  ClassDB::bind_method(D_METHOD("get_boot_file"), &ReDScribe::get_boot_file);
+  ADD_PROPERTY(PropertyInfo(Variant::STRING, "boot_file", PROPERTY_HINT_FILE, "*.rb"), "set_boot_file", "get_boot_file");
 
   ClassDB::bind_method(D_METHOD("set_exception", "exception"), &ReDScribe::set_exception);
   ClassDB::bind_method(D_METHOD("get_exception"), &ReDScribe::get_exception);
@@ -63,6 +70,15 @@ ReDScribe::~ReDScribe() {
   }
 }
 
+
+void ReDScribe::set_boot_file(const String &p_boot_file) {
+  boot_file = p_boot_file;
+  mrb_execute_file(mrb, p_boot_file);
+}
+
+String ReDScribe::get_boot_file() const {
+  return boot_file;
+}
 
 void ReDScribe::set_exception(const String &p_exception) {
   exception = p_exception;
@@ -116,9 +132,9 @@ mrb_variant(mrb_state *mrb, mrb_value value)
   case MRB_TT_FLOAT:
     return mrb_float(value);
   case MRB_TT_SYMBOL:
-    return String(mrb_sym2name(mrb, mrb_symbol(value)));
+    return String::utf8(mrb_sym2name(mrb, mrb_symbol(value)));
   case MRB_TT_STRING:
-    return String(mrb_str_to_cstr(mrb, value));
+    return String::utf8(mrb_string_value_ptr(mrb, value));
   case MRB_TT_HASH:
     return mrb_hash_variant(mrb, value);
   case MRB_TT_ARRAY: {
@@ -146,7 +162,7 @@ emit_signal(mrb_state *mrb, mrb_value self)
   ReDScribe *instance = get_gdcontext();
   if (instance) {
     instance->emit_signal("channel",
-                          String(mrb_sym2name(mrb, key)),
+                          String::utf8(mrb_sym2name(mrb, key)),
                           mrb_variant(mrb, payload));
   }
   return mrb_true_value();
@@ -158,7 +174,7 @@ String get_godot_version() {
   int major     = version_info["major"];
   int minor     = version_info["minor"];
   String status = version_info["status"];
-  return String("v{0}.{1}.{2}").format(Array::make(major, minor, status));
+  return String::utf8("v{0}.{1}.{2}").format(Array::make(major, minor, status));
 }
 
 
@@ -193,8 +209,37 @@ mrb_define_utility_methods(mrb_state *mrb)
 {
   struct RClass* base_class = mrb->object_class;
   mrb_define_method(mrb, base_class, "puts", puts, MRB_ARGS_ANY());
+  mrb_define_method(mrb, base_class, "require", require, MRB_ARGS_REQ(1));
 }
 
+
+static bool
+mrb_execute_file(mrb_state *mrb, String path)
+{
+  Ref<FileAccess> file = FileAccess::open(path, FileAccess::ModeFlags::READ);
+  if (file.is_valid()) {
+    String content = file->get_as_text();
+    mrb_load_string(mrb, content.utf8().get_data());
+    return true;
+  } else {
+    PRINT("cannot load such file -- " + path);
+    return false;
+  }
+}
+
+
+static mrb_value
+require(mrb_state *mrb, mrb_value self)
+{
+  mrb_value path;
+
+  mrb_get_args(mrb, "S", &path);
+  String gd_path = "res://" + String(mrb_variant(mrb, path));
+  if (mrb_execute_file(mrb, gd_path)) {
+    return mrb_true_value();
+  }
+  return mrb_false_value();
+}
 
 static mrb_value
 method_missing(mrb_state *mrb, mrb_value self)
@@ -205,7 +250,7 @@ method_missing(mrb_state *mrb, mrb_value self)
 
   mrb_get_args(mrb, "n*", &method_name, &args, &arg_count);
 
-  String method_name_str = String(mrb_sym2name(mrb, method_name));
+  String method_name_str = String::utf8(mrb_sym2name(mrb, method_name));
 
   ReDScribe *instance = get_gdcontext();
 

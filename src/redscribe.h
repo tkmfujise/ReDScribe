@@ -22,6 +22,10 @@ public:
   ReDScribe();
   ~ReDScribe();
 
+  String boot_file = "";
+  void set_boot_file(const String &p_boot_file);
+  String get_boot_file() const;
+
   String exception = "";
 
   void perform(const String &dsl);
