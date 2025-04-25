@@ -1,7 +1,7 @@
 <img src="icon/icon_with_title.png" alt="logo">
 
 # ReDScribe
-Re-describe your code friendly as a domain-specific language with mruby on Godot.
+Let’s re-describe your code as your own friendly domain-specific language.
 
 
 > [!CAUTION]
