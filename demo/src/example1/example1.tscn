@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk335itmiqtu6"]
+[gd_scene load_steps=3 format=3 uid="uid://dk335itmiqtu6"]
 
 [ext_resource type="Script" uid="uid://dsdsa8mgrpmpu" path="res://src/example1/example_1.gd" id="1_0vvfo"]
+
+[sub_resource type="ReDScribe" id="ReDScribe_0vvfo"]
+boot_file = "res://src/example1/lib/boot.rb"
 
 [node name="Example1" type="Control"]
 layout_mode = 3
@@ -10,3 +13,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0vvfo")
+res = SubResource("ReDScribe_0vvfo")
