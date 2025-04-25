@@ -77,10 +77,10 @@ mrb_hash_variant_set(mrb_state *mrb, mrb_value key, mrb_value value, void *data)
 {
   Dictionary *dict = static_cast<Dictionary *>(data);
 
-  Variant godot_key   = mrb_variant(mrb, key);
-  Variant godot_value = mrb_variant(mrb, value);
+  Variant gd_key   = mrb_variant(mrb, key);
+  Variant gd_value = mrb_variant(mrb, value);
 
-  dict->operator[](godot_key) = godot_value;
+  dict->operator[](gd_key) = gd_value;
 
   return 0; // 継続
 }
@@ -122,13 +122,13 @@ mrb_variant(mrb_state *mrb, mrb_value value)
   case MRB_TT_HASH:
     return mrb_hash_variant(mrb, value);
   case MRB_TT_ARRAY: {
-    Array godot_array;
+    Array gd_array;
     mrb_int len = RARRAY_LEN(value);
     for (mrb_int i = 0; i < len; i++) {
-      mrb_value element = mrb_ary_entry(value, i);
-      godot_array.append(mrb_variant(mrb, element));
+      mrb_value item = mrb_ary_entry(value, i);
+      gd_array.append(mrb_variant(mrb, item));
     }
-    return godot_array;
+    return gd_array;
   }
   default:
     return Variant();
@@ -210,12 +210,12 @@ method_missing(mrb_state *mrb, mrb_value self)
   ReDScribe *instance = get_gdcontext();
 
   if (instance) {
-    Array godot_args;
+    Array gd_args;
     for (mrb_int i = 0; i < arg_count; i++) {
-      godot_args.append(mrb_variant(mrb, args[i]));
+      gd_args.append(mrb_variant(mrb, args[i]));
     }
     
-    instance->emit_signal("method_missing", method_name_str, godot_args);
+    instance->emit_signal("method_missing", method_name_str, gd_args);
   }
 
   return mrb_nil_value();
