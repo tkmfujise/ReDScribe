@@ -6,7 +6,7 @@ func _ready() -> void:
 	res.method_missing.connect(_method_missing)
 	res.channel.connect(_subscribe)
 	res.perform("""
-		# require 'src/example1/lib/boot.rb'
+		# require 'src/example1/lib/boot'
 		puts "Godot のバージョンは #{Godot::VERSION} です"
 		こいつ動くぞ '⁉️'
 		player 'Alice' do

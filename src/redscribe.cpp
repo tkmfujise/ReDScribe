@@ -235,6 +235,9 @@ require(mrb_state *mrb, mrb_value self)
 
   mrb_get_args(mrb, "S", &path);
   String gd_path = "res://" + String(mrb_variant(mrb, path));
+  if (gd_path.get_extension().is_empty()) {
+    gd_path += ".rb";
+  }
   if (mrb_execute_file(mrb, gd_path)) {
     return mrb_true_value();
   }
