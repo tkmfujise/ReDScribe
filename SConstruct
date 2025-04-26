@@ -71,7 +71,7 @@ library = env.SharedLibrary(
     source=sources,
 )
 
-copy = env.InstallAs("{}/bin/{}/{}lib{}".format(projectdir, env["platform"], filepath, file), library)
+copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}lib{}".format(projectdir, env["platform"], filepath, file), library)
 
 default_args = [library, copy]
 Default(*default_args)

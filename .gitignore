@@ -19,6 +19,10 @@ demo/bin/windows/*
 !demo/bin/*.gdextension
 .sconsign*.dblite
 
+# Ignore addon uid, import
+demo/addons/redscribe/**/*.uid
+demo/addons/redscribe/**/*.import
+
 # Ignore custom.py
 custom.py
 
