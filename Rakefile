@@ -41,9 +41,9 @@ task :mruby_build do
 
       sh "lipo -create -output #{libmruby_path} #{arm64_file.path} #{x86_file.path}"
     when /linux/
-      build_config
+      build_config # TODO
     else
-      build_config
+      build_config # TODO
     end
   end
 end

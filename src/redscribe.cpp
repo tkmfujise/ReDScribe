@@ -173,8 +173,9 @@ String get_godot_version() {
   Dictionary version_info = Engine::get_singleton()->get_version_info();
   int major     = version_info["major"];
   int minor     = version_info["minor"];
+  int patch     = version_info["patch"];
   String status = version_info["status"];
-  return String::utf8("v{0}.{1}.{2}").format(Array::make(major, minor, status));
+  return String::utf8("v{0}.{1}.{2}.{3}").format(Array::make(major, minor, patch, status));
 }
 
 
