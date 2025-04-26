@@ -41,9 +41,28 @@ func _method_missing(method_name: String, args: Array) -> void:
 * [x] boot.rb
 * [x] require
 * [ ] create as a plugin
-* [ ] REPL
-* [ ] cross-compiling
-
+  * [ ] Editor
+    * [ ] Theme (User definable)
+    * [ ] Syntax (User definable)
+  * [ ] REPL
+* [ ] Document
+  * [ ] doc/*.adoc
+  * [ ] README
+  * [ ] Wiki
+  * [ ] Godot help
+* [ ] Demo
+* [ ] compile
+  * [ ] debug/release
+  * [ ] target
+    * [x] windows.x86_64 
+    * [ ] windows.x86_32 
+    * [x] macos
+    * [ ] linux.x86_64 
+    * [ ] linux.arm64 
+    * [ ] linux.rv64 
+    * [ ] android.x86_64 
+    * [ ] android.arm64 
+    * [ ] ios
 
 
 
