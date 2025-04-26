@@ -73,7 +73,9 @@ ReDScribe::~ReDScribe() {
 
 void ReDScribe::set_boot_file(const String &p_boot_file) {
   boot_file = p_boot_file;
-  mrb_execute_file(mrb, p_boot_file);
+  if (!boot_file.is_empty()) {
+    mrb_execute_file(mrb, boot_file);
+  }
 }
 
 String ReDScribe::get_boot_file() const {
