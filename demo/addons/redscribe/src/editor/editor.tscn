@@ -1,20 +1,73 @@
-[gd_scene load_steps=2 format=3 uid="uid://byyypft7sfdhq"]
+[gd_scene load_steps=2 format=3 uid="uid://b8nb1wlpa30qv"]
 
-[ext_resource type="Theme" uid="uid://b7i768o1myrh3" path="res://addons/redscribe/themes/redscribe_theme.tres" id="1_mg613"]
+[ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor.gd" id="1_mg613"]
 
-[node name="Editor" type="Control"]
-layout_mode = 3
+[node name="ReDScribeEditor" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_mg613")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_mg613")
 
-[node name="CodeEdit" type="CodeEdit" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CodeArea" type="CodeEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+scroll_past_end_of_file = true
+line_folding = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+indent_size = 2
+indent_use_spaces = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[node name="Footer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="FooterContainer" type="HBoxContainer" parent="Footer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Button" type="Button" parent="Footer/FooterContainer"]
+layout_mode = 2
+text = "< "
+flat = true
+
+[node name="FilePath" type="Label" parent="Footer/FooterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://src/foo/bar.rb"
+
+[node name="LanguageButton" type="MenuButton" parent="Footer/FooterContainer"]
+layout_mode = 2
+text = "Ruby"
+switch_on_hover = true
+item_count = 2
+popup/item_0/text = "Ruby"
+popup/item_0/id = 0
+popup/item_1/text = "JSON"
+popup/item_1/id = 1
+
+[node name="IndentButton" type="MenuButton" parent="Footer/FooterContainer"]
+layout_mode = 2
+text = "Indent: 2"
+switch_on_hover = true
+item_count = 3
+popup/item_0/text = "2"
+popup/item_0/id = 2
+popup/item_1/text = "4"
+popup/item_1/id = 4
+popup/item_2/text = "tab"
+popup/item_2/id = 0
