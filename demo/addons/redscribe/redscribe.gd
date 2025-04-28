@@ -22,6 +22,15 @@ func _has_main_screen() -> bool:
 	return true
 
 
+func _handles(object: Object) -> bool:
+	return object is ReDScribeEntry
+
+
+func _edit(object: Object) -> void:
+	if object is ReDScribeEntry:
+		main.load_file(object.resource_path)
+
+
 func _make_visible(visible: bool) -> void:
 	if main: main.visible = visible
 

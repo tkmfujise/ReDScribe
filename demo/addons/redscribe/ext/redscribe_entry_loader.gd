@@ -1,11 +1,9 @@
 @tool
 extends ResourceFormatLoader
-class_name ReDScribeDSLLoader
+class_name ReDScribeEntryLoader
 
-const ReDScribeDSL = preload("./redscribe_dsl.gd")
+const ReDScribeEntry = preload("./redscribe_entry.gd")
 var extension = 'rb'
-
-# FIXME ERROR: Cannot get class 'ReDScribeDSL'.
 
 
 func _get_recognized_extensions() -> PackedStringArray:
@@ -15,19 +13,14 @@ func _get_recognized_extensions() -> PackedStringArray:
 func _get_resource_type(path: String) -> String:
 	var ext = path.get_extension().to_lower()
 	if ext == extension:
-		return "ReDScribeDSL"
+		return "Resource"
 	return ""
 
 
 func _handles_type(typename: StringName) -> bool:
-	return typename == "ReDScribeDSL"
+	return typename == &"Resource"
 
 
 func _load(path: String, original_path: String, use_sub_threads: bool, cache_mode: int) -> Variant:
-	var res  = ReDScribeDSL.new()
-	EditorInterface.set_main_screen_editor("ReDScribe")
-	var main = EditorInterface.get_editor_main_screen() \
-		.get_children().filter(func(c):
-			return c.name.begins_with('ReDScribeMain'))
-	if main: main[0].load_file(path)
+	var res  = ReDScribeEntry.new()
 	return res
