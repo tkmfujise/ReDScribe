@@ -2,7 +2,6 @@
 extends EditorPlugin
 
 const Main = preload("res://addons/redscribe/src/main/main.tscn")
-const EDITOR_VISIBLE_ACTION = "Focus ReDScribe"
 
 var main
 
@@ -43,10 +42,14 @@ func _get_plugin_icon() -> Texture2D:
 	return preload("res://addons/redscribe/assets/icons/editor_icon.svg")
 
 
-# https://github.com/godotengine/godot-proposals/issues/2024
 func _add_actions() -> void:
 	pass
 
 
 func _remove_actions() -> void:
+	pass
+
+
+# https://github.com/godotengine/godot-proposals/issues/2024
+func _add_shortcuts() -> void:
 	pass
