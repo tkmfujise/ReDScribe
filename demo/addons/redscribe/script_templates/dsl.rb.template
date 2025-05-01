@@ -1,0 +1,51 @@
+class %Resource
+  # TODO re-write ATTRIBUTES for your resource.
+  #
+  #   %resource 'Something' do
+  #     attribute1  true
+  #     attribute2  1
+  #   end
+  #
+  # will emit signal `channel`:
+  #
+  #   'add_%resource', { 'attribute1': true, 'attribute2': 1 }
+  #
+  ATTRIBUTES = %i[name attribute1 attribute2] 
+
+  def initialize(name)
+    @name = name
+  end
+
+  def attributes
+    ATTRIBUTES.map{|a| [a, self[a]] }.to_h
+  end
+
+  def [](key)
+    instance_variable_get(:"@#{key}")
+  end
+
+  def []=(key, value)
+    instance_variable_set(:"@#{key}", value)
+  end
+
+  def emit
+    Godot.emit_signal(:add_%resource, attributes)
+  end
+
+  def method_missing(name, *args)
+    if ATTRIBUTES.include? name
+      self[name] = args[0]
+    else
+      super
+    end
+  end
+end
+
+
+def %resource(name, &block)
+  %resource = %Resource.new(name)
+  %resource.instance_exec(&block)
+  %resource.emit
+end
+
+

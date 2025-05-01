@@ -2,8 +2,11 @@
 extends EditorPlugin
 
 const Main = preload("res://addons/redscribe/src/main/main.tscn")
+const ContextMenuFileSystem = preload("res://addons/redscribe/ext/context_menu/file_system.gd")
+const ReDScribeEntry = preload("res://addons/redscribe/ext/redscribe_entry.gd")
 
-var main
+var main : Control
+var context_menu_filesystem : ContextMenuFileSystem
 
 func _enter_tree() -> void:
 	main = Main.instantiate()
@@ -43,11 +46,12 @@ func _get_plugin_icon() -> Texture2D:
 
 
 func _add_actions() -> void:
-	pass
+	context_menu_filesystem = ContextMenuFileSystem.new()
+	add_context_menu_plugin(EditorContextMenuPlugin.CONTEXT_SLOT_FILESYSTEM_CREATE, context_menu_filesystem)
 
 
 func _remove_actions() -> void:
-	pass
+	remove_context_menu_plugin(context_menu_filesystem)
 
 
 # https://github.com/godotengine/godot-proposals/issues/2024

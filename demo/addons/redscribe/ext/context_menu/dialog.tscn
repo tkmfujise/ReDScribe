@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv7m0y32d11aq"]
+
+[ext_resource type="Texture2D" uid="uid://jmi7l87jrt5c" path="res://addons/redscribe/assets/icons/editor_icon_gray.svg" id="1_4w8dh"]
+[ext_resource type="Script" uid="uid://m8f8bhu5pgg7" path="res://addons/redscribe/ext/context_menu/dialog.gd" id="1_nk23u"]
+[ext_resource type="Texture2D" uid="uid://d2i6kiuylecjk" path="res://addons/redscribe/assets/icons/editor_icon_outline.svg" id="2_1et1m"]
+[ext_resource type="Texture2D" uid="uid://c3ihuhva68qhi" path="res://addons/redscribe/assets/icons/Folder.svg" id="3_1et1m"]
+
+[node name="Dialog" type="ConfirmationDialog"]
+title = "ReDScribe: New file"
+initial_position = 1
+size = Vector2i(1080, 640)
+visible = true
+script = ExtResource("1_nk23u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TemplateContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TemplateContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Template:"
+
+[node name="Template" type="OptionButton" parent="VBoxContainer/TemplateContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "DSL *.rb"
+popup/item_0/icon = ExtResource("1_4w8dh")
+popup/item_0/id = 0
+popup/item_1/text = "boot.rb"
+popup/item_1/icon = ExtResource("1_4w8dh")
+popup/item_1/id = 1
+popup/item_2/text = "ReDScribe *.gd"
+popup/item_2/icon = ExtResource("2_1et1m")
+popup/item_2/id = 2
+
+[node name="PathContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PathContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Path:"
+
+[node name="Path" type="LineEdit" parent="VBoxContainer/PathContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="VBoxContainer/PathContainer"]
+layout_mode = 2
+icon = ExtResource("3_1et1m")
+
+[node name="ResourceNameContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ResourceNameContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Resource Name:"
+
+[node name="ResourceName" type="LineEdit" parent="VBoxContainer/ResourceNameContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NewResource"
+
+[node name="Bottom" type="Panel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Description" type="RichTextLabel" parent="VBoxContainer/Bottom"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "asdf
+
+asdf
+
+asdf"
+
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="item_selected" from="VBoxContainer/TemplateContainer/Template" to="." method="_on_template_item_selected"]
+[connection signal="text_submitted" from="VBoxContainer/PathContainer/Path" to="." method="_on_path_text_submitted"]
