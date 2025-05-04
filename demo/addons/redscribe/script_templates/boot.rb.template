@@ -1,2 +1,8 @@
-require 'path/to/another_ruby_file'
+# TODO: require your DSL classes
+# require 'path/to/your_rb_file'
+
+# TODO: Write your DSL methods
+# def example(&block)
+#   do_something
+# end
 

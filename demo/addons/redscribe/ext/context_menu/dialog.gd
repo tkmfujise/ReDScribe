@@ -86,6 +86,11 @@ func _on_confirmed() -> void:
 	hide()
 
 
+func _on_path_text_changed(new_text: String) -> void:
+	var txt = new_text.get_basename().get_file().to_pascal_case()
+	%ResourceName.text = txt
+
+
 func _on_path_text_submitted(_paths: String) -> void:
 	_on_confirmed()
 

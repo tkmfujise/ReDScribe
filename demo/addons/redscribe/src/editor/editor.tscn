@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8nb1wlpa30qv"]
+[gd_scene load_steps=6 format=3 uid="uid://b8nb1wlpa30qv"]
 
 [ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor.gd" id="1_mg613"]
+[ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/code_area.gd" id="2_y6aeu"]
+[ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="3_73q2q"]
+[ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="4_3ve5l"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_73q2q"]
+number_color = Color(1, 1, 1, 1)
+symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
+function_color = Color(0.976471, 0.717647, 0.862745, 1)
+member_variable_color = Color(1, 1, 1, 1)
+keyword_colors = {
+"attr_accessor": Color(0.956863, 0.690196, 0.262745, 1),
+"class": Color(0.956863, 0.690196, 0.262745, 1),
+"def": Color(0.956863, 0.690196, 0.262745, 1),
+"end": Color(0.956863, 0.690196, 0.262745, 1),
+"false": Color(0.596078, 0.882353, 1, 1),
+"initialize": Color(0.956863, 0.690196, 0.262745, 1),
+"module": Color(0.956863, 0.690196, 0.262745, 1),
+"nil": Color(0.596078, 0.882353, 1, 1),
+"require": Color(0.956863, 0.690196, 0.262745, 1),
+"return": Color(0.956863, 0.690196, 0.262745, 1),
+"true": Color(0.596078, 0.882353, 1, 1)
+}
+color_regions = {
+"\" \"": Color(0.27451, 0.941176, 0.0352941, 1),
+"#": Color(0.364706, 0.662745, 0.92549, 1),
+"' '": Color(0.27451, 0.941176, 0.0352941, 1),
+":  ": Color(0.862745, 0.968627, 0.0627451, 1)
+}
 
 [node name="ReDScribeEditor" type="VBoxContainer"]
 anchors_preset = 15
@@ -16,7 +44,10 @@ script = ExtResource("1_mg613")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 scroll_past_end_of_file = true
+syntax_highlighter = SubResource("CodeHighlighter_73q2q")
 line_folding = true
 gutters_draw_executing_lines = true
 gutters_draw_line_numbers = true
@@ -27,6 +58,9 @@ indent_use_spaces = true
 indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
+script = ExtResource("2_y6aeu")
+current_syntax = ExtResource("3_73q2q")
+current_theme = ExtResource("4_3ve5l")
 
 [node name="Footer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -52,6 +86,7 @@ text = "res://src/foo/bar.rb"
 
 [node name="LanguageButton" type="MenuButton" parent="Footer/FooterContainer"]
 layout_mode = 2
+disabled = true
 text = "Ruby"
 switch_on_hover = true
 item_count = 2
@@ -62,6 +97,7 @@ popup/item_1/id = 1
 
 [node name="IndentButton" type="MenuButton" parent="Footer/FooterContainer"]
 layout_mode = 2
+disabled = true
 text = "Indent: 2"
 switch_on_hover = true
 item_count = 3

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ReDScribeEditorSyntax" load_steps=2 format=3 uid="uid://bgane4ws868g8"]
+
+[ext_resource type="Script" uid="uid://c6crsqt7405r" path="res://addons/redscribe/resources/redscribe_editor_syntax.gd" id="1_rv58v"]
+
+[resource]
+script = ExtResource("1_rv58v")
+indent_size = 2
+regions = {
+"comment": [["#", ""]],
+"constant": [[":", " "]],
+"string": [["'", "'"], ["\"", "\""]]
+}
+keywords = {
+"boolean": ["true", "false", "nil"],
+"keyword": ["class", "def", "end", "module", "require", "return", "initialize", "attr_accessor"]
+}
+completions = [["class", "class"], ["def", "def"], ["end", "end"], ["return", "return"], ["module", "module"], ["require", "require"], ["attr_accessor", "attr_accessor"]]
+metadata/_custom_type_script = "uid://c6crsqt7405r"

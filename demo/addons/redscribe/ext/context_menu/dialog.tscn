@@ -18,8 +18,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -49.0
+offset_right = 1072.0
+offset_bottom = 591.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -70,7 +70,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/ResourceNameContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "Resource Name:"
+text = "%Resource:"
 
 [node name="ResourceName" type="LineEdit" parent="VBoxContainer/ResourceNameContainer"]
 unique_name_in_owner = true
@@ -91,12 +91,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-text = "asdf
-
-asdf
-
-asdf"
 
 [connection signal="confirmed" from="." to="." method="_on_confirmed"]
 [connection signal="item_selected" from="VBoxContainer/TemplateContainer/Template" to="." method="_on_template_item_selected"]
+[connection signal="text_changed" from="VBoxContainer/PathContainer/Path" to="." method="_on_path_text_changed"]
 [connection signal="text_submitted" from="VBoxContainer/PathContainer/Path" to="." method="_on_path_text_submitted"]
