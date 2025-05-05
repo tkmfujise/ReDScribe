@@ -3,7 +3,6 @@ extends EditorPlugin
 
 const Main = preload("res://addons/redscribe/src/main/main.tscn")
 const ContextMenuFileSystem = preload("res://addons/redscribe/ext/context_menu/file_system.gd")
-const ReDScribeEntry = preload("res://addons/redscribe/ext/redscribe_entry.gd")
 
 var main : Control
 var context_menu_filesystem : ContextMenuFileSystem

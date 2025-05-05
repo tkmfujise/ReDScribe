@@ -2,7 +2,6 @@
 extends ResourceFormatLoader
 class_name ReDScribeEntryLoader
 
-const ReDScribeEntry = preload("./redscribe_entry.gd")
 var extension = 'rb'
 
 

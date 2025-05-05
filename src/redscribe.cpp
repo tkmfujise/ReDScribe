@@ -40,11 +40,11 @@ void ReDScribe::_bind_methods() {
   ClassDB::bind_method(D_METHOD("get_exception"), &ReDScribe::get_exception);
   ADD_PROPERTY(PropertyInfo(Variant::STRING, "exception"), "set_exception", "get_exception");
 
-  ADD_SIGNAL(MethodInfo("method_missing", 
+  ADD_SIGNAL(MethodInfo("method_missing",
     PropertyInfo(Variant::STRING, "method_name"),
     PropertyInfo(Variant::ARRAY,  "args"))
   );
-  ADD_SIGNAL(MethodInfo("channel", 
+  ADD_SIGNAL(MethodInfo("channel",
     PropertyInfo(Variant::STRING, "name"),
     PropertyInfo(Variant::NIL,    "payload"))
   );
@@ -265,7 +265,7 @@ method_missing(mrb_state *mrb, mrb_value self)
     for (mrb_int i = 0; i < arg_count; i++) {
       gd_args.append(mrb_variant(mrb, args[i]));
     }
-    
+
     instance->emit_signal("method_missing", method_name_str, gd_args);
   }
 
@@ -294,5 +294,4 @@ void ReDScribe::perform(const String &dsl) {
     exception = "";
   }
 }
-
 

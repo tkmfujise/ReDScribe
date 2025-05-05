@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "redscribe.h"
+#include "redscribe_entry.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
@@ -17,6 +18,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 		return;
 	}
 	GDREGISTER_CLASS(ReDScribe);
+	GDREGISTER_CLASS(ReDScribeEntry);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
