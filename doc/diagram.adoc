@@ -1,0 +1,54 @@
+= Diagram
+
+== Architecture
+
+[plantuml, architecture]
+....
+rectangle "redscribe.gdextension" as mruby {
+  control "init" as mrb_open #lightyellow
+  card "mrb_state" as mrb_perform {
+    usecase "Object#method_missing" as mrb_method_missing #lightcyan
+    usecase "Godot.emit_signal" as mrb_emit_signal #mistyrose
+  }
+}
+
+file "xxx.rb" as boot.rb #lightyellow
+
+frame ReDScribe {
+  agent "func perform(dsl)" as perform #honeydew
+  entity boot_file #lightyellow
+  queue "<signal>\n method_missing \n * method_name\n * args" as method_missing #lightcyan
+  queue "<signal>\n channel               \n * key\n * payload" as channel #mistyrose
+}
+
+left to right direction
+
+boot_file <-- boot.rb
+mrb_open <-- boot_file
+mrb_perform <-- perform
+mrb_open -up-> mrb_perform
+mrb_method_missing --> method_missing
+mrb_emit_signal    --> channel
+
+note bottom of boot.rb
+  class YourDSL
+    ⋮
+    def emit
+      Godot.emit_signal :xxx, 'yyy'
+    end
+  end
+
+  def xxx(&block)
+    x = YourDSL.new
+    x.instance_exec(&block)
+    x.emit
+  end
+end note
+
+note right of perform #honeydew
+  ~# Write your code as DSL
+  xxx do
+    foo 'bar'
+  end
+end note
+....

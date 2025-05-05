@@ -21,7 +21,7 @@ func _ready() -> void:
     res.perform("""
         Alice speak: "Hello Ruby!"
 
-        require 'src/lib/player'
+        require 'src/lib/player' # DSL definition file.
         player 'Alice' do
           level 1
           job   :magician
@@ -39,6 +39,10 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 #   [subscribe] add_player: { &"name": "Alice", &"level": 1, &"job": &"magician" }
 ```
 
+## Architecture
+<img src="doc/architecture.png" alt="architecture">
+
+
 ## Roadmap
 
 ### v0.1.0
@@ -51,10 +55,10 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 * [ ] create as a plugin
   * [x] Editor
 * [ ] Document
-  * [ ] doc/*.adoc
+  * [x] doc/*.adoc
   * [ ] README
   * [ ] Wiki
-  * [ ] Godot help
+  * [x] Godot help
 * [ ] Demo
 
 
