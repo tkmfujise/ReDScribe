@@ -8,12 +8,13 @@ background_color = "#062037"
 foreground_color = "#FFFFFF"
 symbol_color = "#FBFBD3"
 number_color = "#FFFFFF"
-function_color = "#F9B7DC"
+function_color = "#F8A9D5"
 member_variable_color = "#FFFFFF"
 syntax_colors = {
 "boolean": "#98E1FF",
 "comment": "#5DA9EC",
 "constant": "#DCF710",
+"control": "#77F0FF",
 "keyword": "#F4B043",
 "string": "#46F009"
 }

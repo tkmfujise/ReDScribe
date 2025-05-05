@@ -69,5 +69,5 @@ func _on_code_completion_requested() -> void:
 
 
 func _on_text_changed() -> void:
-	if get_word_at_pos(get_caret_draw_pos()).length() > 0:
+	if get_word_at_pos(get_caret_draw_pos()).length() > 1:
 		request_code_completion(true)

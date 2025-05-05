@@ -10,7 +10,7 @@ class %Resource
   #
   #   'add_%resource', { 'attribute1': true, 'attribute2': 1 }
   #
-  ATTRIBUTES = %i[name attribute1 attribute2] 
+  ATTRIBUTES = %i[name attribute1 attribute2]
 
   def initialize(name)
     @name = name
@@ -47,5 +47,4 @@ def %resource(name, &block)
   %resource.instance_exec(&block)
   %resource.emit
 end
-
 

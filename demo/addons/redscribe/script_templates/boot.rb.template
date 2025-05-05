@@ -1,8 +1,8 @@
 # TODO: require your DSL classes
-# require 'path/to/your_rb_file'
+require 'path/to/your_rb_file'
 
 # TODO: Write your DSL methods
-# def example(&block)
-#   do_something
-# end
+def example(&block)
+  do_something
+end
 
