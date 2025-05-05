@@ -45,8 +45,8 @@ void ReDScribe::_bind_methods() {
     PropertyInfo(Variant::ARRAY,  "args"))
   );
   ADD_SIGNAL(MethodInfo("channel",
-    PropertyInfo(Variant::STRING, "name"),
-    PropertyInfo(Variant::NIL,    "payload"))
+    PropertyInfo(Variant::STRING_NAME, "name"),
+    PropertyInfo(Variant::NIL,         "payload"))
   );
 }
 
@@ -134,7 +134,7 @@ mrb_variant(mrb_state *mrb, mrb_value value)
   case MRB_TT_FLOAT:
     return mrb_float(value);
   case MRB_TT_SYMBOL:
-    return String::utf8(mrb_sym2name(mrb, mrb_symbol(value)));
+    return StringName(mrb_sym2name(mrb, mrb_symbol(value)));
   case MRB_TT_STRING:
     return String::utf8(mrb_string_value_ptr(mrb, value));
   case MRB_TT_HASH:

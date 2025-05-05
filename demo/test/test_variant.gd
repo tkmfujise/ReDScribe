@@ -58,7 +58,7 @@ func test_dictionary_string_key():
 
 func test_array():
 	res.perform("foo [1, true, :bar]")
-	assert_eq(result, [1, true, "bar"])
+	assert_eq(result, [1, true, &"bar"])
 
 
 func test_unknown_class():

@@ -28,7 +28,7 @@ func test_one_arg():
 func test_multi_args():
 	res.perform("foo 1, :bar")
 	assert_eq(method_name, 'foo')
-	assert_eq(args, [1, 'bar'])
+	assert_eq(args, [1, &'bar'])
 
 
 func test_multi_call():

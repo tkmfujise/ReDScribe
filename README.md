@@ -17,18 +17,26 @@ extends Node
 
 func _ready() -> void:
     res.method_missing.connect(_method_missing)
+    res.channel.connect(_subscribe)
     res.perform("""
-        foo  1, 2.3, true, false, nil, 'bar', :piyo
-        bar  piyo: 1, 'bar' => 2 
-        piyo [1, 2.3, :bar]
+        Alice speak: "Hello Ruby!"
+
+        require 'src/lib/player'
+        player 'Alice' do
+          level 1
+          job   :magician
+        end
     """)
 
 func _method_missing(method_name: String, args: Array) -> void:
-    print_debug(method_name, ': ', args)
-    # outputs:
-    #   foo: [1, 2.3, true, false, <null>, "bar", "piyo"]
-    #   bar: [{ "piyo": 1, "bar": 2 }]
-    #   piyo: [[1, 2.3, "bar"]]
+    print_debug('[method_missing] ', method_name, ': ', args)
+
+func _subscribe(key: StringName, payload: Variant) -> void:
+    print_debug('[subscribe] ', key, ': ', payload)
+
+# Output:
+#   [method_missing] Alice: [{ &"speak": "Hello Ruby!" }]
+#   [subscribe] add_player: { &"name": "Alice", &"level": 1, &"job": &"magician" }
 ```
 
 ## Roadmap
@@ -41,18 +49,21 @@ func _method_missing(method_name: String, args: Array) -> void:
 * [x] boot.rb
 * [x] require
 * [ ] create as a plugin
-  * [ ] Editor
-    * [ ] Theme (User definable)
-    * [ ] Syntax (User definable)
-  * [ ] REPL
+  * [x] Editor
 * [ ] Document
   * [ ] doc/*.adoc
   * [ ] README
   * [ ] Wiki
   * [ ] Godot help
 * [ ] Demo
+
+
+### v0.2.0
+* [ ] Editor
+  * [ ] User definable theme
+  * [ ] User definable syntax
+* [ ] REPL
 * [ ] compile
-  * [ ] debug/release
   * [ ] target
     * [x] windows.x86_64 
     * [ ] windows.x86_32 

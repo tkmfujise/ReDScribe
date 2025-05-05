@@ -8,14 +8,14 @@ func _ready() -> void:
 	res.perform("""
 		# require 'src/example1/lib/boot'
 		puts "Godot のバージョンは #{Godot::VERSION} です"
-		こいつ動くぞ '⁉️'
+		Alice speak: 'Hello Ruby!'
 		player 'Alice' do
 		  level 1
 		  job   :magician
 		end
 	""")
 
-func _subscribe(key: String, payload: Variant) -> void:
+func _subscribe(key: StringName, payload: Variant) -> void:
 	print_debug('[subscribe] ', key, ': ', payload)
 
 func _method_missing(method_name: String, args: Array) -> void:

@@ -8,10 +8,13 @@
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_73q2q"]
 number_color = Color(1, 1, 1, 1)
 symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
-function_color = Color(0.976471, 0.717647, 0.862745, 1)
+function_color = Color(0.972549, 0.662745, 0.835294, 1)
 member_variable_color = Color(1, 1, 1, 1)
 keyword_colors = {
-"attr_accessor": Color(0.956863, 0.690196, 0.262745, 1),
+"attr": Color(0.466667, 0.941176, 1, 1),
+"attr_accessor": Color(0.466667, 0.941176, 1, 1),
+"attr_reader": Color(0.466667, 0.941176, 1, 1),
+"attr_writer": Color(0.466667, 0.941176, 1, 1),
 "class": Color(0.956863, 0.690196, 0.262745, 1),
 "def": Color(0.956863, 0.690196, 0.262745, 1),
 "else": Color(0.956863, 0.690196, 0.262745, 1),
@@ -21,17 +24,24 @@ keyword_colors = {
 "if": Color(0.956863, 0.690196, 0.262745, 1),
 "initialize": Color(0.956863, 0.690196, 0.262745, 1),
 "module": Color(0.956863, 0.690196, 0.262745, 1),
+"new": Color(0.956863, 0.690196, 0.262745, 1),
 "nil": Color(0.596078, 0.882353, 1, 1),
+"private": Color(0.466667, 0.941176, 1, 1),
+"protected": Color(0.466667, 0.941176, 1, 1),
+"public": Color(0.466667, 0.941176, 1, 1),
 "require": Color(0.956863, 0.690196, 0.262745, 1),
 "return": Color(0.956863, 0.690196, 0.262745, 1),
-"super": Color(0.956863, 0.690196, 0.262745, 1),
-"true": Color(0.596078, 0.882353, 1, 1)
+"self": Color(0.466667, 0.941176, 1, 1),
+"super": Color(0.466667, 0.941176, 1, 1),
+"true": Color(0.596078, 0.882353, 1, 1),
+"yield": Color(0.466667, 0.941176, 1, 1)
 }
 color_regions = {
 "\" \"": Color(0.27451, 0.941176, 0.0352941, 1),
 "#": Color(0.364706, 0.662745, 0.92549, 1),
 "' '": Color(0.27451, 0.941176, 0.0352941, 1),
-":  ": Color(0.862745, 0.968627, 0.0627451, 1)
+":  ": Color(0.862745, 0.968627, 0.0627451, 1),
+"@  ": Color(0.466667, 0.941176, 1, 1)
 }
 
 [node name="ReDScribeEditor" type="VBoxContainer"]
