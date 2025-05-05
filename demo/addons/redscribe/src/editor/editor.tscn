@@ -14,13 +14,17 @@ keyword_colors = {
 "attr_accessor": Color(0.956863, 0.690196, 0.262745, 1),
 "class": Color(0.956863, 0.690196, 0.262745, 1),
 "def": Color(0.956863, 0.690196, 0.262745, 1),
+"else": Color(0.956863, 0.690196, 0.262745, 1),
+"elsif": Color(0.956863, 0.690196, 0.262745, 1),
 "end": Color(0.956863, 0.690196, 0.262745, 1),
 "false": Color(0.596078, 0.882353, 1, 1),
+"if": Color(0.956863, 0.690196, 0.262745, 1),
 "initialize": Color(0.956863, 0.690196, 0.262745, 1),
 "module": Color(0.956863, 0.690196, 0.262745, 1),
 "nil": Color(0.596078, 0.882353, 1, 1),
 "require": Color(0.956863, 0.690196, 0.262745, 1),
 "return": Color(0.956863, 0.690196, 0.262745, 1),
+"super": Color(0.956863, 0.690196, 0.262745, 1),
 "true": Color(0.596078, 0.882353, 1, 1)
 }
 color_regions = {
@@ -107,3 +111,6 @@ popup/item_1/text = "4"
 popup/item_1/id = 4
 popup/item_2/text = "tab"
 popup/item_2/id = 0
+
+[connection signal="code_completion_requested" from="CodeArea" to="CodeArea" method="_on_code_completion_requested"]
+[connection signal="text_changed" from="CodeArea" to="CodeArea" method="_on_text_changed"]
