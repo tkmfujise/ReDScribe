@@ -45,7 +45,7 @@ void ReDScribe::_bind_methods() {
     PropertyInfo(Variant::ARRAY,  "args"))
   );
   ADD_SIGNAL(MethodInfo("channel",
-    PropertyInfo(Variant::STRING_NAME, "name"),
+    PropertyInfo(Variant::STRING_NAME, "key"),
     PropertyInfo(Variant::NIL,         "payload"))
   );
 }

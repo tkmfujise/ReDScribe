@@ -54,3 +54,11 @@ task :clean do
     sh 'rake clean'
   end
 end
+
+
+desc 'Generate doc_classes/*'
+task :doc do
+  cd 'demo' do
+    sh 'godot --doctool ../ --gdextension-docs'
+  end
+end

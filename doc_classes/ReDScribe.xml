@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ReDScribe" inherits="Resource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+  <brief_description>
+    A mruby wrapper class implemented in GDExtension.
+  </brief_description>
+  <description>
+    [b]Example usage[/b]
+
+    [codeblock]
+    extends Node
+
+    @onready var res := ReDScribe.new()
+
+    func _ready() -> void:
+        res.method_missing.connect(_method_missing)
+        res.channel.connect(_subscribe)
+        res.perform("""
+            Alice speak: "Hello Ruby!"
+
+            require 'src/lib/player'
+            player 'Alice' do
+              level 1
+              job   :magician
+            end
+        """)
+
+    func _method_missing(method_name: String, args: Array) -> void:
+        print_debug('[method_missing] ', method_name, ': ', args)
+
+    func _subscribe(key: StringName, payload: Variant) -> void:
+        print_debug('[subscribe] ', key, ': ', payload)
+
+    # Output:
+    #   [method_missing] Alice: [{ &"speak": "Hello Ruby!" }]
+    #   [subscribe] add_player: { &"name": "Alice", &"level": 1, &"job": &"magician" }
+    [/codeblock]
+  </description>
+  <tutorials>
+  </tutorials>
+  <methods>
+    <method name="perform">
+      <return type="void" />
+      <param index="0" name="dsl" type="String" />
+      <description>
+        Perform a given ruby code.
+        [code]require 'path/to/file'[/code]: loads [i]res://path/to/file.rb[/i] file.
+        [code]puts 'something'[/code]: prints [i]something[/i] in Godot console.
+        [code]Godot.emit_signal(key, payload)[/code]: emits [code]channel[/code] signal.
+      </description>
+    </method>
+  </methods>
+  <members>
+    <member name="boot_file" type="String" setter="set_boot_file" getter="get_boot_file" default="&quot;&quot;">
+      Loads [i]res://path/to/boot.rb[/i] file. An alternative for [code]require 'path/to/boot'[/code].
+    </member>
+    <member name="exception" type="String" setter="set_exception" getter="get_exception" default="&quot;&quot;">
+      If [code]perform(dsl)[/code] cause an exception, the error content is stored.
+    </member>
+  </members>
+  <signals>
+    <signal name="channel">
+      <param index="0" name="key" type="StringName" />
+      <param index="1" name="payload" type="Variant" />
+      <description>
+        [b]Godot.emit_signal[/b] in [code]perform(dsl)[/code]: emits [code]channel[/code] signal.
+      </description>
+    </signal>
+    <signal name="method_missing">
+      <param index="0" name="method_name" type="String" />
+      <param index="1" name="args" type="Array" />
+      <description>
+        [b]Object#method_missing[/b] in [code]perform(dsl)[/code]: emits [code]method_missing[/code] signal.
+      </description>
+    </signal>
+  </signals>
+</class>
+
