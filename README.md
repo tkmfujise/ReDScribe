@@ -22,6 +22,7 @@ func _ready() -> void:
         Alice speak: "Hello Ruby!"
 
         require 'src/lib/player' # DSL definition file.
+
         player 'Alice' do
           level 1
           job   :magician
@@ -34,9 +35,13 @@ func _method_missing(method_name: String, args: Array) -> void:
 func _subscribe(key: StringName, payload: Variant) -> void:
     print_debug('[subscribe] ', key, ': ', payload)
 
-# Output:
+
+# -- Output --
+#
 #   [method_missing] Alice: [{ &"speak": "Hello Ruby!" }]
+#
 #   [subscribe] add_player: { &"name": "Alice", &"level": 1, &"job": &"magician" }
+#
 ```
 
 ## Architecture
