@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="godot cpp template"
+run/main_scene="uid://bk2ofed5aex75"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -1,8 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bk2ofed5aex75"]
 
+[ext_resource type="Theme" uid="uid://nnrkgoo1cbrj" path="res://themes/default.tres" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://57dhbuhscgsa" path="res://main.gd" id="1_ig7tw"]
-
-[sub_resource type="ReDScribe" id="ReDScribe_ig7tw"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,5 +10,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0xm2m")
 script = ExtResource("1_ig7tw")
-resource = SubResource("ReDScribe_ig7tw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -26.5
+offset_right = 140.0
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "ReDScribe examples"
+
+[node name="ButtonContainer1" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button1" type="Button" parent="VBoxContainer/ButtonContainer1"]
+layout_mode = 2
+text = "Example1: Simple"
+alignment = 0
+
+[node name="ButtonContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button2" type="Button" parent="VBoxContainer/ButtonContainer2"]
+layout_mode = 2
+text = "Example2: Live coding"
+alignment = 0
+
+[node name="ButtonContainer3" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button3" type="Button" parent="VBoxContainer/ButtonContainer3"]
+layout_mode = 2
+text = "Example3: Dev tool"
+alignment = 0
+
+[node name="Popup" type="Popup" parent="."]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(1152, 648)
+
+[connection signal="pressed" from="VBoxContainer/ButtonContainer1/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer2/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer3/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="popup_hide" from="Popup" to="." method="_on_popup_popup_hide"]

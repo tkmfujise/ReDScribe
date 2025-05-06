@@ -1,0 +1,10 @@
+[gd_resource type="Theme" format=3 uid="uid://nnrkgoo1cbrj"]
+
+[resource]
+Button/font_sizes/font_size = 32
+CodeEdit/colors/background_color = Color(1, 1, 1, 1)
+CodeEdit/colors/font_color = Color(0.0728428, 0.0728425, 0.0728426, 1)
+CodeEdit/colors/font_readonly_color = Color(0.159667, 0.131032, 0.128434, 0.901961)
+CodeEdit/font_sizes/font_size = 32
+Label/font_sizes/font_size = 48
+RichTextLabel/font_sizes/normal_font_size = 28

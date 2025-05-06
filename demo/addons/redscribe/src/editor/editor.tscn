@@ -40,8 +40,8 @@ color_regions = {
 "\" \"": Color(0.27451, 0.941176, 0.0352941, 1),
 "#": Color(0.364706, 0.662745, 0.92549, 1),
 "' '": Color(0.27451, 0.941176, 0.0352941, 1),
-":  ": Color(0.862745, 0.968627, 0.0627451, 1),
-"@  ": Color(0.466667, 0.941176, 1, 1)
+":": Color(0.862745, 0.968627, 0.0627451, 1),
+"@": Color(0.466667, 0.941176, 1, 1)
 }
 
 [node name="ReDScribeEditor" type="VBoxContainer"]
@@ -54,7 +54,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mg613")
 
-[node name="CodeArea" type="CodeEdit" parent="."]
+[node name="Editor" type="CodeEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -122,5 +122,5 @@ popup/item_1/id = 4
 popup/item_2/text = "tab"
 popup/item_2/id = 0
 
-[connection signal="code_completion_requested" from="CodeArea" to="CodeArea" method="_on_code_completion_requested"]
-[connection signal="text_changed" from="CodeArea" to="CodeArea" method="_on_text_changed"]
+[connection signal="code_completion_requested" from="Editor" to="Editor" method="_on_code_completion_requested"]
+[connection signal="text_changed" from="Editor" to="Editor" method="_on_text_changed"]

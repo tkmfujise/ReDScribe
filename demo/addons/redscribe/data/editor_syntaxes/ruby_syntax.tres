@@ -14,7 +14,7 @@ regions = {
 keywords = {
 "boolean": ["true", "false", "nil"],
 "control": ["self", "yield", "super", "attr_accessor", "attr_reader", "attr_writer", "attr", "private", "public", "protected"],
-"keyword": ["class", "def", "end", "module", "return", "require", "initialize", "new", "if", "else", "elsif"]
+"keyword": ["class", "def", "do", "end", "module", "return", "require", "initialize", "new", "if", "else", "elsif"]
 }
 completions = [["class", "class"], ["def", "def"], ["end", "end"], ["return", "return"], ["module", "module"], ["require", "require"], ["attr_accessor", "attr_accessor"], ["private", "private"], ["protected", "protected"]]
 metadata/_custom_type_script = "uid://c6crsqt7405r"

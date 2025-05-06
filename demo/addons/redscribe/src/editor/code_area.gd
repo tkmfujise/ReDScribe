@@ -1,5 +1,5 @@
-@tool
 extends CodeEdit
+class_name ReDScribeEditor
 
 @export var current_syntax : ReDScribeEditorSyntax
 @export var current_theme : ReDScribeEditorTheme

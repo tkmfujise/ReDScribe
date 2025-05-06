@@ -1,6 +1,5 @@
 @tool
 extends VBoxContainer
-class_name ReDScribeEditor
 
 var current_file : String : set = set_current_file
 
@@ -8,7 +7,7 @@ var current_file : String : set = set_current_file
 func load_file(path: String) -> void:
 	current_file = path
 	var f = FileAccess.open(path, FileAccess.READ)
-	%CodeArea.text = f.get_as_text()
+	%Editor.text = f.get_as_text()
 	f.close()
 
 

@@ -93,6 +93,9 @@ func _subscribe(key: StringName, payload: Variant) -> void:
   * [ ] Wiki
   * [x] Godot help
 * [ ] Demo
+  * [x] Example1: Simple
+  * [x] Example2: Live Coding
+  * [ ] Example3: Dev tool
 
 
 ### v0.2.0
