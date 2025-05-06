@@ -4,9 +4,9 @@
 Let’s re-describe your code as your own friendly domain-specific language.
 
 
-> [!CAUTION]
-> This project is currently in an experimental stage and may undergo significant changes.
-> > まだ他人が使えるほど親切な状態にはなっていません。プラグインとして公開されるまで気長にお待ち下さい。
+#### Features:
+* **Execution**: You can execute mruby code in Godot and emit signals from mruby to Godot.
+* **Editing**: You can write and edit Ruby files in the Godot Editor.
 
 
 ## Usage
