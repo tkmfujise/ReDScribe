@@ -48,6 +48,34 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 <img src="doc/architecture.png" alt="architecture">
 
 
+## Built-in methods
+
+| mruby                             | description                          |
+|-----------------------------------|--------------------------------------|
+| `require 'path/to/file'`          | loads `res://path/to/file.rb` file.  |
+| `puts 'something'`                | prints `something` in Godot console. |
+| Object#method_missing             | emits `method_missing` signal.<br> `(method_name: String, args: Array)` |
+| `Godot.emit_signal(key, payload)` | emits `channel` signal.<br> `(key: StringName, payload: Variant)`       |
+| `Godot::VERSION`                  | Godot version                        | 
+
+
+## Type conversions
+
+| mruby      | gdscript   |
+|------------|------------|
+| true       | true       |
+| false      | false      |
+| nil        | null       |
+| Float      | float      |
+| Integer    | int        |
+| Symbol     | StringName |
+| String     | String     |
+| Hash       | Dictionary |
+| Array      | Array      |
+| (others)   | null       |
+
+
+
 ## Roadmap
 
 ### v0.1.0
