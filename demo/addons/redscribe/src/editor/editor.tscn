@@ -1,9 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8nb1wlpa30qv"]
+[gd_scene load_steps=8 format=3 uid="uid://b8nb1wlpa30qv"]
 
 [ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor.gd" id="1_mg613"]
 [ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/code_area.gd" id="2_y6aeu"]
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="3_73q2q"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="4_3ve5l"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_73q2q"]
+device = -1
+command_or_control_autoremap = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_3ve5l"]
+events = [SubResource("InputEventKey_73q2q")]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_73q2q"]
 number_color = Color(1, 1, 1, 1)
@@ -53,6 +61,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mg613")
+shortcut = SubResource("Shortcut_3ve5l")
 
 [node name="Editor" type="CodeEdit" parent="."]
 unique_name_in_owner = true

@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/redscribe/plugin.cfg", "res://addons/repl/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdscript_input_field/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/redscribe/plugin.cfg")
 
 [godot_idea_board]
 

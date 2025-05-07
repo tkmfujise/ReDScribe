@@ -1,7 +1,14 @@
 @tool
 extends VBoxContainer
 
+@export var shortcut : Shortcut
 var current_file : String : set = set_current_file
+
+enum Hotkey { SAVE }
+
+
+func _ready() -> void:
+	print_debug(shortcut.events)
 
 
 func load_file(path: String) -> void:
