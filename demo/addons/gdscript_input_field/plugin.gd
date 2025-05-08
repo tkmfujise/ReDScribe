@@ -95,6 +95,17 @@ func _on_field_gui_input(event: InputEvent) -> void:
 					if _field.get_line_count() <= 1 or k.ctrl_pressed:
 						_history_forward()
 						_field.accept_event()
+				KEY_U:
+					if k.ctrl_pressed:
+						_field.delete_lines()
+				KEY_K:
+					if k.ctrl_pressed:
+						var idx = _field.get_caret_line()
+						_field.remove_text(
+							idx,
+							_field.get_caret_column(),
+							idx,
+							_field.get_line(idx).length())
 
 
 func _enter_tree() -> void:
