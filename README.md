@@ -85,6 +85,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 * [x] puts
 * [x] boot.rb
 * [x] require
+* [ ] random use fixed seed
 * [ ] create as a plugin
   * [x] Editor
 * [ ] Document

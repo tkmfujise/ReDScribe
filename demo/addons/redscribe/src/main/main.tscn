@@ -1,8 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://byyypft7sfdhq"]
+[gd_scene load_steps=10 format=3 uid="uid://byyypft7sfdhq"]
 
 [ext_resource type="Theme" uid="uid://b7i768o1myrh3" path="res://addons/redscribe/themes/redscribe_theme.tres" id="1_wcadp"]
 [ext_resource type="Script" uid="uid://d2q1nqfc24ve" path="res://addons/redscribe/src/main/main.gd" id="2_nul35"]
-[ext_resource type="PackedScene" uid="uid://b8nb1wlpa30qv" path="res://addons/redscribe/src/editor/editor.tscn" id="3_nul35"]
+[ext_resource type="PackedScene" uid="uid://b8nb1wlpa30qv" path="res://addons/redscribe/src/editor/editor_area.tscn" id="3_nul35"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_nul35"]
+device = -1
+command_or_control_autoremap = true
+keycode = 78
+
+[sub_resource type="Shortcut" id="Shortcut_xuyvw"]
+events = [SubResource("InputEventKey_nul35")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_pegfc"]
+device = -1
+command_or_control_autoremap = true
+keycode = 79
+
+[sub_resource type="Shortcut" id="Shortcut_1suwp"]
+events = [SubResource("InputEventKey_pegfc")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_b8n4o"]
+device = -1
+command_or_control_autoremap = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_cgn3h"]
+events = [SubResource("InputEventKey_b8n4o")]
 
 [node name="ReDScribeMain" type="VBoxContainer"]
 anchors_preset = 15
@@ -13,9 +37,29 @@ grow_vertical = 2
 size_flags_vertical = 3
 theme = ExtResource("1_wcadp")
 script = ExtResource("2_nul35")
+filemenu_shortcuts = Array[Shortcut]([SubResource("Shortcut_xuyvw"), SubResource("Shortcut_1suwp"), SubResource("Shortcut_cgn3h")])
 
 [node name="TopContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="MenuBar" type="MenuBar" parent="TopContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FileMenu" type="MenuButton" parent="TopContainer/MenuBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "File"
+item_count = 3
+popup/item_0/text = "New"
+popup/item_0/id = 0
+popup/item_1/text = "Open"
+popup/item_1/id = 1
+popup/item_2/text = "Save"
+popup/item_2/id = 2
 
 [node name="ButtonContainer" type="MarginContainer" parent="TopContainer"]
 layout_mode = 2
@@ -23,39 +67,20 @@ theme_override_constants/margin_left = 10
 
 [node name="Button" type="Button" parent="TopContainer/ButtonContainer"]
 layout_mode = 2
-text = "Add"
+text = "ReDScribe"
 flat = true
-
-[node name="MenuBar" type="MenuBar" parent="TopContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="MenuButton" type="MenuButton" parent="TopContainer/MenuBar"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "File"
-item_count = 4
-popup/item_0/text = "New"
-popup/item_0/id = 0
-popup/item_1/text = "Open"
-popup/item_1/id = 1
-popup/item_2/text = "Save"
-popup/item_2/id = 2
-popup/item_3/text = "Save As"
-popup/item_3/id = 3
 
 [node name="BodyContainer" type="HSplitContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EditorPanel" type="VBoxContainer" parent="BodyContainer"]
+[node name="EditorSide" type="VBoxContainer" parent="BodyContainer"]
+visible = false
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="BodyContainer/EditorPanel"]
+[node name="LineEdit" type="LineEdit" parent="BodyContainer/EditorSide"]
 layout_mode = 2
 
-[node name="Editor" parent="BodyContainer" instance=ExtResource("3_nul35")]
+[node name="EditorArea" parent="BodyContainer" instance=ExtResource("3_nul35")]
 unique_name_in_owner = true
 layout_mode = 2

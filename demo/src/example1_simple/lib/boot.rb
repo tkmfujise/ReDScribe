@@ -1,5 +1,5 @@
 class Player
-  ATTRIBUTES = %i[name level job] 
+  ATTRIBUTES = %i[name level job]
 
   def initialize(name)
     @name = name

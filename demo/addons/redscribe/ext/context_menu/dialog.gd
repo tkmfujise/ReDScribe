@@ -5,7 +5,7 @@ const SCRIPT_TEMPLATES_DIR = 'res://addons/redscribe/script_templates/'
 const TEMPLATE = {
 	'rb': {
 		'idx': 0,
-		'placeholder': 'resource.rb',
+		'placeholder': 'new_resource.rb',
 		'script': 'dsl.rb'
 	},
 	'rb:boot': {
@@ -15,7 +15,7 @@ const TEMPLATE = {
 	},
 	'gd': {
 		'idx': 2,
-		'placeholder': 'resource.gd',
+		'placeholder': 'new_resource.gd',
 		'script': 'resource.gd'
 	},
 }

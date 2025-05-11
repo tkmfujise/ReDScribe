@@ -10,7 +10,7 @@ func _on_button_2_pressed() -> void:
 
 
 func _on_button_3_pressed() -> void:
-	pass
+	show_popup("res://src/example3_dev_tool/example3.tscn")
 
 
 func show_popup(tscn_file: String) -> void:

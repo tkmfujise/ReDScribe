@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8nb1wlpa30qv"]
+
+[ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor_area.gd" id="1_vjpta"]
+[ext_resource type="PackedScene" uid="uid://c4um2sg1dyj6c" path="res://addons/redscribe/src/editor/editor.tscn" id="2_0etm3"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_73q2q"]
+device = -1
+command_or_control_autoremap = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_3ve5l"]
+events = [SubResource("InputEventKey_73q2q")]
+
+[node name="ReDScribeEditorArea" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_vjpta")
+shortcut = SubResource("Shortcut_3ve5l")
+
+[node name="Editor" parent="." instance=ExtResource("2_0etm3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Footer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="FooterContainer" type="HBoxContainer" parent="Footer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Button" type="Button" parent="Footer/FooterContainer"]
+layout_mode = 2
+text = "< "
+flat = true
+
+[node name="FilePath" type="Label" parent="Footer/FooterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://src/foo/bar.rb"
+
+[node name="LanguageButton" type="MenuButton" parent="Footer/FooterContainer"]
+layout_mode = 2
+disabled = true
+text = "Ruby"
+switch_on_hover = true
+item_count = 2
+popup/item_0/text = "Ruby"
+popup/item_0/id = 0
+popup/item_1/text = "JSON"
+popup/item_1/id = 1
+
+[node name="IndentButton" type="MenuButton" parent="Footer/FooterContainer"]
+layout_mode = 2
+disabled = true
+text = "Indent: 2"
+switch_on_hover = true
+item_count = 3
+popup/item_0/text = "2"
+popup/item_0/id = 2
+popup/item_1/text = "4"
+popup/item_1/id = 4
+popup/item_2/text = "tab"
+popup/item_2/id = 0
+
+[connection signal="text_changed" from="Editor" to="." method="_on_editor_text_changed"]
