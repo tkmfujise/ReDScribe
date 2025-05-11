@@ -1,3 +1,4 @@
+@tool
 extends CodeEdit
 class_name ReDScribeEditor
 
