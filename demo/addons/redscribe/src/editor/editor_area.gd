@@ -25,12 +25,18 @@ func load_file(path: String) -> void:
 	file_dirty = false
 
 
+func save_file() -> void:
+	if current_file: save_current_file()
+	else: %SaveFileDialog.show()
+
+
 func save_current_file() -> void:
 	if not current_file: return
 	var f = FileAccess.open(current_file, FileAccess.WRITE)
 	f.store_string(%Editor.text)
 	f.close()
 	file_dirty = false
+	EditorInterface.get_resource_filesystem().scan()
 
 
 func set_current_file(path: String) -> void:
@@ -57,3 +63,8 @@ func get_filename() -> String:
 
 func _on_editor_text_changed() -> void:
 	if not file_dirty: file_dirty = true
+
+
+func _on_save_file_dialog_file_selected(path: String) -> void:
+	current_file = path
+	save_current_file()

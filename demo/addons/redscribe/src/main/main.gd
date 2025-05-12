@@ -27,7 +27,7 @@ func _file_menu_selected(id: int) -> void:
 			EditorInterface.popup_quick_open(
 				_on_quick_open_selected,
 				[&"ReDScribeEntry"])
-		FileMenuShortcut.SAVE: %EditorArea.save_current_file()
+		FileMenuShortcut.SAVE: %EditorArea.save_file()
 
 
 func _on_quick_open_selected(path: String) -> void:

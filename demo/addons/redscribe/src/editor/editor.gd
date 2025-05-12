@@ -11,6 +11,7 @@ const RUBY_SYNTAX = preload("res://addons/redscribe/data/editor_syntaxes/ruby_sy
 
 func _ready() -> void:
 	syntax_highlighter = CodeHighlighter.new()
+	if current_theme && current_syntax: apply_syntax_theme()
 	if not current_theme:  set_code_theme(DEFAULT_THEME)
 	if not current_syntax: set_syntax(RUBY_SYNTAX)
 
@@ -19,35 +20,39 @@ func set_code_theme(_theme: ReDScribeEditorTheme) -> void:
 	current_theme = _theme
 	add_theme_color_override("background_color", _theme.background_color)
 	add_theme_color_override("font_color", _theme.foreground_color)
-	syntax_highlighter.set_symbol_color(_theme.symbol_color)
-	syntax_highlighter.set_number_color(_theme.number_color)
-	syntax_highlighter.set_function_color(_theme.function_color)
-	syntax_highlighter.set_member_variable_color(_theme.member_variable_color)
-	if current_syntax: set_syntax(current_syntax)
+	if current_syntax: apply_syntax_theme()
 
 
 func set_syntax(syntax: ReDScribeEditorSyntax) -> void:
-	clear_syntax_highlighter()
 	current_syntax = syntax
 	set_indent(syntax.indent_size)
-	for key in syntax.regions:
-		for arr in syntax.regions[key]:
+	apply_syntax_theme()
+
+
+
+func apply_syntax_theme() -> void:
+	if not (current_theme and current_syntax): return
+	clear_syntax_highlighter()
+	apply_syntax_highlighter()
+	for key in current_syntax.regions:
+		for arr in current_syntax.regions[key]:
 			if current_theme.syntax_colors.has(key):
 				syntax_highlighter.add_color_region(
 					arr[0], arr[1], current_theme.syntax_colors[key]
 				)
-
-	for key in syntax.keywords:
-		for value in syntax.keywords[key]:
+	for key in current_syntax.keywords:
+		for value in current_syntax.keywords[key]:
 			if current_theme.syntax_colors.has(key):
 				syntax_highlighter.add_keyword_color(value, current_theme.syntax_colors[key])
 
 
-func clear_syntax() -> void:
-	current_syntax = null
-	var default = ReDScribeEditorSyntax.new()
-	set_indent(default.indent_size)
-	clear_syntax_highlighter()
+func apply_syntax_highlighter() -> void:
+	var _theme = current_theme
+	if not _theme: return
+	syntax_highlighter.set_symbol_color(_theme.symbol_color)
+	syntax_highlighter.set_number_color(_theme.number_color)
+	syntax_highlighter.set_function_color(_theme.function_color)
+	syntax_highlighter.set_member_variable_color(_theme.member_variable_color)
 
 
 func clear_syntax_highlighter():
