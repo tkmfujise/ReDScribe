@@ -72,6 +72,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 | String     | String     |
 | Hash       | Dictionary |
 | Array      | Array      |
+| Time       | Dictionary |
 | (others)   | null       |
 
 

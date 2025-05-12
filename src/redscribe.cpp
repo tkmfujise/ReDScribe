@@ -118,6 +118,20 @@ mrb_hash_variant(mrb_state *mrb, mrb_value hash)
 }
 
 
+Dictionary
+mrb_time_variant(mrb_state *mrb, mrb_value value)
+{
+  Dictionary dict;
+  dict["year"]   = mrb_integer(mrb_funcall(mrb, value, "year", 0));
+  dict["month"]  = mrb_integer(mrb_funcall(mrb, value, "month", 0));
+  dict["day"]    = mrb_integer(mrb_funcall(mrb, value, "day", 0));
+  dict["hour"]   = mrb_integer(mrb_funcall(mrb, value, "hour", 0));
+  dict["minute"] = mrb_integer(mrb_funcall(mrb, value, "min", 0));
+  dict["second"] = mrb_integer(mrb_funcall(mrb, value, "sec", 0));
+  return dict;
+}
+
+
 Variant
 mrb_variant(mrb_state *mrb, mrb_value value)
 {
@@ -147,6 +161,12 @@ mrb_variant(mrb_state *mrb, mrb_value value)
       gd_array.append(mrb_variant(mrb, item));
     }
     return gd_array;
+  }
+  case MRB_TT_DATA: {
+    // Time
+    if (mrb_obj_is_kind_of(mrb, value, mrb_class_get(mrb, "Time"))) {
+      return mrb_time_variant(mrb, value);
+    }
   }
   default:
     return Variant();
