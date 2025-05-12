@@ -75,7 +75,6 @@ func _on_template_item_selected(index: int) -> void:
 
 
 func _on_confirmed() -> void:
-	print_debug("confirmed: ", %Path.text)
 	var f = FileAccess.open(%Path.text, FileAccess.WRITE)
 	var content = script_template(current_key) \
 		.replace('%Resource', %ResourceName.text.to_pascal_case())  \

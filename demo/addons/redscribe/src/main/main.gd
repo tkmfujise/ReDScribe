@@ -23,5 +23,12 @@ func _bind_filemenu_shortcuts() -> void:
 func _file_menu_selected(id: int) -> void:
 	match id:
 		FileMenuShortcut.NEW:  %EditorArea.new_file()
-		FileMenuShortcut.OPEN: pass
+		FileMenuShortcut.OPEN:
+			EditorInterface.popup_quick_open(
+				_on_quick_open_selected,
+				[&"ReDScribeEntry"])
 		FileMenuShortcut.SAVE: %EditorArea.save_current_file()
+
+
+func _on_quick_open_selected(path: String) -> void:
+	if path: EditorInterface.edit_resource(load(path))
