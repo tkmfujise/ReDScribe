@@ -21,7 +21,7 @@ func _ready() -> void:
     res.perform("""
         Alice speak: "Hello Ruby!"
 
-        require 'src/lib/player' # DSL definition file.
+        require 'src/lib/player' # Your DSL definition file.
 
         player 'Alice' do
           level 1
