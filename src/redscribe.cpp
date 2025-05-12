@@ -289,7 +289,9 @@ void clear_gdcontext(void) {
 void ReDScribe::perform(const String &dsl) {
   mrb_load_string(mrb, dsl.utf8().get_data());
   if (mrb->exc) {
-    exception = "error";
+    mrb_value exc = mrb_obj_value(mrb->exc);
+    mrb_value inspect = mrb_inspect(mrb, exc);
+    exception = mrb_variant(mrb, inspect);
   } else {
     exception = "";
   }
