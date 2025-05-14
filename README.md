@@ -86,9 +86,11 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 * [x] puts
 * [x] boot.rb
 * [x] require
-* [ ] random use fixed seed
 * [ ] create as a plugin
   * [x] Editor
+* [ ] REPL
+* [ ] compile
+  * [ ] debug/release
 * [ ] Document
   * [x] doc/*.adoc
   * [ ] README
@@ -104,7 +106,6 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 * [ ] Editor
   * [ ] User definable theme
   * [ ] User definable syntax
-* [ ] REPL
 * [ ] compile
   * [ ] target
     * [x] windows.x86_64 
