@@ -61,14 +61,21 @@ popup/item_1/id = 1
 popup/item_2/text = "Save"
 popup/item_2/id = 2
 
-[node name="ButtonContainer" type="MarginContainer" parent="TopContainer"]
+[node name="LinkButtonContainer" type="MarginContainer" parent="TopContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
 
-[node name="Button" type="Button" parent="TopContainer/ButtonContainer"]
+[node name="GithubLinkButton" type="LinkButton" parent="TopContainer/LinkButtonContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 text = "ReDScribe"
-flat = true
+uri = "https://github.com/tkmfujise/ReDScribe"
+
+[node name="VersionLabel" type="Label" parent="TopContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "v1.0.0"
 
 [node name="BodyContainer" type="HSplitContainer" parent="."]
 layout_mode = 2

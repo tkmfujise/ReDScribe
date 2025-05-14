@@ -7,10 +7,19 @@ enum FileMenuShortcut { NEW, OPEN, SAVE }
 
 func _ready() -> void:
 	_bind_filemenu_shortcuts()
+	%VersionLabel.text = version()
 
 
 func load_file(path: String) -> void:
 	%EditorArea.load_file(path)
+
+
+func version() -> String:
+	var config = ConfigFile.new()
+	var err = config.load("res://addons/redscribe/plugin.cfg")
+	if err == OK:
+		return 'v' + config.get_value('plugin', 'version')
+	else: return ''
 
 
 func _bind_filemenu_shortcuts() -> void:
