@@ -61,20 +61,22 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 ## Type conversions
 
-| mruby      | gdscript   |
-|------------|------------|
-| true       | true       |
-| false      | false      |
-| nil        | null       |
-| Float      | float      |
-| Integer    | int        |
-| Symbol     | StringName |
-| String     | String     |
-| Hash       | Dictionary |
-| Array      | Array      |
-| Time       | Dictionary |
-| (others)   | null       |
+| mruby      |   | gdscript                    |
+|------------|---|-----------------------------|
+| true       | ⇒ | true                        |
+| false      | ⇒ | false                       |
+| nil        | ⇒ | null                        |
+| Float      | ⇒ | float                       |
+| Integer    | ⇒ | int                         |
+| Symbol     | ⇒ | StringName                  |
+| String     | ⇒ | String                      |
+| Hash       | ⇒ | Dictionary                  |
+| Array      | ⇒ | Array                       |
+| Range      | ⇒ | Array                       |
+| Time       | ⇒ | Dictionary                  |
+| (others)   | ⇒ | String<br>(#inspect called) |
 
+see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/test_variant.gd)
 
 
 ## Roadmap

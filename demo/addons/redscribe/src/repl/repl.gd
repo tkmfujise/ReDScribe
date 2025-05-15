@@ -1,7 +1,7 @@
 @tool
 extends VBoxContainer
 
-var session : ReDScribe
+var session : ReDScribe = null
 
 const RELOAD_COMMAND = 'reload!'
 
@@ -11,7 +11,8 @@ var history_back_idx := 0
 
 
 func _ready() -> void:
-	init_session()
+	#init_session() # not working
+	pass
 
 
 func init_session() -> void:
@@ -24,6 +25,7 @@ func perform() -> void:
 	var code = str(%Input.text).strip_edges()
 	if not code: return
 	delete_input()
+	if not session: init_session()
 	match code:
 		RELOAD_COMMAND: reload_repl()
 		_: execute(code)
@@ -50,10 +52,13 @@ func set_last_result(val) -> void:
 
 
 func format_output_val(val) -> String:
-	if val is String:
-		return '"%s"' % val
-	else:
-		return str(val)
+	match typeof(val):
+		TYPE_STRING: return '"%s"' % val
+		TYPE_ARRAY:
+			return '[' + \
+				", \n".join(val.map(func(e): return str(e))) + \
+				']'
+		_: return str(val)
 
 
 func output(str: String, clear: bool = false) -> void:

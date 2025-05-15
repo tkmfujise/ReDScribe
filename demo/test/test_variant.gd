@@ -18,7 +18,7 @@ func test_string():
 
 func test_symbol():
 	res.perform("foo :bar")
-	assert_eq(result, 'bar')
+	assert_eq(result, &'bar')
 
 
 func test_integer():
@@ -33,7 +33,7 @@ func test_float():
 
 func test_imaginary_number():
 	res.perform("foo 1i")
-	assert_eq(result, null) # not supported
+	assert_eq(result, '(0.0+1.0i)')
 
 
 func test_time():
@@ -70,7 +70,7 @@ func test_null():
 
 func test_dictionary_symbol_key():
 	res.perform("foo(bar: 1, :piyo => 2)")
-	assert_eq(result, { "bar": 1, "piyo": 2 })
+	assert_eq(result, { &"bar": 1, &"piyo": 2 })
 
 
 func test_dictionary_string_key():
@@ -83,12 +83,22 @@ func test_array():
 	assert_eq(result, [1, true, &"bar"])
 
 
+func test_range():
+	res.perform("foo (1..3)")
+	assert_eq(result, [1, 2, 3])
+
+
+func test_self():
+	res.perform("foo self")
+	assert_eq(result, 'main')
+
+
 func test_class():
 	res.perform("""
 		class Bar; end
 		foo Bar
 	""")
-	assert_eq(result, null)
+	assert_eq(result, 'Bar')
 
 
 func test_instance():
@@ -97,4 +107,6 @@ func test_instance():
 		bar = Bar.new
 		foo bar
 	""")
-	assert_eq(result, null)
+	var regex = RegEx.new()
+	regex.compile('^#<Bar:.+>$')
+	assert_not_null(regex.search(result))

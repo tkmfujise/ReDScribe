@@ -133,6 +133,14 @@ mrb_time_variant(mrb_state *mrb, mrb_value value)
 
 
 Variant
+mrb_inspect_variant(mrb_state *mrb, mrb_value value)
+{
+  mrb_value ipt = mrb_funcall(mrb, value, "inspect", 0);
+  return String::utf8(mrb_string_value_ptr(mrb, ipt));
+}
+
+
+Variant
 mrb_variant(mrb_state *mrb, mrb_value value)
 {
   switch (mrb_type(value)) {
@@ -162,14 +170,19 @@ mrb_variant(mrb_state *mrb, mrb_value value)
     }
     return gd_array;
   }
+  case MRB_TT_RANGE: {
+    mrb_value arr = mrb_funcall(mrb, value, "to_a", 0);
+    return mrb_variant(mrb, arr);
+  }
   case MRB_TT_DATA: {
     // Time
     if (mrb_obj_is_kind_of(mrb, value, mrb_class_get(mrb, "Time"))) {
       return mrb_time_variant(mrb, value);
     }
+    return mrb_inspect_variant(mrb, value);
   }
   default:
-    return Variant();
+    return mrb_inspect_variant(mrb, value);
   }
 }
 
