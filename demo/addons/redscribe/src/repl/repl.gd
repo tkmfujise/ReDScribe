@@ -1,7 +1,7 @@
 @tool
 extends VBoxContainer
 
-@onready var session := ReDScribe.new()
+var session : ReDScribe
 
 const RELOAD_COMMAND = 'reload!'
 
@@ -11,6 +11,12 @@ var history_back_idx := 0
 
 
 func _ready() -> void:
+	init_session()
+
+
+func init_session() -> void:
+	session = ReDScribe.new()
+	session.method_missing.connect(_method_missing)
 	session.channel.connect(_subscribe)
 
 
@@ -28,29 +34,39 @@ func execute(code: String) -> void:
 	output(code)
 	session.perform("Godot.emit_signal :input, (%s)" % code)
 	if session.exception:
-		output("Error: %s" % session.exception)
+		output_color("Error: %s" % session.exception, 'red')
 
 
 
 func reload_repl() -> void:
-	output("Session reloading...")
-	session = ReDScribe.new()
-	output("Session reloaded!", true)
+	output_color("Session reloading...", 'forestgreen')
+	init_session()
+	output_color("Session reloaded!", 'forestgreen', true)
 
 
 func set_last_result(val) -> void:
 	last_result = val
-	var output_val
+	output("=> " + format_output_val(val))
+
+
+func format_output_val(val) -> String:
 	if val is String:
-		output_val = '"%s"' % val
+		return '"%s"' % val
 	else:
-		output_val = str(val)
-	output("=> " + output_val)
+		return str(val)
 
 
 func output(str: String, clear: bool = false) -> void:
+	output_color(str, '', clear)
+
+
+func output_color(str: String, color: String, clear: bool = false) -> void:
 	if clear: %Result.text = ''
-	%Result.text += str + "\n"
+	%Result.text += bb_color(str, color) + "\n"
+
+
+func bb_color(str: String, color: String) -> String:
+	return "[color=%s]%s[/color]" % [color, str]
 
 
 func history_back() -> void:
@@ -68,9 +84,16 @@ func delete_following_input() -> void:
 	%Input.text = '' # TODO
 
 
+func _method_missing(method_name: String, args: Array) -> void:
+	output_color('[ method_missing ]: ' + method_name, 'red')
+
+
 func _subscribe(key: StringName, payload: Variant) -> void:
 	match key:
 		'input': last_result = payload
+		_: output_color(
+			("[ %s ] signal emitted: " % key) + format_output_val(payload),
+			'blue')
 
 
 func _on_input_gui_input(event: InputEvent) -> void:

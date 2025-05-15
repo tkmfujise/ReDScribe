@@ -39,6 +39,8 @@ size_flags_vertical = 3
 theme = ExtResource("1_wcadp")
 script = ExtResource("2_nul35")
 filemenu_shortcuts = Array[Shortcut]([SubResource("Shortcut_xuyvw"), SubResource("Shortcut_1suwp"), SubResource("Shortcut_cgn3h")])
+EditorArea = ExtResource("3_nul35")
+REPL = ExtResource("4_xuyvw")
 
 [node name="TopContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -79,6 +81,7 @@ layout_mode = 2
 text = "v0.1.0"
 
 [node name="BodyContainer" type="HSplitContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -92,7 +95,4 @@ layout_mode = 2
 [node name="EditorArea" parent="BodyContainer" instance=ExtResource("3_nul35")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
-
-[node name="REPL" parent="BodyContainer" instance=ExtResource("4_xuyvw")]
 layout_mode = 2

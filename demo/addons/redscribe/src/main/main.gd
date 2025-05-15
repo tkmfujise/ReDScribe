@@ -2,12 +2,15 @@
 extends VBoxContainer
 
 @export var filemenu_shortcuts : Array[Shortcut]
+@export var EditorArea : PackedScene
+@export var REPL : PackedScene
 enum FileMenuShortcut { NEW, OPEN, SAVE }
 
 
 func _ready() -> void:
 	_bind_filemenu_shortcuts()
 	%VersionLabel.text = version()
+	%BodyContainer.add_child(REPL.instantiate())
 
 
 func load_file(path: String) -> void:
