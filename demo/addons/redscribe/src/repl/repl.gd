@@ -75,9 +75,24 @@ func bb_color(str: String, color: String) -> String:
 
 
 func history_back() -> void:
-	history_back_idx += 1
-	%Input.text = input_histories.get(
-		input_histories.size() - history_back_idx)
+	set_input_from_history(1)
+
+
+func history_forward() -> void:
+	set_input_from_history(-1)
+
+
+func set_input_from_history(direction: int) -> void:
+	history_back_idx += direction
+	var count = input_histories.size()
+	if history_back_idx < 1:
+		history_back_idx = 0
+		%Input.text = ''
+	elif count < history_back_idx:
+		history_back_idx = count + 1
+		%Input.text = ''
+	else:
+		%Input.text = input_histories.get(count - history_back_idx)
 
 
 func delete_input() -> void:
@@ -86,7 +101,13 @@ func delete_input() -> void:
 
 
 func delete_following_input() -> void:
-	%Input.text = '' # TODO
+	var idx = %Input.get_caret_line()
+	%Input.remove_text(
+		idx,
+		%Input.get_caret_column(),
+		idx,
+		%Input.get_line(idx).length())
+
 
 
 func _method_missing(method_name: String, args: Array) -> void:
@@ -115,5 +136,8 @@ func _on_input_gui_input(event: InputEvent) -> void:
 				KEY_L:
 					if k.ctrl_pressed: output('', true)
 				KEY_UP:
-					pass # TODO consider multi line
-					# history_back()
+					if %Input.get_line_count() == 1:
+						history_back()
+				KEY_DOWN:
+					if %Input.get_line_count() == 1:
+						history_forward()

@@ -18,3 +18,10 @@ func editor_area() -> Node:
 
 func editor() -> Node:
 	return editor_area().find_child('Editor')
+
+
+func repl() -> Node:
+	var arr = main().find_child('BodyContainer').get_children() \
+		.filter(func(c): return c.name == 'REPL')
+	if arr: return arr[0]
+	else: return null
