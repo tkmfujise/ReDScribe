@@ -5,6 +5,7 @@ var session : ReDScribe = null
 
 const RELOAD_COMMAND = 'reload!'
 
+
 var last_result = null : set = set_last_result
 var input_histories : PackedStringArray
 var history_back_idx := 0
@@ -76,10 +77,12 @@ func bb_color(str: String, color: String) -> String:
 
 func history_back() -> void:
 	set_input_from_history(1)
+	call_deferred('move_caret_last')
 
 
 func history_forward() -> void:
 	set_input_from_history(-1)
+	call_deferred('move_caret_last')
 
 
 func set_input_from_history(direction: int) -> void:
@@ -93,6 +96,13 @@ func set_input_from_history(direction: int) -> void:
 		%Input.text = ''
 	else:
 		%Input.text = input_histories.get(count - history_back_idx)
+
+
+func move_caret_last() -> void:
+	var l_idx = %Input.get_line_count()
+	var c_idx = %Input.get_line(l_idx - 1).length()
+	%Input.set_caret_line(l_idx)
+	%Input.set_caret_column(c_idx)
 
 
 func delete_input() -> void:
@@ -111,7 +121,9 @@ func delete_following_input() -> void:
 
 
 func _method_missing(method_name: String, args: Array) -> void:
-	output_color('[ method_missing ]: ' + method_name, 'red')
+	output_color(
+		('[ %s ] method_missing: ' % method_name) + str(args),
+		'red')
 
 
 func _subscribe(key: StringName, payload: Variant) -> void:

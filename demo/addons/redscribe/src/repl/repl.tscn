@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpw0bre4t1p5c"]
+[gd_scene load_steps=7 format=3 uid="uid://bpw0bre4t1p5c"]
 
 [ext_resource type="Script" uid="uid://cgdn18hsa4ar3" path="res://addons/redscribe/src/repl/repl.gd" id="1_0w4vm"]
 [ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/editor.gd" id="1_8sa6y"]
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="3_0w4vm"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="4_0b1gp"]
+[ext_resource type="FontFile" uid="uid://hp4ljcfknxir" path="res://addons/redscribe/fonts/FiraCode/FiraCode-Regular.ttf" id="5_0b1gp"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_0pky6"]
 number_color = Color(1, 1, 1, 1)
@@ -74,11 +75,23 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_0b1gp")
 bbcode_enabled = true
-text = "REPL started!
-Ctrl-Enter: Execute
+text = "[color=red]
+#  ____      ____  ____            _ _          
+# |  _ \\ ___|  _ \\/ ___|  ___ _ __(_) |__   ___ 
+# | |_) / _ \\ | | \\___ \\ / __| '__| | '_ \\ / _ \\
+# |  _ <  __/ |_| |___) | (__| |  | | |_) |  __/
+# |_| \\_\\___|____/|____/ \\___|_|  |_|_.__/ \\___|
+[/color]
+REPL started!
+[ul]
+Press Ctrl-Enter: Execute the input code.
+Type `reload!` and execute: Reload the REPL.
+[/ul]
 
 "
+tab_size = 2
 selection_enabled = true
 
 [connection signal="gui_input" from="Input" to="." method="_on_input_gui_input"]
