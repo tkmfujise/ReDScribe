@@ -101,5 +101,4 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="tab_changed" from="TopContainer/TabBar" to="." method="_on_tab_bar_tab_changed"]

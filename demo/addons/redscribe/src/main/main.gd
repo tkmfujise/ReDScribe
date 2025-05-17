@@ -76,6 +76,7 @@ func _on_tab_bar_tab_changed(tab: int) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not visible: return
 	if event is InputEventKey:
 		var k := event as InputEventKey
 		if k.pressed:
