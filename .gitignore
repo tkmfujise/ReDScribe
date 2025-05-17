@@ -22,6 +22,7 @@ demo/bin/windows/*
 # Ignore addon uid, import
 demo/addons/redscribe/**/*.uid
 demo/addons/redscribe/**/*.import
+demo/addons/redscribe/bin/windows/**/~*.dll
 
 # Ignore custom.py
 custom.py
