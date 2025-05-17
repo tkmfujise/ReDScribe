@@ -7,6 +7,7 @@ Let’s re-describe your code as your own friendly domain-specific language.
 #### Features:
 * **Execution**: You can execute mruby code in Godot and emit signals from mruby to Godot.
 * **Editing**: You can write and edit Ruby files in the Godot Editor.
+* **REPL**: You can try out Ruby code in Godot.
 
 
 ## Usage
@@ -88,9 +89,8 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 * [x] puts
 * [x] boot.rb
 * [x] require
-* [ ] create as a plugin
-  * [x] Editor
-* [ ] REPL
+* [x] Editor
+* [x] REPL
 * [ ] compile
   * [ ] debug/release
 * [ ] Document

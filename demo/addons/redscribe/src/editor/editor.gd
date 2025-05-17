@@ -66,6 +66,20 @@ func set_indent(_indent_size: int) -> void:
 	indent_size = _indent_size
 
 
+func delete_following_input() -> void:
+	var idx = get_caret_line()
+	remove_text(idx, get_caret_column(), idx, get_line(idx).length())
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		var k := event as InputEventKey
+		if k.pressed:
+			match k.keycode:
+				KEY_K:
+					if k.ctrl_pressed: delete_following_input()
+
+
 func _on_code_completion_requested() -> void:
 	if !current_syntax: return
 	for arr in current_syntax.completions:

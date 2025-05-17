@@ -1,7 +1,6 @@
 @tool
 extends VBoxContainer
 
-@export var shortcut : Shortcut
 const PLACEHOLDER_FILENAME = 'Untitled'
 var current_file : String : set = set_current_file
 var file_dirty : bool = false : set = set_file_dirty
@@ -9,6 +8,10 @@ var file_dirty : bool = false : set = set_file_dirty
 
 func _ready() -> void:
 	update_labels()
+
+
+func grab_focus() -> void:
+	%Editor.grab_focus()
 
 
 func new_file() -> void:

@@ -34,9 +34,20 @@ func test_shell_command_fails():
 	assert_eq(result, 1)
 
 
-func test_file_read_works():
+func test_file_read_inside_project_works():
 	res.perform("foo File.read('project.godot')")
 	assert_not_null(result)
+
+
+func test_file_read_outside_project_works():
+	res.perform("foo File.read('../README.md')")
+	assert_not_null(result)
+
+
+func test_file_write_fail():
+	res.perform("foo File.write('foo.txt', 'bar')")
+	var f = FileAccess.open('foo.txt', FileAccess.READ)
+	assert_null(f)
 
 
 func test_dir_pwd_works():

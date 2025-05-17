@@ -4,6 +4,7 @@ extends VBoxContainer
 var session : ReDScribe = null
 
 const RELOAD_COMMAND = 'reload!'
+const REPL_CHANNEL = 'repl'
 
 
 var last_result = null : set = set_last_result
@@ -14,6 +15,10 @@ var history_back_idx := 0
 func _ready() -> void:
 	#init_session() # not working
 	pass
+
+
+func grab_focus() -> void:
+	%Input.grab_focus()
 
 
 func init_session() -> void:
@@ -35,7 +40,7 @@ func perform() -> void:
 func execute(code: String) -> void:
 	input_histories.push_back(code)
 	output(code)
-	session.perform("Godot.emit_signal :input, (%s)" % code)
+	session.perform("Godot.emit_signal :%s, (%s)" % [REPL_CHANNEL, code])
 	if session.exception:
 		output_color("Error: %s" % session.exception, 'red')
 
@@ -128,7 +133,7 @@ func _method_missing(method_name: String, args: Array) -> void:
 
 func _subscribe(key: StringName, payload: Variant) -> void:
 	match key:
-		'input': last_result = payload
+		REPL_CHANNEL: last_result = payload
 		_: output_color(
 			("[ %s ] signal emitted: " % key) + format_output_val(payload),
 			'blue')

@@ -1,16 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8nb1wlpa30qv"]
+[gd_scene load_steps=5 format=3 uid="uid://b8nb1wlpa30qv"]
 
 [ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor_area.gd" id="1_vjpta"]
 [ext_resource type="PackedScene" uid="uid://c4um2sg1dyj6c" path="res://addons/redscribe/src/editor/editor.tscn" id="2_0etm3"]
 [ext_resource type="PackedScene" uid="uid://hxw2waev5bbh" path="res://addons/redscribe/src/file_dialog/file_dialog.tscn" id="3_imusf"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_73q2q"]
-device = -1
-command_or_control_autoremap = true
-keycode = 83
-
-[sub_resource type="Shortcut" id="Shortcut_3ve5l"]
-events = [SubResource("InputEventKey_73q2q")]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_imusf"]
 number_color = Color(1, 1, 1, 1)
@@ -22,6 +14,7 @@ keyword_colors = {
 "attr_accessor": Color(0.466667, 0.941176, 1, 1),
 "attr_reader": Color(0.466667, 0.941176, 1, 1),
 "attr_writer": Color(0.466667, 0.941176, 1, 1),
+"begin": Color(0.956863, 0.690196, 0.262745, 1),
 "class": Color(0.956863, 0.690196, 0.262745, 1),
 "def": Color(0.956863, 0.690196, 0.262745, 1),
 "do": Color(0.956863, 0.690196, 0.262745, 1),
@@ -37,7 +30,9 @@ keyword_colors = {
 "private": Color(0.466667, 0.941176, 1, 1),
 "protected": Color(0.466667, 0.941176, 1, 1),
 "public": Color(0.466667, 0.941176, 1, 1),
+"raise": Color(0.956863, 0.690196, 0.262745, 1),
 "require": Color(0.956863, 0.690196, 0.262745, 1),
+"rescue": Color(0.956863, 0.690196, 0.262745, 1),
 "return": Color(0.956863, 0.690196, 0.262745, 1),
 "self": Color(0.466667, 0.941176, 1, 1),
 "super": Color(0.466667, 0.941176, 1, 1),
@@ -61,7 +56,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_vjpta")
-shortcut = SubResource("Shortcut_3ve5l")
 
 [node name="Editor" parent="." instance=ExtResource("2_0etm3")]
 unique_name_in_owner = true

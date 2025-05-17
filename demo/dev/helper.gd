@@ -13,15 +13,12 @@ func main() -> Node:
 
 
 func editor_area() -> Node:
-	return main().find_child('EditorArea')
+	return main().editor_area
 
 
 func editor() -> Node:
-	return editor_area().find_child('Editor')
+	return main().editor_area.find_child('Editor')
 
 
 func repl() -> Node:
-	var arr = main().find_child('BodyContainer').get_children() \
-		.filter(func(c): return c.name == 'REPL')
-	if arr: return arr[0]
-	else: return null
+	return main().repl
