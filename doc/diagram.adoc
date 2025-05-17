@@ -7,8 +7,8 @@
 rectangle "redscribe.gdextension" as mruby {
   control "init" as mrb_open #lightyellow
   card "mrb_state" as mrb_perform {
-    usecase "Object#method_missing" as mrb_method_missing #lightcyan
-    usecase "Godot.emit_signal" as mrb_emit_signal #mistyrose
+    usecase "Object#method_missing" as mrb_method_missing #mistyrose
+    usecase "Godot.emit_signal" as mrb_emit_signal #lightcyan
   }
 }
 
@@ -17,8 +17,8 @@ file "xxx.rb" as boot.rb #lightyellow
 frame ReDScribe {
   agent "func perform(dsl)" as perform #honeydew
   entity boot_file #lightyellow
-  queue "<signal>\n method_missing \n * method_name\n * args" as method_missing #lightcyan
-  queue "<signal>\n channel               \n * key\n * payload" as channel #mistyrose
+  queue "<signal>\n method_missing \n * method_name\n * args" as method_missing #mistyrose
+  queue "<signal>\n channel               \n * key\n * payload" as channel #lightcyan
 }
 
 left to right direction
