@@ -8,6 +8,10 @@ task :all => :mruby_build do
   sh 'scons'
 end
 
+task :release => :mruby_build do
+  sh 'scons target=template_release'
+end
+
 task :mruby_build do
   def build_config(name = nil)
     if name

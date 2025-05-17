@@ -28,7 +28,7 @@ env.Append(CPPPATH=[mruby_include_path])
 env.Append(LIBPATH=[mruby_library_path])
 env.Append(LIBS=["libmruby"])
 
-# Windows用に追加
+# for Windows
 if (os.name != 'posix'):
     env.Append(LIBS=["Ws2_32"])
 
