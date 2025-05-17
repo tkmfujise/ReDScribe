@@ -91,6 +91,7 @@ Type `reload!` and execute: Reload the REPL.
 [/ul]
 
 "
+scroll_following = true
 tab_size = 2
 selection_enabled = true
 
