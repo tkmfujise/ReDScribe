@@ -30,7 +30,7 @@ func init_session() -> void:
 func perform() -> void:
 	var code = str(%Input.text).strip_edges()
 	if not code: return
-	delete_input()
+	call_deferred('delete_input')
 	if not session: init_session()
 	match code:
 		RELOAD_COMMAND: reload_repl()

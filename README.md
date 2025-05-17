@@ -91,8 +91,10 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 * [x] require
 * [x] Editor
 * [x] REPL
-* [ ] compile
-  * [ ] debug/release
+* [x] compile
+  * [x] debug/release
+  * [x] windows
+  * [x] mac
 * [ ] Document
   * [x] doc/*.adoc
   * [ ] README
