@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ReDScribeEditorTheme" load_steps=2 format=3 uid="uid://ckp73hvmxuqqi"]
 
-[ext_resource type="Script" uid="uid://cil6fsuafcoi8" path="res://addons/redscribe/resources/redscribe_editor_theme.gd" id="1_aui2r"]
+[ext_resource type="Script" uid="uid://dpen4sy4748he" path="res://addons/redscribe/resources/redscribe_editor_theme.gd" id="1_aui2r"]
 
 [resource]
 script = ExtResource("1_aui2r")
