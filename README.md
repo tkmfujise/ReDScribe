@@ -49,7 +49,34 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 <img src="doc/architecture.png" alt="architecture">
 
 
-## Built-in methods
+## Installation
+1. Download the zip from the release.
+2. Extract the zip and place the `(Your godot project root)/addons/redscribe` directory.
+3. Open the project settings and enable `ReDScribe`.
+
+
+## Definitions
+
+### Properies
+| type   | name      |
+|--------|-----------|
+| String | boot_file |
+| String | exception |
+
+### Methods
+| type | method_name                 |
+|------|-----------------------------|
+| void | set_boot_file(path: String) |
+| void | perform(dsl: String)        |
+
+### Signals
+| signal_name    | args                                |
+|----------------|-------------------------------------|
+| channel        | (key: StringName, payload: Variant) |
+| method_missing | (method_name: String, args: Array)  |
+
+
+## Built-in mruby methods
 
 | mruby                             | description                          |
 |-----------------------------------|--------------------------------------|
@@ -81,11 +108,18 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 
 
 ## Screenshots
+
 ### Editor
 <img src="doc/screenshots/ReDScribe_EditorArea_screenshot.png" alt="EditorArea screenshot">
 
 ### REPL
 <img src="doc/screenshots/ReDScribe_REPL_screenshot.png" alt="REPL screenshot">
+
+
+## Examples
+
+### Live coding
+[![Live coding](http://img.youtube.com/vi/FUZ-38F44i4/0.jpg)](https://www.youtube.com/watch?v=FUZ-38F44i4)
 
 
 ## Roadmap
@@ -117,6 +151,7 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 * [ ] Document
   * [ ] Wiki
 * [ ] Editor
+  * [ ] Open multiple files
   * [ ] Snippet
     * [ ] require
   * [ ] User definable theme
@@ -125,7 +160,8 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
   * [ ] `.rb` files cannot be displayed on the first launch.
   * [ ] `#` comment not working in REPL
 * [ ] remove WARNING
-  * [ ] (Windows) invalid UID: uid://xxx - using text path instead: res://yyy. I fixed it on macOS, but it appears on Windows instead.
+  * [ ] (Windows) invalid UID: uid://xxx - using text path instead: res://yyy.<br>
+      I fixed it on macOS, but it appears on Windows instead.
 * [ ] src/*.cpp
   * [ ] remove global variables
 * [ ] compile
