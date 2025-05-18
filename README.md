@@ -57,23 +57,15 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 ## Definitions
 
-### Properies
-| type   | name      |
-|--------|-----------|
-| String | boot_file |
-| String | exception |
-
-### Methods
-| type | method_name                 |
-|------|-----------------------------|
-| void | set_boot_file(path: String) |
-| void | perform(dsl: String)        |
-
-### Signals
-| signal_name    | args                                |
-|----------------|-------------------------------------|
-| channel        | (key: StringName, payload: Variant) |
-| method_missing | (method_name: String, args: Array)  |
+* *Properties*
+  * String **boot_file**
+  * String **exception**
+* *Methods*
+  * void **set_boot_file**(path: String)
+  * void **perform**(dsl: String)
+* *Signals*
+  * **channel**(key: StringName, payload: Variant)
+  * **method_missing**(method_name: String, args: Array)
 
 
 ## Built-in mruby methods
