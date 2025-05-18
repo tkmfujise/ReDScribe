@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="4_tvnfs"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="5_bfyie"]
 
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_el4se"]
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_tvnfs"]
 number_color = Color(1, 1, 1, 1)
 symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
 function_color = Color(0.972549, 0.662745, 0.835294, 1)
@@ -79,7 +79,7 @@ text = "3.times do
 end
 
 square"
-syntax_highlighter = SubResource("CodeHighlighter_el4se")
+syntax_highlighter = SubResource("CodeHighlighter_tvnfs")
 indent_size = 2
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
