@@ -49,14 +49,6 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 <img src="doc/architecture.png" alt="architecture">
 
 
-## Screenshots
-### Editor
-<img src="doc/screenshots/ReDScribe_EditorArea_screenshot.png" alt="EditorArea screenshot">
-
-### REPL
-<img src="doc/screenshots/ReDScribe_REPL_screenshot.png" alt="REPL screenshot">
-
-
 ## Built-in methods
 
 | mruby                             | description                          |
@@ -86,6 +78,14 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 | (others)   | ⇒ | String<br>(#inspect called) |
 
 see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/test_variant.gd)
+
+
+## Screenshots
+### Editor
+<img src="doc/screenshots/ReDScribe_EditorArea_screenshot.png" alt="EditorArea screenshot">
+
+### REPL
+<img src="doc/screenshots/ReDScribe_REPL_screenshot.png" alt="REPL screenshot">
 
 
 ## Roadmap
