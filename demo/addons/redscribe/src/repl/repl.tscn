@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="4_0b1gp"]
 [ext_resource type="FontFile" uid="uid://hp4ljcfknxir" path="res://addons/redscribe/fonts/FiraCode/FiraCode-Regular.ttf" id="5_0b1gp"]
 
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_0pky6"]
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_0b1gp"]
 number_color = Color(1, 1, 1, 1)
 symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
 function_color = Color(0.972549, 0.662745, 0.835294, 1)
@@ -65,7 +65,7 @@ theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 placeholder_text = "Execute: Ctrl + Enter "
 scroll_fit_content_height = true
-syntax_highlighter = SubResource("CodeHighlighter_0pky6")
+syntax_highlighter = SubResource("CodeHighlighter_0b1gp")
 indent_size = 2
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
