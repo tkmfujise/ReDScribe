@@ -110,6 +110,8 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 * [ ] Editor
   * [ ] User definable theme
   * [ ] User definable syntax
+* [ ] remove WARNING
+  * [ ] (Windows) invalid UID: uid://xxx - using text path instead: res://yyy. I fixed it on macOS, but it appears on Windows instead.
 * [ ] compile
   * [ ] target
     * [x] windows.x86_64 
