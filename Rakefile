@@ -66,3 +66,8 @@ task :doc do
     sh 'godot --doctool ../ --gdextension-docs'
   end
 end
+
+
+task :update do
+  sh 'git submodule update --remote --recursive'
+end
