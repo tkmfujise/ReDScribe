@@ -49,6 +49,14 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 <img src="doc/architecture.png" alt="architecture">
 
 
+## Screenshots
+### Editor
+<img src="doc/screenshots/ReDScribe_EditorArea_screenshot.png" alt="EditorArea screenshot">
+
+### REPL
+<img src="doc/screenshots/ReDScribe_REPL_screenshot.png" alt="REPL screenshot">
+
+
 ## Built-in methods
 
 | mruby                             | description                          |
@@ -98,7 +106,6 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 * [ ] Document
   * [x] doc/*.adoc
   * [ ] README
-  * [ ] Wiki
   * [x] Godot help
 * [ ] Demo
   * [x] Example1: Simple
@@ -107,12 +114,22 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 
 
 ### v0.2.0
+* [ ] Document
+  * [ ] Wiki
 * [ ] Editor
+  * [ ] Snippet
+    * [ ] require
   * [ ] User definable theme
   * [ ] User definable syntax
+* [ ] remove bugs
+  * [ ] `.rb` files cannot be displayed on the first launch.
+  * [ ] `#` comment not working in REPL
 * [ ] remove WARNING
   * [ ] (Windows) invalid UID: uid://xxx - using text path instead: res://yyy. I fixed it on macOS, but it appears on Windows instead.
+* [ ] src/*.cpp
+  * [ ] remove global variables
 * [ ] compile
+  * [ ] use github workflow
   * [ ] target
     * [x] windows.x86_64 
     * [ ] windows.x86_32 

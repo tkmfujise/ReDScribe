@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="2_s6nb6"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="3_73q2q"]
 
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_3ve5l"]
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_s6nb6"]
 number_color = Color(1, 1, 1, 1)
 symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
 function_color = Color(0.972549, 0.662745, 0.835294, 1)
@@ -58,7 +58,7 @@ size_flags_vertical = 3
 theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 scroll_past_end_of_file = true
-syntax_highlighter = SubResource("CodeHighlighter_3ve5l")
+syntax_highlighter = SubResource("CodeHighlighter_s6nb6")
 line_folding = true
 gutters_draw_executing_lines = true
 gutters_draw_line_numbers = true
