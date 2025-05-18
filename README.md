@@ -110,7 +110,7 @@ see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/mai
 
 ## Examples
 
-### Live coding
+### 1. Live coding
 Create a scene as below.
 ```
 Control
@@ -151,6 +151,9 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 [![Live coding](http://img.youtube.com/vi/FUZ-38F44i4/0.jpg)](https://www.youtube.com/watch?v=FUZ-38F44i4)
 
 
+### 2. Dev tool
+
+
 ## Roadmap
 
 ### v0.1.0
@@ -180,7 +183,7 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 * [ ] Document
   * [ ] Wiki
 * [ ] Editor
-  * [ ] Open multiple files
+  * [ ] Support multiple files open
   * [ ] Snippet
     * [ ] require
   * [ ] User definable theme

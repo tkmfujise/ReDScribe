@@ -4,7 +4,7 @@ extends VBoxContainer
 @export var filemenu_shortcuts : Array[Shortcut]
 @export var EditorArea : PackedScene
 @export var REPL : PackedScene
-enum FileMenuShortcut { NEW, OPEN, SAVE }
+enum FileMenu { NEW, OPEN, SAVE }
 enum Tab { EDITOR_AREA, REPL }
 
 var editor_area : Control
@@ -51,12 +51,12 @@ func _bind_filemenu_shortcuts() -> void:
 
 func _file_menu_selected(id: int) -> void:
 	match id:
-		FileMenuShortcut.NEW:  editor_area.new_file()
-		FileMenuShortcut.OPEN:
+		FileMenu.NEW:  editor_area.new_file()
+		FileMenu.OPEN:
 			EditorInterface.popup_quick_open(
 				_on_quick_open_selected,
 				[&"ReDScribeEntry"])
-		FileMenuShortcut.SAVE: editor_area.save_file()
+		FileMenu.SAVE: editor_area.save_file()
 
 
 func _on_quick_open_selected(path: String) -> void:
