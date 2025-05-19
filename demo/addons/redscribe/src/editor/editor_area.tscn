@@ -61,7 +61,6 @@ script = ExtResource("1_vjpta")
 [node name="Editor" parent="." instance=ExtResource("2_0etm3")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
 syntax_highlighter = SubResource("CodeHighlighter_imusf")
 
 [node name="Footer" type="MarginContainer" parent="."]

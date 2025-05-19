@@ -65,7 +65,10 @@ func get_filename() -> String:
 
 
 func _on_editor_text_changed() -> void:
-	if not file_dirty: file_dirty = true
+	if not file_dirty:
+		file_dirty = true
+	elif not current_file:
+		file_dirty = %Editor.text.length() > 0
 
 
 func _on_save_file_dialog_file_selected(path: String) -> void:
