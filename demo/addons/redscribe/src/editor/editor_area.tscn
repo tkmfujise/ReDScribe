@@ -116,7 +116,6 @@ filters = PackedStringArray("*.rb")
 unique_name_in_owner = true
 initial_position = 1
 size = Vector2i(292, 100)
-visible = true
 dialog_text = "Do you want to exit without saving?"
 
 [connection signal="text_changed" from="Editor" to="." method="_on_editor_text_changed"]
