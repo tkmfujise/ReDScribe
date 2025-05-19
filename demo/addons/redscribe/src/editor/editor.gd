@@ -84,6 +84,7 @@ func _can_drop_data(_position: Vector2, data: Variant) -> bool:
 func _drop_data(_position: Vector2, data: Variant) -> void:
 	var path = data['files'][0].get_basename().replace('res://', '')
 	insert_line_at(0, "require '%s'" % path)
+	grab_focus()
 
 
 func _on_gui_input(event: InputEvent) -> void:
