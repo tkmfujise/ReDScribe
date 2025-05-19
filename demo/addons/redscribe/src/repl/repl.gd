@@ -40,7 +40,7 @@ func perform() -> void:
 func execute(code: String) -> void:
 	input_histories.push_back(code)
 	output(code)
-	session.perform("Godot.emit_signal :%s, (%s)" % [REPL_CHANNEL, code])
+	session.perform("Godot.emit_signal :%s,(\n%s\n)" % [REPL_CHANNEL, code])
 	if session.exception:
 		output_color("Error: %s" % session.exception, 'red')
 

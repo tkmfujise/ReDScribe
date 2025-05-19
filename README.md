@@ -190,7 +190,6 @@ func _on_re_d_scribe_editor_text_changed() -> void:
   * [ ] User definable syntax
 * [ ] remove bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
-  * [ ] `#` comment not working in REPL
 * [ ] remove WARNING
   * [ ] (Windows) invalid UID: uid://xxx - using text path instead: res://yyy.<br>
       I fixed it on macOS, but it appears on Windows instead.
