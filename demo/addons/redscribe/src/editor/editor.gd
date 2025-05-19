@@ -71,6 +71,21 @@ func delete_following_input() -> void:
 	remove_text(idx, get_caret_column(), idx, get_line(idx).length())
 
 
+
+func _can_drop_data(_position: Vector2, data: Variant) -> bool:
+	match typeof(data):
+		TYPE_DICTIONARY:
+			if data.has('files') and data['files'].size() == 1:
+				return data['files'][0].get_extension() == 'rb'
+			else: return false
+		_: return false
+
+
+func _drop_data(_position: Vector2, data: Variant) -> void:
+	var path = data['files'][0].get_basename().replace('res://', '')
+	insert_line_at(0, "require '%s'" % path)
+
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		var k := event as InputEventKey
