@@ -112,5 +112,13 @@ ok_button_text = "Save"
 file_mode = 4
 filters = PackedStringArray("*.rb")
 
+[node name="ExitConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(292, 100)
+visible = true
+dialog_text = "Do you want to exit without saving?"
+
 [connection signal="text_changed" from="Editor" to="." method="_on_editor_text_changed"]
 [connection signal="file_selected" from="SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
+[connection signal="confirmed" from="ExitConfirmationDialog" to="." method="_on_exit_confirmation_dialog_confirmed"]

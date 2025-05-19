@@ -4,6 +4,7 @@ extends VBoxContainer
 const PLACEHOLDER_FILENAME = 'Untitled'
 var current_file : String : set = set_current_file
 var file_dirty : bool = false : set = set_file_dirty
+var exit_confirmed_callback : Callable
 
 
 func _ready() -> void:
@@ -15,17 +16,21 @@ func grab_focus() -> void:
 
 
 func new_file() -> void:
-	current_file = ''
-	%Editor.text = ''
-	file_dirty = false
+	exit_confirm_if(file_dirty, func():
+		current_file = ''
+		%Editor.text = ''
+		file_dirty = false
+	)
 
 
 func load_file(path: String) -> void:
-	current_file = path
-	var f = FileAccess.open(path, FileAccess.READ)
-	%Editor.text = f.get_as_text()
-	f.close()
-	file_dirty = false
+	exit_confirm_if(file_dirty, func():
+		current_file = path
+		var f = FileAccess.open(path, FileAccess.READ)
+		%Editor.text = f.get_as_text()
+		f.close()
+		file_dirty = false
+	)
 
 
 func save_file() -> void:
@@ -64,6 +69,13 @@ func get_filename() -> String:
 		return PLACEHOLDER_FILENAME
 
 
+func exit_confirm_if(condition: bool, callback: Callable) -> void:
+	if condition:
+		exit_confirmed_callback = callback
+		%ExitConfirmationDialog.show()
+	else: callback.call()
+
+
 func _on_editor_text_changed() -> void:
 	if not file_dirty:
 		file_dirty = true
@@ -74,3 +86,8 @@ func _on_editor_text_changed() -> void:
 func _on_save_file_dialog_file_selected(path: String) -> void:
 	current_file = path
 	save_current_file()
+
+
+func _on_exit_confirmation_dialog_confirmed() -> void:
+	if exit_confirmed_callback:
+		exit_confirmed_callback.call()
