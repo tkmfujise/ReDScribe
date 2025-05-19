@@ -2,11 +2,11 @@
 
 [ext_resource type="Theme" uid="uid://nnrkgoo1cbrj" path="res://themes/default.tres" id="1_fdq2o"]
 [ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/editor.gd" id="1_j0sgk"]
-[ext_resource type="Script" uid="uid://l2gy6846jb63" path="res://src/example2_live_coding/example_2.gd" id="2_5qrsv"]
+[ext_resource type="Script" uid="uid://l2gy6846jb63" path="res://src/example1_live_coding/example_1.gd" id="2_5qrsv"]
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="4_tvnfs"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="5_bfyie"]
 
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_tvnfs"]
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_n16k5"]
 number_color = Color(1, 1, 1, 1)
 symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
 function_color = Color(0.972549, 0.662745, 0.835294, 1)
@@ -50,7 +50,7 @@ color_regions = {
 "@  ": Color(0.466667, 0.941176, 1, 1)
 }
 
-[node name="Example2" type="Control"]
+[node name="Example1" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +79,7 @@ text = "3.times do
 end
 
 square"
-syntax_highlighter = SubResource("CodeHighlighter_tvnfs")
+syntax_highlighter = SubResource("CodeHighlighter_n16k5")
 indent_size = 2
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true

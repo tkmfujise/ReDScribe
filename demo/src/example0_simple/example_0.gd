@@ -30,6 +30,6 @@ func log_text(text: String) -> void:
 
 
 func show_gdscript() -> void:
-	var f = FileAccess.open("res://src/example1_simple/example_1.gd", FileAccess.READ)
+	var f = FileAccess.open("res://src/example0_simple/example_0.gd", FileAccess.READ)
 	%Code.text = f.get_as_text()
 	f.close()

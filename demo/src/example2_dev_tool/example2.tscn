@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddl1fos0nja3h"]
 
-[ext_resource type="Script" uid="uid://dmaep3ijsjgc" path="res://src/example3_dev_tool/example_3.gd" id="1_8pvrn"]
+[ext_resource type="Script" uid="uid://dmaep3ijsjgc" path="res://src/example2_dev_tool/example_2.gd" id="1_74jvr"]
 
 [sub_resource type="ReDScribe" id="ReDScribe_8pvrn"]
 
-[node name="Example3" type="Control"]
+[node name="Example2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_8pvrn")
+script = ExtResource("1_74jvr")
 dsl = SubResource("ReDScribe_8pvrn")
 
 [node name="Button" type="Button" parent="."]
