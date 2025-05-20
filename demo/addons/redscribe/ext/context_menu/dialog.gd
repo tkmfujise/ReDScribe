@@ -3,18 +3,23 @@ extends Window
 
 const SCRIPT_TEMPLATES_DIR = 'res://addons/redscribe/script_templates/'
 const TEMPLATE = {
-	'rb': {
+	'rb:resource': {
 		'idx': 0,
 		'placeholder': 'new_resource.rb',
-		'script': 'dsl.rb'
+		'script': 'resource_dsl.rb'
 	},
-	'rb:boot': {
+	'rb:coroutine': {
 		'idx': 1,
+		'placeholder': 'actor.rb',
+		'script': 'coroutine_dsl.rb'
+	},
+	'rb': {
+		'idx': 2,
 		'placeholder': 'boot.rb',
 		'script': 'boot.rb'
 	},
 	'gd': {
-		'idx': 2,
+		'idx': 3,
 		'placeholder': 'new_resource.gd',
 		'script': 'resource.gd'
 	},

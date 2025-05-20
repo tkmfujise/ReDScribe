@@ -1,54 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmdea3u5wpx4r"]
+[gd_scene load_steps=4 format=3 uid="uid://dmdea3u5wpx4r"]
 
 [ext_resource type="Theme" uid="uid://nnrkgoo1cbrj" path="res://themes/default.tres" id="1_fdq2o"]
 [ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/editor.gd" id="1_j0sgk"]
 [ext_resource type="Script" uid="uid://l2gy6846jb63" path="res://src/example1_live_coding/example_1.gd" id="2_5qrsv"]
-[ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="4_tvnfs"]
-[ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="5_bfyie"]
-
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_n16k5"]
-number_color = Color(1, 1, 1, 1)
-symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
-function_color = Color(0.972549, 0.662745, 0.835294, 1)
-member_variable_color = Color(1, 1, 1, 1)
-keyword_colors = {
-"attr": Color(0.466667, 0.941176, 1, 1),
-"attr_accessor": Color(0.466667, 0.941176, 1, 1),
-"attr_reader": Color(0.466667, 0.941176, 1, 1),
-"attr_writer": Color(0.466667, 0.941176, 1, 1),
-"begin": Color(0.956863, 0.690196, 0.262745, 1),
-"class": Color(0.956863, 0.690196, 0.262745, 1),
-"def": Color(0.956863, 0.690196, 0.262745, 1),
-"do": Color(0.956863, 0.690196, 0.262745, 1),
-"else": Color(0.956863, 0.690196, 0.262745, 1),
-"elsif": Color(0.956863, 0.690196, 0.262745, 1),
-"end": Color(0.956863, 0.690196, 0.262745, 1),
-"extend": Color(0.956863, 0.690196, 0.262745, 1),
-"false": Color(0.596078, 0.882353, 1, 1),
-"if": Color(0.956863, 0.690196, 0.262745, 1),
-"initialize": Color(0.956863, 0.690196, 0.262745, 1),
-"module": Color(0.956863, 0.690196, 0.262745, 1),
-"new": Color(0.956863, 0.690196, 0.262745, 1),
-"nil": Color(0.596078, 0.882353, 1, 1),
-"private": Color(0.466667, 0.941176, 1, 1),
-"protected": Color(0.466667, 0.941176, 1, 1),
-"public": Color(0.466667, 0.941176, 1, 1),
-"raise": Color(0.956863, 0.690196, 0.262745, 1),
-"require": Color(0.956863, 0.690196, 0.262745, 1),
-"rescue": Color(0.956863, 0.690196, 0.262745, 1),
-"return": Color(0.956863, 0.690196, 0.262745, 1),
-"self": Color(0.466667, 0.941176, 1, 1),
-"super": Color(0.466667, 0.941176, 1, 1),
-"true": Color(0.596078, 0.882353, 1, 1),
-"yield": Color(0.466667, 0.941176, 1, 1)
-}
-color_regions = {
-"\" \"": Color(0.27451, 0.941176, 0.0352941, 1),
-"#": Color(0.364706, 0.662745, 0.92549, 1),
-"' '": Color(0.27451, 0.941176, 0.0352941, 1),
-":  ": Color(0.862745, 0.968627, 0.0627451, 1),
-"@  ": Color(0.466667, 0.941176, 1, 1)
-}
 
 [node name="Example1" type="Control"]
 layout_mode = 3
@@ -78,14 +32,13 @@ text = "3.times do
   circle
 end
 
-square"
-syntax_highlighter = SubResource("CodeHighlighter_n16k5")
+square
+
+# 1000.times { send %i[circle square].sample }"
 indent_size = 2
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("1_j0sgk")
-current_syntax = ExtResource("4_tvnfs")
-current_theme = ExtResource("5_bfyie")
 metadata/_custom_type_script = "uid://d2wxnoe48t23a"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]

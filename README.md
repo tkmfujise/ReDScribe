@@ -174,9 +174,10 @@ func _on_re_d_scribe_editor_text_changed() -> void:
   * [ ] README
   * [x] Godot help
 * [ ] Demo
-  * [x] Example1: Simple
-  * [x] Example2: Live Coding
-  * [ ] Example3: Dev tool
+  * [x] Example0: Basic
+  * [x] Example1: Live Coding
+  * [ ] Example2: Resource Generator
+  * [ ] Example3: Co-routine
 
 
 ### v0.2.0

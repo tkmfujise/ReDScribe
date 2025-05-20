@@ -22,7 +22,7 @@ func add_square() -> void:
 	%RichTextLabel.text += '■'
 
 
-func _method_missing(method_name: String, args: Array) -> void:
+func _method_missing(method_name: String, _args: Array) -> void:
 	match method_name:
 		'circle': add_circle()
 		'square': add_square()
