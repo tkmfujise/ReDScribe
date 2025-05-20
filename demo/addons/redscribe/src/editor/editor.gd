@@ -71,6 +71,29 @@ func delete_following_input() -> void:
 	remove_text(idx, get_caret_column(), idx, get_line(idx).length())
 
 
+func toggle_comment() -> void:
+	if has_selection():
+		var from_line = get_selection_from_line()
+		var to_line   = get_selection_to_line()
+		toggle_comment_lines_in(from_line, to_line)
+	else:
+		var line = get_caret_line()
+		toggle_comment_lines_in(line, line)
+
+
+func toggle_comment_lines_in(from: int, to: int) -> void:
+	var lines = []
+	var numbers = range(from, to + 1)
+	for i in numbers:
+		var line = get_line(i)
+		if line and line.begins_with("#"): # remove `#`
+			lines.push_back(line.substr(1).strip_edges())
+		else: # add `#`
+			lines.push_back("# " + line)
+	for i in numbers.size():
+		set_line(numbers.pop_front(), lines.pop_front())
+	set_caret_column(get_line(get_caret_line(0)).length())
+
 
 func _can_drop_data(_position: Vector2, data: Variant) -> bool:
 	match typeof(data):
@@ -94,6 +117,9 @@ func _on_gui_input(event: InputEvent) -> void:
 			match k.keycode:
 				KEY_K:
 					if k.ctrl_pressed: delete_following_input()
+				KEY_SLASH:
+					if k.is_command_or_control_pressed():
+						toggle_comment()
 
 
 func _on_code_completion_requested() -> void:
