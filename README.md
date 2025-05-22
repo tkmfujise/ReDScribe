@@ -75,7 +75,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 ## Type conversions
 
-| mruby      |   | gdscript                    |
+| mruby      |   | GDScript                    |
 |------------|---|-----------------------------|
 | true       | ⇒ | true                        |
 | false      | ⇒ | false                       |
@@ -118,7 +118,7 @@ Control
     ├ ReDScribeEditor
     └ RichTextLabel
 ```
-Attach a gdscript.
+Then attach a GDScript.
 ```gdscript
 extends Control
 
@@ -151,7 +151,95 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 [![Live coding](http://img.youtube.com/vi/FUZ-38F44i4/0.jpg)](https://www.youtube.com/watch?v=FUZ-38F44i4)
 
 
-### 2. Dev tool
+### 2. Resource generator
+
+
+### 3. Co-routine
+
+I created a DSL using Fiber.
+`-->{ do something }` is a unit of execution.
+`notify :message` broadcasts the message to all actors. 
+Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
+
+
+Create a boot.rb.
+```ruby
+require 'addons/redscribe/mrblib/actor'
+
+actor 'Weather' do
+  @current = :sunny
+  --> {
+    @current = (rand < 0.3) ? :raining : :sunny
+    notify @current
+  }
+  2.times{ -->{ keep } }
+end
+
+actor 'Rabbit' do
+  @position = 0
+  @speed    = 150
+  --> { run unless @wait }
+  :sunny   --> { @wait = false }
+  :raining --> { @wait = true }
+  
+  def run
+    @position += @speed * rand
+  end
+end
+
+actor 'Turtle' do
+  @position = 0
+  @speed    = 1
+  --> { run }
+  :cheer --> { @speed += 1 }
+  
+  def run
+    @position += @speed
+  end
+end
+```
+see: [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb)
+
+
+Then create a GDScript.
+```gdscript
+extends Control
+
+signal game_over(actor_name: String)
+@export var pod : ReDScribe
+
+func _ready() -> void:
+    pod.channel.connect(_observe)
+
+func _observe(key: StringName, attributes: Dictionary) -> void:
+    match key:
+        'Rabbit': %Rabbit.update(attributes)
+        'Turtle': %Turtle.update(attributes)
+        'Weather':
+            if attributes['current'] == &'raining':
+                %Weather.label = '⛈️'
+            else:
+                %Weather.label = '☀️'
+        _: return
+
+func _on_timer_timeout() -> void:
+    pod.perform('tick')
+
+func _on_cheer_button_pressed() -> void:
+    pod.perform('notify :cheer')
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+    var actor = area.get_parent()
+    match actor.name:
+        'Rabbit', 'Turtle': game_over.emit(actor.name)
+
+func _on_game_over(actor_name: String) -> void:
+    %Timer.stop()
+    %Message.text = "The winner is %s!" % actor_name
+```
+[![Live coding](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
+
+
 
 
 ## Roadmap

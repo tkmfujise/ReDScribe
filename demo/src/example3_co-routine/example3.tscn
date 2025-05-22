@@ -1,3 +1,87 @@
-[gd_scene format=3 uid="uid://bxawql81gxuwy"]
+[gd_scene load_steps=5 format=3 uid="uid://bxawql81gxuwy"]
 
-[node name="Example3" type="VBoxContainer"]
+[ext_resource type="Script" uid="uid://dtpp2pl4xx81p" path="res://src/example3_co-routine/example_3.gd" id="1_pjbnv"]
+[ext_resource type="PackedScene" uid="uid://i1carvblk0up" path="res://src/example3_co-routine/actor/actor.tscn" id="2_jkqaq"]
+
+[sub_resource type="ReDScribe" id="ReDScribe_pjbnv"]
+boot_file = "uid://cnoyvs1tdwcmu"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkqaq"]
+size = Vector2(33, 658.5)
+
+[node name="Example3" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pjbnv")
+pod = SubResource("ReDScribe_pjbnv")
+metadata/_edit_lock_ = true
+
+[node name="Goal" type="Area2D" parent="."]
+modulate = Color(0.786609, 0.362618, 0.443448, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+position = Vector2(1834, 334)
+shape = SubResource("RectangleShape2D_jkqaq")
+
+[node name="Polygon2D" type="Polygon2D" parent="Goal"]
+position = Vector2(18, -4)
+polygon = PackedVector2Array(1800, 0, 1800, 700, 1820, 700, 1820, 0)
+
+[node name="Rabbit" parent="." instance=ExtResource("2_jkqaq")]
+unique_name_in_owner = true
+position = Vector2(0, 207)
+label = "🐇"
+
+[node name="Turtle" parent="." instance=ExtResource("2_jkqaq")]
+unique_name_in_owner = true
+position = Vector2(0, 451)
+label = "🐢"
+
+[node name="Weather" parent="." instance=ExtResource("2_jkqaq")]
+unique_name_in_owner = true
+position = Vector2(913, 6)
+label = "☀️"
+
+[node name="Message" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 78.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 38
+text = "Let's cheer for the turtle!
+Push the  button to speed up the turtle!"
+horizontal_alignment = 1
+
+[node name="CheerButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = 225.0
+offset_right = 131.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cheer 📣🐢🔥"
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[connection signal="game_over" from="." to="." method="_on_game_over"]
+[connection signal="area_entered" from="Goal" to="." method="_on_area_2d_area_entered"]
+[connection signal="pressed" from="CheerButton" to="." method="_on_cheer_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
