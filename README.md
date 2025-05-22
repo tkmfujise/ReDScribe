@@ -156,8 +156,9 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 
 ### 3. Co-routine
 
-I created a DSL using Fiber.
-`-->{ do something }` is a unit of execution.
+I created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
+
+`-->{ do_something }` is a unit of execution.
 `notify :message` broadcasts the message to all actors. 
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
@@ -198,8 +199,6 @@ actor 'Turtle' do
   end
 end
 ```
-see: [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb)
-
 
 Then create a GDScript.
 ```gdscript
