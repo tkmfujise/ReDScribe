@@ -28,7 +28,7 @@ func _on_cheer_button_pressed() -> void:
 	pod.perform('notify :cheer')
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
+func _on_goal_area_entered(area: Area2D) -> void:
 	var actor = area.get_parent()
 	match actor.name:
 		'Rabbit', 'Turtle': game_over.emit(actor.name)

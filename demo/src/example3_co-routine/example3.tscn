@@ -7,7 +7,7 @@
 boot_file = "uid://cnoyvs1tdwcmu"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkqaq"]
-size = Vector2(33, 658.5)
+size = Vector2(167.5, 658.5)
 
 [node name="Example3" type="Control"]
 layout_mode = 3
@@ -24,7 +24,7 @@ metadata/_edit_lock_ = true
 modulate = Color(0.786609, 0.362618, 0.443448, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
-position = Vector2(1834, 334)
+position = Vector2(1901.25, 334)
 shape = SubResource("RectangleShape2D_jkqaq")
 
 [node name="Polygon2D" type="Polygon2D" parent="Goal"]
@@ -82,6 +82,6 @@ unique_name_in_owner = true
 autostart = true
 
 [connection signal="game_over" from="." to="." method="_on_game_over"]
-[connection signal="area_entered" from="Goal" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Goal" to="." method="_on_goal_area_entered"]
 [connection signal="pressed" from="CheerButton" to="." method="_on_cheer_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

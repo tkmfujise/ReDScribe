@@ -228,7 +228,7 @@ func _on_timer_timeout() -> void:
 func _on_cheer_button_pressed() -> void:
     pod.perform('notify :cheer')
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
+func _on_goal_area_entered(area: Area2D) -> void:
     var actor = area.get_parent()
     match actor.name:
         'Rabbit', 'Turtle': game_over.emit(actor.name)
@@ -265,10 +265,10 @@ func _on_game_over(actor_name: String) -> void:
   * [x] Example0: Basic
   * [x] Example1: Live Coding
   * [ ] Example2: Resource Generator
-  * [ ] Example3: Co-routine
+  * [x] Example3: Co-routine
 
 
-### v0.2.0
+### v0.2.0 or later
 * [ ] Document
   * [ ] Wiki
 * [ ] Editor
