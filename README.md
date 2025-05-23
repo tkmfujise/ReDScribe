@@ -90,7 +90,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 | Time       | ⇒ | Dictionary                  |
 | (others)   | ⇒ | String<br>(#inspect called) |
 
-see: [demo/test/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/test_variant.gd)
+see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/gdextension/test_variant.gd)
 
 
 ## Installation

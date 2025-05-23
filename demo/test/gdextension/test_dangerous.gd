@@ -34,6 +34,11 @@ func test_shell_command_fails():
 	assert_eq(result, 1)
 
 
+func test_shell_command_via_send_works():
+	res.perform('foo send(:`, "whoami")')
+	assert_not_null(result)
+
+
 func test_file_read_inside_project_works():
 	res.perform("foo File.read('project.godot')")
 	assert_not_null(result)

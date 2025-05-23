@@ -1,0 +1,34 @@
+extends GutTest
+
+var res : ReDScribe = null
+var result
+
+func before_each():
+	res = ReDScribe.new()
+	res.perform('require "addons/redscribe/mrblib/shell"')
+	res.method_missing.connect(_method_missing)
+	result = null
+
+
+func _method_missing(_name, args):
+	result = args[0]
+
+
+func test_sh():
+	res.perform('foo sh "whoami"')
+	assert_not_null(result)
+
+
+func test_windows():
+	res.perform('foo windows?')
+	assert_typeof(result, TYPE_BOOL)
+
+
+func test_mac():
+	res.perform('foo mac?')
+	assert_typeof(result, TYPE_BOOL)
+
+
+func test_linux():
+	res.perform('foo linux?')
+	assert_typeof(result, TYPE_BOOL)

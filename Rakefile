@@ -71,3 +71,9 @@ end
 task :update do
   sh 'git submodule update --remote --recursive'
 end
+
+
+desc 'create addon zip'
+task :package do
+  # TODO
+end

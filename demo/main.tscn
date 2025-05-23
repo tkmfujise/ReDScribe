@@ -58,7 +58,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Button2" type="Button" parent="VBoxContainer/ButtonContainer2"]
 layout_mode = 2
-text = "Example2: Resource Generator"
+text = "Example2: Resource generator"
 alignment = 0
 
 [node name="ButtonContainer3" type="MarginContainer" parent="VBoxContainer"]
