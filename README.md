@@ -5,9 +5,9 @@ Let’s re-describe your code as your own friendly domain-specific language.
 
 
 #### Features:
-* **Execution**: You can execute mruby code in Godot and emit signals from mruby to Godot.
+* **Execution**: You can execute mruby code (a lightweight Ruby) in Godot and emit signals from mruby to Godot.
 * **Editing**: You can write and edit Ruby files in the Godot Editor.
-* **REPL**: You can try out Ruby code in Godot.
+* **REPL**: You can try out Ruby interactively in Godot.
 
 
 ## Usage
@@ -154,16 +154,16 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 ### 2. Resource generator
 
 
-### 3. Co-routine
+### 3. Co-routine (like Agent-based modeling)
 
-I created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
+I made a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
 
 `-->{ do_something }` is a unit of execution.
 `notify :message` broadcasts the message to all actors. 
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
-Create a boot.rb.
+Create a `boot.rb` file.
 ```ruby
 require 'addons/redscribe/mrblib/actor'
 
@@ -200,7 +200,7 @@ actor 'Turtle' do
 end
 ```
 
-Then create a GDScript.
+Then, create a GDScript file.
 ```gdscript
 extends Control
 
@@ -276,11 +276,8 @@ func _on_game_over(actor_name: String) -> void:
     * [ ] require
   * [ ] User definable theme
   * [ ] User definable syntax
-* [ ] remove bugs
+* [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
-* [ ] remove WARNING
-  * [ ] (Windows) invalid UID: uid://xxx - using text path instead: res://yyy.<br>
-      I fixed it on macOS, but it appears on Windows instead.
 * [ ] src/*.cpp
   * [ ] remove global variables
 * [ ] compile
