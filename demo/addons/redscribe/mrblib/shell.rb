@@ -4,6 +4,17 @@ def sh(command)
   send(:`, command).chomp
 end
 
+def pwd
+  Dir.pwd
+end
+
+def cd(dir, &block)
+  before = pwd
+  Dir.chdir(dir)
+  result = yield
+  Dir.chdir(before)
+  result
+end
 
 def windows?
   sh('uname').include? 'Windows'

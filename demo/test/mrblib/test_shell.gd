@@ -19,6 +19,16 @@ func test_sh():
 	assert_not_null(result)
 
 
+func test_pwd():
+	res.perform('foo pwd')
+	assert_not_null(result)
+
+
+func test_cd():
+	res.perform('foo cd("/"){ pwd }')
+	assert_not_null(result)
+
+
 func test_windows():
 	res.perform('foo windows?')
 	assert_typeof(result, TYPE_BOOL)
@@ -32,3 +42,8 @@ func test_mac():
 func test_linux():
 	res.perform('foo linux?')
 	assert_typeof(result, TYPE_BOOL)
+
+
+func test_ENV():
+	res.perform('foo ENV')
+	assert_typeof(result, TYPE_DICTIONARY)
