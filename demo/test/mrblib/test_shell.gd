@@ -30,6 +30,11 @@ func test_ls():
 	result = null
 	res.perform('foo ls "-l", "-A"')
 	assert_not_null(result)
+	result = null
+	res.perform('foo ls "foobar"')
+	assert_null(result)
+	assert_eq(res.exception,
+		'ls: foobar: No such file or directory (RuntimeError)')
 
 
 func test_cat():
@@ -38,6 +43,11 @@ func test_cat():
 	result = null
 	res.perform('foo cat "../README.md"')
 	assert_not_null(result)
+	result = null
+	res.perform('foo cat "foobar"')
+	assert_null(result)
+	assert_eq(res.exception,
+		'cat: foobar: No such file or directory (RuntimeError)')
 
 
 func test_pwd():

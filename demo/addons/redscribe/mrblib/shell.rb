@@ -4,9 +4,21 @@ def sh(command, *args)
   send(:`, "#{command} #{args.join(' ')}").chomp
 end
 
-%i[ls cat].each do |sym|
-  define_method(sym) do |*args|
-    sh "#{sym} #{args.join(' ')}"
+def ls(*args)
+  result = sh "ls #{args.join(' ')}"
+  if result.empty?
+    raise "ls: #{args.last}: No such file or directory"
+  else
+    result
+  end
+end
+
+def cat(path)
+  result = sh "cat #{path}"
+  if result.empty?
+    raise "cat: #{path}: No such file or directory"
+  else
+    result
   end
 end
 
