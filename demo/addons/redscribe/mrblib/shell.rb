@@ -1,7 +1,13 @@
 
 # sh 'ls'
-def sh(command)
-  send(:`, command).chomp
+def sh(command, *args)
+  send(:`, "#{command} #{args.join(' ')}").chomp
+end
+
+%i[ls cat].each do |sym|
+  define_method(sym) do |*args|
+    sh "#{sym} #{args.join(' ')}"
+  end
 end
 
 def pwd

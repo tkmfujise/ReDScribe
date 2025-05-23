@@ -19,6 +19,27 @@ func test_sh():
 	assert_not_null(result)
 
 
+func test_sh_with_args():
+	res.perform('foo sh "ls", "-l", "-A"')
+	assert_not_null(result)
+
+
+func test_ls():
+	res.perform('foo ls')
+	assert_not_null(result)
+	result = null
+	res.perform('foo ls "-l", "-A"')
+	assert_not_null(result)
+
+
+func test_cat():
+	res.perform('foo cat "project.godot"')
+	assert_not_null(result)
+	result = null
+	res.perform('foo cat "../README.md"')
+	assert_not_null(result)
+
+
 func test_pwd():
 	res.perform('foo pwd')
 	assert_not_null(result)
