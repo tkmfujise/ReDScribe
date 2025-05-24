@@ -56,10 +56,10 @@
   </methods>
   <members>
     <member name="boot_file" type="String" setter="set_boot_file" getter="get_boot_file" default="&quot;&quot;">
-      Loads [i]res://path/to/boot.rb[/i] file. An alternative for [code]require 'path/to/boot'[/code].
+      Loads the [i]res://path/to/boot.rb[/i] file. An alternative to [code]require 'path/to/boot'[/code].
     </member>
     <member name="exception" type="String" setter="set_exception" getter="get_exception" default="&quot;&quot;">
-      If [code]perform(dsl)[/code] cause an exception, the error content is stored.
+      If [code]perform(dsl)[/code] causes an exception, the error content is stored.
     </member>
   </members>
   <signals>

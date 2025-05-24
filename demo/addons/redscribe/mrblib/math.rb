@@ -1,6 +1,14 @@
 extend Math
 include Math
 
+def π
+  PI
+end
+
+def √(x)
+  sqrt(x)
+end
+
 
 # https://en.wikipedia.org/wiki/Sigmoid_function
 def sigmoid(x)

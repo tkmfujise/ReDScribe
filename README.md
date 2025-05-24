@@ -53,7 +53,9 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 * *Properties*
   * String **boot_file**
+    * Loads the **res://path/to/boot.rb** file. An alternative to `require 'path/to/boot'`.
   * String **exception**
+    * If `perform(dsl)` causes an exception, the error content is stored.
 * *Methods*
   * void **set_boot_file**(path: String)
   * void **perform**(dsl: String)
@@ -70,7 +72,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 | `puts 'something'`                | prints `something` in Godot console. |
 | Object#method_missing             | emits `method_missing` signal.<br> `(method_name: String, args: Array)` |
 | `Godot.emit_signal(key, payload)` | emits `channel` signal.<br> `(key: StringName, payload: Variant)`       |
-| `Godot::VERSION`                  | Godot version                        | 
+| `Godot::VERSION`                  | Godot version                        |
 
 
 ## Type conversions
@@ -106,6 +108,9 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 
 ### REPL
 <img src="doc/screenshots/ReDScribe_REPL_screenshot.png" alt="REPL screenshot">
+
+> [!CAUTION]
+> In the REPL, local variables are undefined in the next input.	
 
 
 ## Examples
@@ -156,10 +161,10 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 
 ### 3. Co-routine (like Agent-based modeling)
 
-I made a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
+I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
 
 `-->{ do_something }` is a unit of execution.
-`notify :message` broadcasts the message to all actors. 
+`notify :message` broadcasts the message to all actors.
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
@@ -182,7 +187,7 @@ actor 'Rabbit' do
   --> { run unless @wait }
   :sunny   --> { @wait = false }
   :raining --> { @wait = true }
-  
+
   def run
     @position += @speed * rand
   end
@@ -193,7 +198,7 @@ actor 'Turtle' do
   @speed    = 1
   --> { run }
   :cheer --> { @speed += 1 }
-  
+
   def run
     @position += @speed
   end
@@ -240,6 +245,44 @@ func _on_game_over(actor_name: String) -> void:
 
 
 
+## addons/redscribe/mrblib
+
+I have created some libraries.
+If you'd like to use them, add `require 'addons/redscribe/mrblib/xxx'` at the top of your script.
+
+### shell
+```ruby
+require 'addons/redscribe/mrblib/shell'
+
+cd '../mruby' do
+  sh 'rake'
+end
+```
+see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
+
+
+### math
+```ruby
+require 'addons/redscribe/mrblib/math'
+
+sin(π) # => 0.0
+√(2)   # => 1.41421356237309
+```
+see more: [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_math.gd)
+
+
+### actor
+```ruby
+require 'addons/redscribe/mrblib/actor'
+
+actor 'Counter' do
+  @number = 0
+  --> { @number += 1 }
+end
+```
+see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
+
+
 
 ## Roadmap
 
@@ -276,6 +319,8 @@ func _on_game_over(actor_name: String) -> void:
     * [ ] require
   * [ ] User definable theme
   * [ ] User definable syntax
+* [ ] REPL
+  * [ ] boot_file enabled
 * [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
 * [ ] src/*.cpp
@@ -283,15 +328,13 @@ func _on_game_over(actor_name: String) -> void:
 * [ ] compile
   * [ ] use github workflow
   * [ ] target
-    * [x] windows.x86_64 
-    * [ ] windows.x86_32 
+    * [x] windows.x86_64
+    * [ ] windows.x86_32
     * [x] macos
-    * [ ] linux.x86_64 
-    * [ ] linux.arm64 
-    * [ ] linux.rv64 
-    * [ ] android.x86_64 
-    * [ ] android.arm64 
+    * [ ] linux.x86_64
+    * [ ] linux.arm64
+    * [ ] linux.rv64
+    * [ ] android.x86_64
+    * [ ] android.arm64
     * [ ] ios
-
-
 

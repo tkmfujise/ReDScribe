@@ -29,9 +29,13 @@ end
 def cd(dir, &block)
   before = pwd
   Dir.chdir(dir)
-  result = yield
-  Dir.chdir(before)
-  result
+  if block_given?
+    result = yield
+    Dir.chdir(before)
+    result
+  else
+    pwd
+  end
 end
 
 def windows?

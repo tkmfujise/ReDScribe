@@ -31,6 +31,16 @@ func test_sin_in_class():
 	assert_eq(result, 0.0)
 
 
+func test_π():
+	res.perform('foo π')
+	assert_almost_eq(result, 3.14159265358979, 0.0000001)
+
+
+func test_sqrt():
+	res.perform('foo √(2)')
+	assert_almost_eq(result, 1.41421356237309, 0.0000001)
+
+
 func test_sigmoid():
 	res.perform('foo sigmoid(0)')
 	assert_eq(result, 0.5)
