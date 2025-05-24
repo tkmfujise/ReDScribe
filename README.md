@@ -257,6 +257,8 @@ actor 'Counter' do
   @number = 0
   --> { @number += 1 }
 end
+# `tick` => [ Counter ] signal emitted: { &"number": 0, &"name": "Counter" }
+# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
 ```
 see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
 
@@ -291,6 +293,7 @@ require 'addons/redscribe/mrblib/shell'
 cd '../mruby' do
   sh 'rake'
 end
+# Execute the shell command `rake` in the ../mruby directory.
 ```
 see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
 
