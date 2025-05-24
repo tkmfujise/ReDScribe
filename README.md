@@ -53,9 +53,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 * *Properties*
   * String **boot_file**
-    * Loads the **res://path/to/boot.rb** file. An alternative to `require 'path/to/boot'`.
   * String **exception**
-    * If `perform(dsl)` causes an exception, the error content is stored.
 * *Methods*
   * void **set_boot_file**(path: String)
   * void **perform**(dsl: String)
@@ -168,7 +166,7 @@ I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
-Create a `boot.rb` file.
+Create a *boot.rb* file.
 ```ruby
 require 'addons/redscribe/mrblib/actor'
 
@@ -205,7 +203,7 @@ actor 'Turtle' do
 end
 ```
 
-Then, create a GDScript file.
+Then, create a GDScript file and set the `boot_file` property of the `pod` instance in the `ReDScribe` class to *boot.rb*.
 ```gdscript
 extends Control
 
@@ -306,7 +304,7 @@ see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScrib
 * [ ] Demo
   * [x] Example0: Basic
   * [x] Example1: Live Coding
-  * [ ] Example2: Resource Generator
+  * [ ] Example2: Resource generator
   * [x] Example3: Co-routine
 
 
