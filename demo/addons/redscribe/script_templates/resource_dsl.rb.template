@@ -1,15 +1,4 @@
 class %Resource
-  # TODO re-write ATTRIBUTES for your resource.
-  #
-  #   %resource 'Something' do
-  #     attribute1  true
-  #     attribute2  1
-  #   end
-  #
-  # will emit signal `channel`:
-  #
-  #   'add_%resource', { 'attribute1': true, 'attribute2': 1 }
-  #
   ATTRIBUTES = %i[name attribute1 attribute2]
 
   def initialize(name)

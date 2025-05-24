@@ -39,6 +39,11 @@ func test_shell_command_via_send_works():
 	assert_not_null(result)
 
 
+func test_spawn_failed():
+	res.perform('foo spawn "ls"')
+	assert_eq(result, null)
+
+
 func test_file_read_inside_project_works():
 	res.perform("foo File.read('project.godot')")
 	assert_not_null(result)

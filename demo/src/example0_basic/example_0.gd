@@ -6,8 +6,11 @@ func _ready() -> void:
 	res.method_missing.connect(_method_missing)
 	res.channel.connect(_subscribe)
 	res.perform("""
-		# set load_file in inspector: ./lib/boot.rb
 		Alice speak: 'Hello Ruby!'
+
+		require 'addons/redscribe/mrblib/resource'
+		resource :player
+
 		player 'Alice' do
 		  level 1
 		  job   :magician

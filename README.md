@@ -22,7 +22,8 @@ func _ready() -> void:
     res.perform("""
         Alice speak: "Hello Ruby!"
 
-        require 'src/lib/player' # Your DSL definition file.
+        require 'addons/redscribe/mrblib/resource'
+        resource :player
 
         player 'Alice' do
           level 1
@@ -41,7 +42,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 #
 #   [method_missing] Alice: [{ &"speak": "Hello Ruby!" }]
 #
-#   [subscribe] add_player: { &"name": "Alice", &"level": 1, &"job": &"magician" }
+#   [subscribe] player: { &"level": 1, &"name": "Alice", &"job": &"magician" }
 #
 ```
 
@@ -248,15 +249,16 @@ func _on_game_over(actor_name: String) -> void:
 I have created some libraries.
 If you'd like to use them, add `require 'addons/redscribe/mrblib/xxx'` at the top of your script.
 
-### shell
+### actor
 ```ruby
-require 'addons/redscribe/mrblib/shell'
+require 'addons/redscribe/mrblib/actor'
 
-cd '../mruby' do
-  sh 'rake'
+actor 'Counter' do
+  @number = 0
+  --> { @number += 1 }
 end
 ```
-see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
+see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
 
 
 ### math
@@ -268,17 +270,29 @@ sin(π) # => 0.0
 ```
 see more: [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_math.gd)
 
-
-### actor
+### resource
 ```ruby
-require 'addons/redscribe/mrblib/actor'
+require 'addons/redscribe/mrblib/resource'
+resource :stage
 
-actor 'Counter' do
-  @number = 0
-  --> { @number += 1 }
+stage 'First' do
+  number 1
+  music  'first_stage.mp3'
+end
+# => [ stage ] signal emitted: { &"music": "first_stage.mp3", &"number": 1, &"name": "First" }
+```
+see more: [demo/test/mrblib/test_resource.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_resource.gd)
+
+
+### shell
+```ruby
+require 'addons/redscribe/mrblib/shell'
+
+cd '../mruby' do
+  sh 'rake'
 end
 ```
-see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
+see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
 
 
 
