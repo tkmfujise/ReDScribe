@@ -128,6 +128,8 @@ mrb_time_variant(mrb_state *mrb, mrb_value value)
   dict["hour"]   = mrb_integer(mrb_funcall(mrb, value, "hour", 0));
   dict["minute"] = mrb_integer(mrb_funcall(mrb, value, "min", 0));
   dict["second"] = mrb_integer(mrb_funcall(mrb, value, "sec", 0));
+  dict["wday"]   = mrb_integer(mrb_funcall(mrb, value, "wday", 0));
+  dict["zone"]   = mrb_variant(mrb, mrb_funcall(mrb, value, "zone", 0));
   return dict;
 }
 

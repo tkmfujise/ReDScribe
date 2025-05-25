@@ -45,6 +45,8 @@ func test_time():
 		"hour":   3,
 		"minute": 4,
 		"second": 5,
+		"zone":	  'UTC',
+		"wday":   4, # 0: sunday
 	})
 
 
