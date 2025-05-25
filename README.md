@@ -20,15 +20,20 @@ func _ready() -> void:
     res.method_missing.connect(_method_missing)
     res.channel.connect(_subscribe)
     res.perform("""
-        Alice speak: "Hello Ruby!"
 
-        require 'addons/redscribe/mrblib/resource'
-        resource :player
+        Alice says: "Hello Ruby!"
 
-        player 'Alice' do
-          level 1
-          job   :magician
-        end
+
+        puts [
+          'Welcome to Wonderland!',           ' ❤️ ',
+          "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
+          "powered by #{RUBY_ENGINE}",        ' 💎 ',
+        ].join
+
+
+        Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
+
+
     """)
 
 func _method_missing(method_name: String, args: Array) -> void:
@@ -40,9 +45,11 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 # -- Output --
 #
-#   [method_missing] Alice: [{ &"speak": "Hello Ruby!" }]
+#   [method_missing] Alice: [{ &"says": "Hello Ruby!" }]
 #
-#   [subscribe] player: { &"level": 1, &"name": "Alice", &"job": &"magician" }
+#   Welcome to Wonderland! ❤️ Ruby version is v3.4 ✨️ powered by mruby 💎 
+#
+#   [subscribe] spawn: { &"name": "Alice", &"job": "wizard", &"level": 1 }
 #
 ```
 
@@ -112,6 +119,60 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 > In the REPL, local variables are undefined in the next input.	
 
 
+## addons/redscribe/mrblib
+
+I have created some libraries.
+If you'd like to use them, add `require 'addons/redscribe/mrblib/xxx'` at the top of your script.
+
+### actor
+```ruby
+require 'addons/redscribe/mrblib/actor'
+
+actor 'Counter' do
+  @number = 0
+  --> { @number += 1 }
+end
+# `tick` => [ Counter ] signal emitted: { &"number": 0, &"name": "Counter" }
+# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
+```
+see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
+
+
+### math
+```ruby
+require 'addons/redscribe/mrblib/math'
+
+sin(π) # => 0.0
+√(2)   # => 1.41421356237309
+```
+see more: [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_math.gd)
+
+### resource
+```ruby
+require 'addons/redscribe/mrblib/resource'
+resource :stage
+
+stage 'First' do
+  number 1
+  music  'first_stage.mp3'
+end
+# => [ stage ] signal emitted: { &"music": "first_stage.mp3", &"number": 1, &"name": "First" }
+```
+see more: [demo/test/mrblib/test_resource.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_resource.gd)
+
+
+### shell
+```ruby
+require 'addons/redscribe/mrblib/shell'
+
+cd 'addons' do
+  sh 'ls -lA'
+end
+# Execute the shell command `ls -lA` in the addons directory.
+```
+see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
+
+
 ## Examples
 
 ### 1. Live coding
@@ -119,8 +180,8 @@ Create a scene as below.
 ```
 Control
   └ HBoxContainer
-    ├ ReDScribeEditor
-    └ RichTextLabel
+      ├ ReDScribeEditor
+      └ RichTextLabel
 ```
 Then attach a GDScript.
 ```gdscript
@@ -241,61 +302,6 @@ func _on_game_over(actor_name: String) -> void:
     %Message.text = "The winner is %s!" % actor_name
 ```
 [![Live coding](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
-
-
-
-## addons/redscribe/mrblib
-
-I have created some libraries.
-If you'd like to use them, add `require 'addons/redscribe/mrblib/xxx'` at the top of your script.
-
-### actor
-```ruby
-require 'addons/redscribe/mrblib/actor'
-
-actor 'Counter' do
-  @number = 0
-  --> { @number += 1 }
-end
-# `tick` => [ Counter ] signal emitted: { &"number": 0, &"name": "Counter" }
-# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
-```
-see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
-
-
-### math
-```ruby
-require 'addons/redscribe/mrblib/math'
-
-sin(π) # => 0.0
-√(2)   # => 1.41421356237309
-```
-see more: [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_math.gd)
-
-### resource
-```ruby
-require 'addons/redscribe/mrblib/resource'
-resource :stage
-
-stage 'First' do
-  number 1
-  music  'first_stage.mp3'
-end
-# => [ stage ] signal emitted: { &"music": "first_stage.mp3", &"number": 1, &"name": "First" }
-```
-see more: [demo/test/mrblib/test_resource.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_resource.gd)
-
-
-### shell
-```ruby
-require 'addons/redscribe/mrblib/shell'
-
-cd '../mruby' do
-  sh 'rake'
-end
-# Execute the shell command `rake` in the ../mruby directory.
-```
-see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
 
 
 

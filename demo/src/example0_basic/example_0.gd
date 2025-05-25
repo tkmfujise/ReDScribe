@@ -6,15 +6,17 @@ func _ready() -> void:
 	res.method_missing.connect(_method_missing)
 	res.channel.connect(_subscribe)
 	res.perform("""
-		Alice speak: 'Hello Ruby!'
 
-		require 'addons/redscribe/mrblib/resource'
-		resource :player
+		Alice says: "Hello Ruby!"
 
-		player 'Alice' do
-		  level 1
-		  job   :magician
-		end
+		puts [
+		  'Welcome to Wonderland!',           ' ❤️ ',
+		  "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
+		  "powered by #{RUBY_ENGINE}",        ' 💎 '
+		].join
+
+		Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
+
 	""")
 	show_gdscript()
 

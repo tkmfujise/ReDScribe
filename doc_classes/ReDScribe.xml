@@ -4,7 +4,7 @@
     A mruby wrapper class implemented in GDExtension.
   </brief_description>
   <description>
-    [b]Example usage[/b]
+    [b]Usage[/b]
 
     [codeblock]
     extends Node
@@ -15,14 +15,15 @@
         res.method_missing.connect(_method_missing)
         res.channel.connect(_subscribe)
         res.perform("""
-            Alice speak: "Hello Ruby!"
+            Alice says: "Hello Ruby!"
 
-            require 'src/lib/player' # Your DSL definition file.
+            puts [
+              'Welcome to Wonderland!',           ' ❤️ ',
+              "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
+              "powered by #{RUBY_ENGINE}",        ' 💎 ',
+            ].join
 
-            player 'Alice' do
-              level 1
-              job   :magician
-            end
+            Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
         """)
 
     func _method_missing(method_name: String, args: Array) -> void:
@@ -34,9 +35,11 @@
 
     # -- Output --
     #
-    #   [method_missing] Alice: [{ &"speak": "Hello Ruby!" }]
+    #   [method_missing] Alice: [{ &"says": "Hello Ruby!" }]
     #
-    #   [subscribe] add_player: { &"name": "Alice", &"level": 1, &"job": &"magician" }
+    #   Welcome to Wonderland! ❤️ Ruby version is v3.4 ✨️ powered by mruby 💎 
+    #
+    #   [subscribe] spawn: { &"name": "Alice", &"job": "wizard", &"level": 1 }
     #
     [/codeblock]
   </description>
