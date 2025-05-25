@@ -25,10 +25,10 @@ func _ready() -> void:
 
 
         puts [
-          'Welcome to Wonderland!',           ' ❤️ ',
-          "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
-          "powered by #{RUBY_ENGINE}",        ' 💎 ',
-        ].join
+            'Welcome to Wonderland!',           ' ❤️ ',
+            "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
+            "powered by #{RUBY_ENGINE}",        ' 💎 ',
+          ].join
 
 
         Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
