@@ -6,7 +6,9 @@ end
 
 def ls(*args)
   result = sh "ls #{args.join(' ')}"
-  if result.empty?
+  if (result.empty? || \
+    (windows? && result.end_with?('No such file or directory'))
+  )
     raise "ls: #{args.last}: No such file or directory"
   else
     result
@@ -15,7 +17,9 @@ end
 
 def cat(path)
   result = sh "cat #{path}"
-  if result.empty?
+  if (result.empty? || \
+    (windows? && result.end_with?('No such file or directory'))
+  )
     raise "cat: #{path}: No such file or directory"
   else
     result
