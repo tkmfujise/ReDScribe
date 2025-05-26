@@ -7,13 +7,9 @@ func _ready() -> void:
 	res.channel.connect(_subscribe)
 	res.perform("""
 
-		Alice says: "Hello Ruby!"
+		Alice says: "Hello Ruby! ❤️"
 
-		puts [
-		  'Welcome to Wonderland!',           ' ❤️ ',
-		  "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
-		  "powered by #{RUBY_ENGINE}",        ' 💎 '
-		].join
+		puts "Welcome to the world of Ruby v#{RUBY_VERSION}, powered by #{RUBY_ENGINE} 💎"
 
 		Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
 
