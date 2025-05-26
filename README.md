@@ -21,18 +21,11 @@ func _ready() -> void:
     res.channel.connect(_subscribe)
     res.perform("""
 
-        Alice says: "Hello Ruby!"
+        Alice says: "Hello Ruby! ❤️"
 
-
-        puts [
-            'Welcome to Wonderland!',           ' ❤️ ',
-            "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
-            "powered by #{RUBY_ENGINE}",        ' 💎 ',
-          ].join
-
+        puts "Welcome to the world of Ruby v#{RUBY_VERSION}, powered by #{RUBY_ENGINE} 💎"
 
         Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
-
 
     """)
 
@@ -45,9 +38,9 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 
 # -- Output --
 #
-#   [method_missing] Alice: [{ &"says": "Hello Ruby!" }]
+#   [method_missing] Alice: [{ &"says": "Hello Ruby! ❤️" }]
 #
-#   Welcome to Wonderland! ❤️ Ruby version is v3.4 ✨️ powered by mruby 💎 
+#   Welcome to the world of Ruby v3.4, powered by mruby 💎
 #
 #   [subscribe] spawn: { &"name": "Alice", &"job": "wizard", &"level": 1 }
 #
@@ -176,7 +169,7 @@ see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScrib
 ## Examples
 
 ### 1. Live coding
-Create a scene as below.
+Create a scene as below. [ReDScribeEditor](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/src/editor/editor.gd) is a Node implementation for editing Ruby files in Godot.
 ```
 Control
   └ HBoxContainer
@@ -336,6 +329,8 @@ func _on_game_over(actor_name: String) -> void:
   * [ ] Wiki
 * [ ] Editor
   * [ ] Support multiple files open
+  * [ ] Support search text
+  * [ ] Fix Comment-out indent
   * [ ] Snippet
     * [ ] require
   * [ ] User definable theme

@@ -15,15 +15,13 @@
         res.method_missing.connect(_method_missing)
         res.channel.connect(_subscribe)
         res.perform("""
-            Alice says: "Hello Ruby!"
 
-            puts [
-              'Welcome to Wonderland!',           ' ❤️ ',
-              "Ruby version is v#{RUBY_VERSION}", ' ✨️ ',
-              "powered by #{RUBY_ENGINE}",        ' 💎 ',
-            ].join
+          Alice says: "Hello Ruby! ❤️"
 
-            Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
+          puts "Welcome to the world of Ruby v#{RUBY_VERSION}, powered by #{RUBY_ENGINE} 💎"
+
+          Godot.emit_signal :spawn, { name: 'Alice', job: 'wizard', level: 1 }
+
         """)
 
     func _method_missing(method_name: String, args: Array) -> void:
@@ -35,9 +33,9 @@
 
     # -- Output --
     #
-    #   [method_missing] Alice: [{ &"says": "Hello Ruby!" }]
+    #   [method_missing] Alice: [{ &"says": "Hello Ruby! ❤️" }]
     #
-    #   Welcome to Wonderland! ❤️ Ruby version is v3.4 ✨️ powered by mruby 💎 
+    #   Welcome to the world of Ruby v3.4, powered by mruby 💎
     #
     #   [subscribe] spawn: { &"name": "Alice", &"job": "wizard", &"level": 1 }
     #
