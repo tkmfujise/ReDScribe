@@ -127,6 +127,7 @@ actor 'Counter' do
 end
 # `tick` => [ Counter ] signal emitted: { &"number": 0, &"name": "Counter" }
 # `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
+# `tick` => [ Counter ] signal emitted: { &"number": 2, &"name": "Counter" }
 ```
 see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
 

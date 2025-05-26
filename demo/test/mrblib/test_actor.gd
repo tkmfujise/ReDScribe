@@ -43,6 +43,9 @@ func test_simple():
 	pod.perform('tick')
 	assert_eq(result['actor_name'], 'Foo')
 	assert_eq(result['attributes']['number'], 1)
+	pod.perform('tick')
+	assert_eq(result['actor_name'], 'Foo')
+	assert_eq(result['attributes']['number'], 2)
 
 
 func test_define_method():
