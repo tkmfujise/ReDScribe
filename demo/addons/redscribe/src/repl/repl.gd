@@ -22,6 +22,7 @@ func grab_focus() -> void:
 
 
 func init_session() -> void:
+	if session: session = null
 	session = ReDScribe.new()
 	session.method_missing.connect(_method_missing)
 	session.channel.connect(_subscribe)
