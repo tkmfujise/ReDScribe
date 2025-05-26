@@ -62,17 +62,17 @@ func test_cd():
 
 func test_windows():
 	res.perform('foo windows?')
-	assert_typeof(result, TYPE_BOOL)
+	assert_eq(result, OS.get_name() == 'Windows')
 
 
 func test_mac():
 	res.perform('foo mac?')
-	assert_typeof(result, TYPE_BOOL)
+	assert_eq(result, OS.get_name() == 'macOS')
 
 
 func test_linux():
 	res.perform('foo linux?')
-	assert_typeof(result, TYPE_BOOL)
+	assert_eq(result, OS.get_name() == 'Linux')
 
 
 func test_ENV():
