@@ -1,5 +1,5 @@
 class Resource
-  attr_accessor :_key, :_children, :_mapping, :name 
+  attr_accessor :_key, :_children, :_mapping, :name
 
   def initialize(key, name = nil, &block)
     self._key      = key
@@ -17,14 +17,18 @@ class Resource
     instance_variable_get(:"@#{key}")
   end
 
+  def name(val)
+    self.name = val
+  end
+
   def attributes
     hash = attribute_keys.map{|k| [k.to_sym, self[k]] }.to_h
     _children.group_by(&:_key).map do |k, arr|
       if _mapping[k]
-        if _mapping[k] == k
+        if _mapping[k][:mapping] == k
           hash.merge!(k => arr[0].attributes)
         else
-          hash.merge!(_mapping[k] => arr.map(&:attributes))
+          hash.merge!(_mapping[k][:mapping] => arr.map(&:attributes))
         end
       end
     end
@@ -40,6 +44,7 @@ class Resource
       super unless _mapping[method_name]
       name  = args[0]
       child = Resource.new(method_name, name)
+      child._mapping.merge!(_mapping[method_name][:children])
       child.instance_exec(&block)
       _children << child
     elsif args.count == 1
@@ -53,34 +58,57 @@ end
 $main = self
 
 class DSL
-  attr_accessor :mapping
-  
-  def initialize
-    self.mapping = {}
+  attr_accessor :key, :parent, :mapping, :children
+
+  def initialize(key, parent = nil)
+    self.key      = key
+    self.parent   = parent
+    self.mapping  = key
+    self.children = []
   end
 
-  def resource(key, top_level: false, &block)
-    instance_exec(&block) if block_given?
-    recv = top_level ? $main : self
-    defined_mapping = mapping
-    defined_mapping.merge!(key => key) unless top_level
-    recv.define_singleton_method(key) do |name = nil, &blk|
-      res = Resource.new(key, name)
-      res._mapping.merge!(defined_mapping)
-      res.instance_exec(&blk)
-      res.tap(&:emit) if top_level
+  def resource(_key, &block)
+    raise "resource arg `#{_key}` is not Symbol" unless _key.kind_of?(Symbol)
+    introduce(_key, _key, block)
+    generate_resource(_key) unless parent
+  end
+
+  def resources(hash, &block)
+    raise "resource arg `#{hash}` is not Hash" unless hash.kind_of?(Hash)
+    _key, _mapping = hash.to_a[0]
+    introduce(_key, _mapping, block)
+  end
+
+  def all_mapping
+    if parent
+      { key => {
+          mapping:  mapping,
+          children: children.map(&:all_mapping).reduce(&:merge) || {}
+      } }
+    else
+      children.map(&:all_mapping).reduce(&:merge) || {}
     end
   end
-  
-  def resources(mapping, &block)
-    key, _ = mapping.to_a[0]
-    self.mapping.merge!(mapping)
-    instance_exec(&block) if block_given?
-    define_singleton_method(key) do |name = nil, &blk|
-      res = Resource.new(key, name)
-      res.instance_exec(&blk)
+
+  private
+    def introduce(key, mapping, block)
+      dsl = DSL.new(key, self)
+      dsl.mapping = mapping
+      self.children << dsl
+      dsl.instance_exec(&block) if block
     end
-  end
+
+    def generate_resource(key)
+      defined_mapping = all_mapping
+      $main.define_singleton_method(key) do |name = nil, &blk|
+        res = Resource.new(key, name)
+        if defined_mapping[key]
+          res._mapping.merge!(defined_mapping[key][:children])
+        end
+        res.instance_exec(&blk)
+        res.tap(&:emit)
+      end
+    end
 end
 
 
@@ -89,10 +117,31 @@ end
 #   resources :stage => :stages
 # end
 def resource(key, &block)
-  dsl = DSL.new
+  dsl = DSL.new(key)
   if block_given?
-    dsl.resource(key, top_level: true){ instance_exec(&block) }
+    dsl.resource(key){ instance_exec(&block) }
   else
-    dsl.resource(key, top_level: true)
+    dsl.resource(key)
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

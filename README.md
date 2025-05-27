@@ -143,13 +143,48 @@ see more: [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe
 ### resource
 ```ruby
 require 'addons/redscribe/mrblib/resource'
-resource :stage
+resource :stage do
+  resource :image
+  resources :chapter => :chapters
+end
 
 stage 'First' do
   number 1
   music  'first_stage.mp3'
+
+  image do
+    path 'first_stage.png'
+  end
+
+  chapter do
+    name  'Chapter1'
+    image 'path/to/chapter1.png'
+  end
+
+  chapter do
+    name 'Chapter2'
+    image 'path/to/chapter1.png'
+  end
 end
-# => [ stage ] signal emitted: { &"music": "first_stage.mp3", &"number": 1, &"name": "First" }
+# => [ stage ] signal emitted: {
+#   &"number": 1,
+#   &"music": "first_stage.mp3",
+#   &"name": "First",
+#   &"image": {
+#     &"path": "first_stage.png",
+#     &"name": "image_6308476176"
+#   },
+#   &"chapters": [
+#     {
+#       &"image": "path/to/chapter1.png",
+#       &"name": "Chapter1"
+#     },
+#     {
+#       &"image": "path/to/chapter1.png",
+#       &"name": "Chapter2"
+#     }
+#   ]
+# }
 ```
 see more: [demo/test/mrblib/test_resource.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_resource.gd)
 

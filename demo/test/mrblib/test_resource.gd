@@ -48,6 +48,19 @@ func test_undefined():
 	assert_eq(result, null)
 
 
+func test_name_in_block():
+	res.perform("""
+		resource :player
+		player do
+		  name 'Alice'
+		end
+	""")
+	assert_eq(result['key'], 'player')
+	assert_eq(result['attributes'], {
+		&'name':  'Alice',
+	})
+
+
 func test_with_block():
 	res.perform("""
 		resource :player do
@@ -134,18 +147,16 @@ func test_with_block_undefined():
 		  end
 		end
 	""")
-	assert_eq(result['key'], 'player')
-	assert_eq(result['attributes'], {
-		&'name':  'Alice',
-	})
+	assert_eq(result, null)
 
 
-func test_with_full():
+func test_with_multi():
 	res.perform("""
 		resource :chapter do
 		  resource :image
 		  resources :stage => :stages
 		end
+
 		chapter 'Opening' do
 		  level 1
 		  image 'thumbnail' do
@@ -175,6 +186,82 @@ func test_with_full():
 			{
 				&'name':  'stage2',
 				&'level': 2,
+			},
+		],
+	})
+
+
+
+func test_with_full():
+	res.perform("""
+		resource :chapter do
+		  resource :image do
+			resources :pin => :pins
+		  end
+		  resources :stage => :stages do
+			resource :image
+		  end
+		end
+
+		chapter 'Opening' do
+		  level 1
+		  image 'thumbnail' do
+			path 'path/to/opening.png'
+			pin 'pin1' do
+			  position [1, 2]
+			end
+			pin 'pin2' do
+			  position [3, 4]
+			end
+		  end
+		  stage 'stage1' do
+			level 1
+			image 'thumbnail' do
+			  path 'path/to/stage1.png'
+			end
+		  end
+		  stage 'stage2' do
+			level 2
+			image 'thumbnail' do
+			  path 'path/to/stage2.png'
+			end
+		  end
+		end
+	""")
+	assert_eq(result['key'], 'chapter')
+	assert_eq(result['attributes'], {
+		&'name':  'Opening',
+		&'level': 1,
+		&'image': {
+			&'name': 'thumbnail',
+			&'path': 'path/to/opening.png',
+			&'pins': [
+				{
+					&'name':     'pin1',
+					&'position': [1, 2],
+				},
+				{
+					&'name':     'pin2',
+					&'position': [3, 4],
+				},
+			]
+		},
+		&'stages': [
+			{
+				&'name':  'stage1',
+				&'level': 1,
+				&'image': {
+					&'name': 'thumbnail',
+					&'path': 'path/to/stage1.png',
+				},
+			},
+			{
+				&'name':  'stage2',
+				&'level': 2,
+				&'image': {
+					&'name': 'thumbnail',
+					&'path': 'path/to/stage2.png',
+				},
 			},
 		],
 	})
