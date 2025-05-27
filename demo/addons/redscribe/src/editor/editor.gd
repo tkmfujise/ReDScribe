@@ -95,6 +95,11 @@ func toggle_comment_lines_in(from: int, to: int) -> void:
 	set_caret_column(get_line(get_caret_line(0)).length())
 
 
+func trim_spaces():
+	for i in get_line_count():
+		set_line(i, get_line(i).strip_edges(false, true))
+
+
 func _can_drop_data(_position: Vector2, data: Variant) -> bool:
 	match typeof(data):
 		TYPE_DICTIONARY:
