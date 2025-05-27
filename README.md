@@ -125,7 +125,6 @@ actor 'Counter' do
   @number = 0
   --> { @number += 1 }
 end
-# `tick` => [ Counter ] signal emitted: { &"number": 0, &"name": "Counter" }
 # `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
 # `tick` => [ Counter ] signal emitted: { &"number": 2, &"name": "Counter" }
 ```

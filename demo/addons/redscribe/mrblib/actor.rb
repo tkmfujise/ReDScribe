@@ -12,8 +12,8 @@ class Actor
     self._fiber = begin
       Fiber.new do
         loop do
-          emit
-          Fiber.yield @_cycle.next.call
+          @_cycle.next.call
+          Fiber.yield emit
         end
       end
     end

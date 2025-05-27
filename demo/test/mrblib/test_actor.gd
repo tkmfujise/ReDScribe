@@ -39,13 +39,13 @@ func test_simple():
 	assert_eq(result, null)
 	pod.perform('tick')
 	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
 	assert_eq(result['attributes']['number'], 1)
 	pod.perform('tick')
 	assert_eq(result['actor_name'], 'Foo')
 	assert_eq(result['attributes']['number'], 2)
+	pod.perform('tick')
+	assert_eq(result['actor_name'], 'Foo')
+	assert_eq(result['attributes']['number'], 3)
 
 
 func test_define_method():
@@ -61,10 +61,10 @@ func test_define_method():
 	assert_eq(result, null)
 	pod.perform('tick')
 	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
+	assert_eq(result['attributes']['number'], 1)
 	pod.perform('tick')
 	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
+	assert_eq(result['attributes']['number'], 2)
 
 
 func test_notify_from_outside():
