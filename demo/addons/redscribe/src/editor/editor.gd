@@ -84,12 +84,16 @@ func toggle_comment() -> void:
 func toggle_comment_lines_in(from: int, to: int) -> void:
 	var lines = []
 	var numbers = range(from, to + 1)
+	var regex = RegEx.new()
+	regex.compile("^([ \\t]*)(.*)$")
 	for i in numbers:
-		var line = get_line(i)
-		if line and line.begins_with("#"): # remove `#`
-			lines.push_back(line.substr(1).strip_edges())
+		var matches = regex.search(get_line(i))
+		var indent  = matches.get_string(1)
+		var content = matches.get_string(2)
+		if content and content.begins_with("#"): # remove `#`
+			lines.push_back(indent + content.substr(1).strip_edges())
 		else: # add `#`
-			lines.push_back("# " + line)
+			lines.push_back(indent + "# " + content)
 	for i in numbers.size():
 		set_line(numbers.pop_front(), lines.pop_front())
 	set_caret_column(get_line(get_caret_line(0)).length())
