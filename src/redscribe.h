@@ -27,6 +27,7 @@ public:
   String get_boot_file() const;
 
   String exception = "";
+  Array required_paths;
 
   void perform(const String &dsl);
 };

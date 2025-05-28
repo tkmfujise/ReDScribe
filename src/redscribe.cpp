@@ -276,10 +276,18 @@ require(mrb_state *mrb, mrb_value self)
   if (gd_path.get_extension().is_empty()) {
     gd_path += ".rb";
   }
-  if (mrb_execute_file(mrb, gd_path)) {
-    return mrb_true_value();
+
+  ReDScribe *instance = get_gdcontext();
+
+  if (instance->required_paths.has(gd_path)) {
+    return mrb_false_value();
+  } else {
+    if (mrb_execute_file(mrb, gd_path)) {
+      instance->required_paths.append(gd_path);
+      return mrb_true_value();
+    }
+    return mrb_false_value();
   }
-  return mrb_false_value();
 }
 
 static mrb_value
