@@ -1,5 +1,31 @@
 extends ReDScribe
-class_name %Resource
+# class_name NewResource
 
 
+func _init() -> void:
+	method_missing.connect(_method_missing)
+	channel.connect(_subscribe)
 
+
+func perform_file(path: String) -> void:
+	perform(FileAccess.open(path, FileAccess.READ).get_as_text())
+
+
+# TODO
+func _method_missing(method_name: String, args: Array) -> void:
+	match method_name:
+		_: print_debug(('[ %s ] method_missing: ' % method_name) + _format_for_print(args))
+
+
+# TODO
+func _subscribe(key: StringName, payload: Variant) -> void:
+	match key:
+		_: print_debug(('[ %s ] signal emitted: ' % key) + _format_for_print(payload))
+
+
+func _format_for_print(val) -> String:
+	match typeof(val):
+		TYPE_STRING: return '"%s"' % val
+		TYPE_ARRAY: return '[' + \
+			", \n".join(val.map(func(e): return str(e))) + ']'
+		_: return str(val)

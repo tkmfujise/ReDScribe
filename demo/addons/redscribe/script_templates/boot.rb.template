@@ -1,8 +1,4 @@
-# TODO: require your DSL classes
-require 'path/to/your_rb_file'
+# require 'addons/redscribe/mrblib/xxx'
 
-# TODO: Write your DSL methods
-def example(&block)
-  do_something
-end
+# TODO: Write your DSL
 

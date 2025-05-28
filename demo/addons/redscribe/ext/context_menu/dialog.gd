@@ -3,23 +3,13 @@ extends Window
 
 const SCRIPT_TEMPLATES_DIR = 'res://addons/redscribe/script_templates/'
 const TEMPLATE = {
-	'rb:resource': {
-		'idx': 0,
-		'placeholder': 'new_resource.rb',
-		'script': 'resource_dsl.rb'
-	},
-	'rb:coroutine': {
-		'idx': 1,
-		'placeholder': 'actor.rb',
-		'script': 'coroutine_dsl.rb'
-	},
 	'rb': {
-		'idx': 2,
+		'idx': 0,
 		'placeholder': 'boot.rb',
 		'script': 'boot.rb'
 	},
 	'gd': {
-		'idx': 3,
+		'idx': 1,
 		'placeholder': 'new_resource.gd',
 		'script': 'resource.gd'
 	},
@@ -81,9 +71,7 @@ func _on_template_item_selected(index: int) -> void:
 
 func _on_confirmed() -> void:
 	var f = FileAccess.open(%Path.text, FileAccess.WRITE)
-	var content = script_template(current_key) \
-		.replace('%Resource', %ResourceName.text.to_pascal_case())  \
-		.replace('%resource', %ResourceName.text.to_snake_case())
+	var content = script_template(current_key)
 	f.store_string(content)
 	f.close()
 	EditorInterface.get_resource_filesystem().scan()
@@ -92,7 +80,6 @@ func _on_confirmed() -> void:
 
 func _on_path_text_changed(new_text: String) -> void:
 	var txt = new_text.get_basename().get_file().to_pascal_case()
-	%ResourceName.text = txt
 
 
 func _on_path_text_submitted(_paths: String) -> void:

@@ -163,13 +163,14 @@ stage 'First' do
 
   chapter do
     name 'Chapter2'
-    image 'path/to/chapter1.png'
+    image 'path/to/chapter2.png'
   end
 end
+
 # => [ stage ] signal emitted: {
 #   &"number": 1,
 #   &"music": "first_stage.mp3",
-#   &"name": "First",
+#   &"name":  "First",
 #   &"image": {
 #     &"path": "first_stage.png",
 #     &"name": "image_6308476176"
@@ -180,7 +181,7 @@ end
 #       &"name": "Chapter1"
 #     },
 #     {
-#       &"image": "path/to/chapter1.png",
+#       &"image": "path/to/chapter2.png",
 #       &"name": "Chapter2"
 #     }
 #   ]

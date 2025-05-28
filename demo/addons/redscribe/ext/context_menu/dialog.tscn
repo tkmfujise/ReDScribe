@@ -36,19 +36,13 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 4
-popup/item_0/text = "Resource DSL *.rb"
+item_count = 2
+popup/item_0/text = "boot.rb"
 popup/item_0/icon = ExtResource("1_4w8dh")
 popup/item_0/id = 0
-popup/item_1/text = "Coroutine DSL *.rb"
-popup/item_1/icon = ExtResource("1_4w8dh")
+popup/item_1/text = "ReDScribe *.gd"
+popup/item_1/icon = ExtResource("2_1et1m")
 popup/item_1/id = 1
-popup/item_2/text = "boot.rb"
-popup/item_2/icon = ExtResource("1_4w8dh")
-popup/item_2/id = 2
-popup/item_3/text = "ReDScribe *.gd"
-popup/item_3/icon = ExtResource("2_1et1m")
-popup/item_3/id = 3
 
 [node name="PathContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -66,20 +60,6 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="VBoxContainer/PathContainer"]
 layout_mode = 2
 icon = ExtResource("3_1et1m")
-
-[node name="ResourceNameContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/ResourceNameContainer"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-text = "%Resource:"
-
-[node name="ResourceName" type="LineEdit" parent="VBoxContainer/ResourceNameContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "NewResource"
 
 [node name="Bottom" type="Panel" parent="VBoxContainer"]
 layout_mode = 2
