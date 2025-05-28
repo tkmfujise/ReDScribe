@@ -99,7 +99,7 @@ func toggle_comment_lines_in(from: int, to: int) -> void:
 	set_caret_column(get_line(get_caret_line(0)).length())
 
 
-func trim_spaces():
+func trim_spaces() -> void:
 	for i in get_line_count():
 		set_line(i, get_line(i).strip_edges(false, true))
 
