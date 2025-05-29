@@ -265,9 +265,11 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 
 I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ).
 
-`-->{ do_something }` is a unit of execution.
+`-->{ do_something }` is a unit of execution, and defined execution units run in a loop.
+
 `notify :message` broadcasts the message to all actors.
 `tell 'ActorName', :message` tells the message to the actor named ActorName.
+
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
@@ -391,10 +393,11 @@ func _on_game_over(actor_name: String) -> void:
 * [ ] mrblib
   * [ ] core_ext like ActiveSupport
     * [ ] Duration (e.g. `1.day.ago`)
+* [ ] src/*.cpp
+  * [ ] Regexp support
+  * [ ] remove global variables
 * [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
-* [ ] src/*.cpp
-  * [ ] remove global variables
 * [ ] compile
   * [ ] use github workflow
   * [ ] target

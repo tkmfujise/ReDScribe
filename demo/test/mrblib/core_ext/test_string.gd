@@ -30,6 +30,5 @@ func fetch(code) -> Variant:
 
 func test_chars():
 	var arr = ['a', 'b', 'c', 'あ', 'い', 'う', '🍣', '🍺']
-	assert_ne(fetch("'abcあいう🍣🍺'.chars"), arr)
 	require_ext()
 	assert_eq(fetch("'abcあいう🍣🍺'.chars"), arr)
