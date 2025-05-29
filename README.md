@@ -105,6 +105,9 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 ### Editor
 <img src="doc/screenshots/ReDScribe_EditorArea_screenshot.png" alt="EditorArea screenshot">
 
+> [!NOTE]
+> For `@` and `:`, syntax highlighting requires a following whitespace to work correctly.
+
 ### REPL
 <img src="doc/screenshots/ReDScribe_REPL_screenshot.png" alt="REPL screenshot">
 
@@ -124,9 +127,18 @@ require 'addons/redscribe/mrblib/actor'
 actor 'Counter' do
   @number = 0
   --> { @number += 1 }
+  :reset --> { @number = 0 }
 end
 # `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
 # `tick` => [ Counter ] signal emitted: { &"number": 2, &"name": "Counter" }
+#
+# `notify :reset`
+# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" } 
+#
+# `tell 'Counter', :reset`
+# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" } 
+#
+# `ask 'Counter', :number` # => 1
 ```
 see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
 
@@ -167,7 +179,8 @@ stage 'First' do
   end
 end
 
-# => [ stage ] signal emitted: {
+# => [ stage ] signal emitted:
+# {
 #   &"number": 1,
 #   &"music": "first_stage.mp3",
 #   &"name":  "First",
@@ -178,11 +191,11 @@ end
 #   &"chapters": [
 #     {
 #       &"image": "path/to/chapter1.png",
-#       &"name": "Chapter1"
+#       &"name":  "Chapter1"
 #     },
 #     {
 #       &"image": "path/to/chapter2.png",
-#       &"name": "Chapter2"
+#       &"name":  "Chapter2"
 #     }
 #   ]
 # }
@@ -248,12 +261,13 @@ func _on_re_d_scribe_editor_text_changed() -> void:
 ### 2. Resource generator
 
 
-### 3. Co-routine (like Agent-based modeling)
+### 3. Concurrency (like Agent-based model)
 
-I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
+I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ).
 
 `-->{ do_something }` is a unit of execution.
 `notify :message` broadcasts the message to all actors.
+`tell 'ActorName', :message` tells the message to the actor named ActorName.
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
@@ -319,7 +333,7 @@ func _on_timer_timeout() -> void:
     pod.perform('tick')
 
 func _on_cheer_button_pressed() -> void:
-    pod.perform('notify :cheer')
+    pod.perform('tell "Turtle", :cheer')
 
 func _on_goal_area_entered(area: Area2D) -> void:
     var actor = area.get_parent()
@@ -357,7 +371,8 @@ func _on_game_over(actor_name: String) -> void:
   * [x] Example0: Basic
   * [x] Example1: Live Coding
   * [ ] Example2: Resource generator
-  * [x] Example3: Co-routine
+  * [x] Example3: Concurrency
+  * [ ] Example4: Coroutine
 
 
 ### v0.2.0 or later
@@ -373,6 +388,9 @@ func _on_game_over(actor_name: String) -> void:
   * [ ] User definable syntax
 * [ ] REPL
   * [ ] boot_file enabled
+* [ ] mrblib
+  * [ ] core_ext like ActiveSupport
+    * [ ] Duration (e.g. `1.day.ago`)
 * [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
 * [ ] src/*.cpp

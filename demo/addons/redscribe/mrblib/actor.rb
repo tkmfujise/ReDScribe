@@ -38,7 +38,7 @@ class Actor
   def attributes
     attribute_keys.map{|k| [k.to_sym, self[k]] }.to_h
   end
-  
+
   def emit(key = name.to_sym, payload = attributes)
     Godot.emit_signal key, payload
   end
@@ -79,9 +79,21 @@ def notify(key)
 end
 
 
+def tell(name, key)
+  recv, prc = $listeners[key].find{|k, _| k.name == name }
+  recv.instance_exec(&prc) if recv
+end
+
+
 def ask(name, key)
   actor = $actors.find{|a| a[:name] == name }
   actor ? actor[key] : nil
+end
+
+
+def free(name)
+  $listeners.each{|_, arr| arr.delete_if{|a| a.name == name } }
+  $actors.delete_if{|a| a.name == name }
 end
 
 

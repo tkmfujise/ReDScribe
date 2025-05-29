@@ -14,7 +14,7 @@ func _on_button_2_pressed() -> void:
 
 
 func _on_button_3_pressed() -> void:
-	show_popup("res://src/example3_co-routine/example3.tscn")
+	show_popup("res://src/example3_concurrency/example3.tscn")
 
 
 func show_popup(tscn_file: String) -> void:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxawql81gxuwy"]
 
-[ext_resource type="Script" uid="uid://dtpp2pl4xx81p" path="res://src/example3_co-routine/example_3.gd" id="1_pjbnv"]
-[ext_resource type="PackedScene" uid="uid://i1carvblk0up" path="res://src/example3_co-routine/actor/actor.tscn" id="2_jkqaq"]
+[ext_resource type="Script" uid="uid://dtpp2pl4xx81p" path="res://src/example3_concurrency/example_3.gd" id="1_pjbnv"]
+[ext_resource type="PackedScene" uid="uid://i1carvblk0up" path="res://src/example3_concurrency/actor/actor.tscn" id="2_jkqaq"]
 
 [sub_resource type="ReDScribe" id="ReDScribe_pjbnv"]
 boot_file = "uid://cnoyvs1tdwcmu"

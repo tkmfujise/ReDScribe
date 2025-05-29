@@ -1,6 +1,6 @@
 extends GutTest
 
-var Example3 = preload("res://src/example3_co-routine/example3.tscn")
+var Example3 = preload("res://src/example3_concurrency/example3.tscn")
 var scene = null
 
 

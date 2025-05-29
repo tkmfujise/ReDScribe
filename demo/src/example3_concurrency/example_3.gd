@@ -25,7 +25,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_cheer_button_pressed() -> void:
-	pod.perform('notify :cheer')
+	pod.perform('tell "Turtle", :cheer')
 
 
 func _on_goal_area_entered(area: Area2D) -> void:
