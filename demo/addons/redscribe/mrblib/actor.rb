@@ -1,4 +1,8 @@
 class Actor
+  class << self
+    attr_accessor :all, :binding_receiver, :listeners
+  end
+
   attr_accessor :name, :_fiber, :_procs
 
   def initialize(name)
@@ -45,34 +49,35 @@ class Actor
 end
 
 
+Actor.all = []
+Actor.binding_receiver = nil
+Actor.listeners = {}
+
+
 class Proc
   # for: -->{ do_something }
   def -@
-    $binding_receiver._procs << self
+    Actor.binding_receiver._procs << self
   end
 end
 
 class Symbol
   # for: :key -->{ do_something }
   def -(prc)
-    $listeners[self] ||= {}
-    $listeners[self].merge!($binding_receiver => prc)
+    Actor.listeners[self] ||= {}
+    Actor.listeners[self].merge!(Actor.binding_receiver => prc)
   end
 end
 
 
-$binding_receiver = nil
-$actors    = []
-$listeners = {}
-
 
 def tick
-  $actors.each(&:tick); true
+  Actor.all.each(&:tick); true
 end
 
 
 def notify(key)
-  $listeners[key].to_a.each do |recv, prc|
+  Actor.listeners[key].to_a.each do |recv, prc|
     recv.instance_exec(&prc)
   end
   true
@@ -80,29 +85,29 @@ end
 
 
 def tell(name, key)
-  recv, prc = $listeners[key].find{|k, _| k.name == name }
+  recv, prc = Actor.listeners[key].find{|k, _| k.name == name }
   recv.instance_exec(&prc) if recv
 end
 
 
 def ask(name, key)
-  actor = $actors.find{|a| a[:name] == name }
+  actor = Actor.all.find{|a| a[:name] == name }
   actor ? actor[key] : nil
 end
 
 
 def free(name)
-  $listeners.each{|_, arr| arr.delete_if{|a| a.name == name } }
-  $actors.delete_if{|a| a.name == name }
+  Actor.listeners.each{|_, arr| arr.delete_if{|a| a.name == name } }
+  Actor.all.delete_if{|a| a.name == name }
 end
 
 
 def actor(name, &block)
   record = Actor.new(name)
-  $binding_receiver = record
+  Actor.binding_receiver = record
   record.instance_exec(&block)
   record.create_fiber
-  $actors << record
+  Actor.all << record
   record
 end
 

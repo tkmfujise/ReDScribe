@@ -23,6 +23,7 @@ func require_ext():
 
 
 func fetch(code) -> Variant:
+	fetched_value = null
 	res.perform("Godot.emit_signal :%s, (%s)" % [FETCH_SIGNAL, code])
 	return fetched_value
 

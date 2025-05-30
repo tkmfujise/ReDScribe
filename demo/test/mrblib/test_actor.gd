@@ -14,6 +14,7 @@ func before_each():
 
 
 func fetch(code) -> Variant:
+	fetched_value = null
 	pod.perform("Godot.emit_signal :%s, (%s)" % [FETCH_SIGNAL, code])
 	return fetched_value
 
@@ -217,21 +218,21 @@ func test_free():
 		  :foo --> {}
 		end
 	""")
-	assert_eq(fetch('$actors.size'), 3)
-	assert_eq(fetch('$listeners[:bar].size'), 2)
-	assert_eq(fetch('$listeners[:foo].size'), 1)
+	assert_eq(fetch('Actor.all.size'), 3)
+	assert_eq(fetch('Actor.listeners[:bar].size'), 2)
+	assert_eq(fetch('Actor.listeners[:foo].size'), 1)
 	pod.perform('free "Foo"')
-	assert_eq(fetch('$actors.size'), 2)
-	assert_eq(fetch('$listeners[:bar].size'), 1)
-	assert_eq(fetch('$listeners[:foo].size'), 1)
+	assert_eq(fetch('Actor.all.size'), 2)
+	assert_eq(fetch('Actor.listeners[:bar].size'), 1)
+	assert_eq(fetch('Actor.listeners[:foo].size'), 1)
 	pod.perform('free "Bar"')
-	assert_eq(fetch('$actors.size'), 1)
-	assert_eq(fetch('$listeners[:bar].size'), 0)
-	assert_eq(fetch('$listeners[:foo].size'), 1)
+	assert_eq(fetch('Actor.all.size'), 1)
+	assert_eq(fetch('Actor.listeners[:bar].size'), 0)
+	assert_eq(fetch('Actor.listeners[:foo].size'), 1)
 	pod.perform('free "Buz"')
-	assert_eq(fetch('$actors.size'), 0)
-	assert_eq(fetch('$listeners[:bar].size'), 0)
-	assert_eq(fetch('$listeners[:foo].size'), 0)
+	assert_eq(fetch('Actor.all.size'), 0)
+	assert_eq(fetch('Actor.listeners[:bar].size'), 0)
+	assert_eq(fetch('Actor.listeners[:foo].size'), 0)
 	pod.perform('free "Test"')
 	assert_eq(pod.exception, '')
 
