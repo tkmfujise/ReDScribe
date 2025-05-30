@@ -41,7 +41,6 @@ func save_file() -> void:
 func save_current_file() -> void:
 	if not current_file: return
 	%Editor.trim_spaces()
-	await %Editor.text_changed
 	var f = FileAccess.open(current_file, FileAccess.WRITE)
 	f.store_string(%Editor.text)
 	f.close()

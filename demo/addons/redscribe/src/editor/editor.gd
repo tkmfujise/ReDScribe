@@ -104,7 +104,7 @@ func trim_spaces() -> void:
 	var caret_line = get_caret_line()
 	for i in get_line_count():
 		new_text += get_line(i).strip_edges(false, true) + "\n"
-	text = new_text.strip_edges(false, true) + "\n"
+	set_text(new_text.strip_edges(false, true) + "\n")
 	set_caret_line(caret_line)
 	set_caret_column(get_line(caret_line).length())
 

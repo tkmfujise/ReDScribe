@@ -5,8 +5,8 @@ class Coroutine
 
 	attr_accessor :_fiber, :name, :_name_sym #
 
-	def initialize(name)
-    self.name      = name
+	def initialize(name = nil)
+    self.name      = name || "Coroutine_#{object_id}"
     self._name_sym = name.to_sym
 	end
 
@@ -46,7 +46,7 @@ def resume(name = nil, value = nil)
 end
 
 
-def coroutine(name, &block)
+def coroutine(name = nil, &block)
   fiber = Coroutine.new(name)
   Coroutine.all << fiber
   fiber.create_fiber(block)

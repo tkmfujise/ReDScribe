@@ -110,4 +110,3 @@ def actor(name, &block)
   Actor.all << record
   record
 end
-
