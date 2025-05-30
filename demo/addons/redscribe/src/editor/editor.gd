@@ -102,11 +102,13 @@ func toggle_comment_lines_in(from: int, to: int) -> void:
 func trim_spaces() -> void:
 	var new_text   = ''
 	var caret_line = get_caret_line()
+	var v_scroll   = get_v_scroll()
 	for i in get_line_count():
 		new_text += get_line(i).strip_edges(false, true) + "\n"
 	set_text(new_text.strip_edges(false, true) + "\n")
-	set_caret_line(caret_line)
-	set_caret_column(get_line(caret_line).length())
+	set_caret_line(caret_line, false)
+	set_caret_column(get_line(caret_line).length(), false)
+	set_v_scroll(v_scroll)
 
 
 func _can_drop_data(_position: Vector2, data: Variant) -> bool:
