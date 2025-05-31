@@ -3,14 +3,14 @@ class Coroutine
     attr_accessor :all, :current
   end
 
-	attr_accessor(
+  attr_accessor(
     :_fiber, :_proc, :_parent, :name, :_name_sym, :_last_input
   )
 
-	def initialize(_name = nil)
+  def initialize(_name = nil)
     self.name      = _name || "Coroutine_#{object_id}"
     self._name_sym = name.to_sym
-	end
+  end
 
   def create_fiber(block)
     self._proc  = block
@@ -131,3 +131,4 @@ def coroutine(name = nil, &block)
   record.create_fiber(block)
   record
 end
+
