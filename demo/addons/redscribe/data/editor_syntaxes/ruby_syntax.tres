@@ -14,7 +14,7 @@ regions = {
 keywords = {
 "boolean": ["true", "false", "nil"],
 "control": ["self", "yield", "super", "attr_accessor", "attr_reader", "attr_writer", "attr", "private", "public", "protected", "alias", "alias_method"],
-"keyword": ["class", "def", "do", "begin", "rescue", "raise", "end", "module", "return", "require", "extend", "include", "prepend", "initialize", "new", "if", "else", "elsif", "unless", "next", "break", "using", "catch", "throw", "case", "when"]
+"keyword": ["class", "def", "do", "begin", "rescue", "raise", "end", "module", "return", "require", "extend", "include", "prepend", "initialize", "new", "if", "else", "elsif", "unless", "next", "break", "using", "catch", "throw", "case", "when", "while", "until", "for", "redo", "retry"]
 }
 completions = [["class", "class"], ["def", "def"], ["end", "end"], ["return", "return"], ["module", "module"], ["require", "require"], ["attr_accessor", "attr_accessor"], ["private", "private"], ["protected", "protected"]]
 metadata/_custom_type_script = "uid://c6crsqt7405r"

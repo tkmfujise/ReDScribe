@@ -129,18 +129,49 @@ actor 'Counter' do
   --> { @number += 1 }
   :reset --> { @number = 0 }
 end
+
 # `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
 # `tick` => [ Counter ] signal emitted: { &"number": 2, &"name": "Counter" }
 #
 # `notify :reset`
-# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" } 
+# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
 #
 # `tell 'Counter', :reset`
-# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" } 
+# `tick` => [ Counter ] signal emitted: { &"number": 1, &"name": "Counter" }
 #
 # `ask 'Counter', :number` # => 1
 ```
 see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
+
+
+### coroutine
+```ruby
+require 'addons/redscribe/mrblib/coroutine'
+
+coroutine do
+  loop do
+    emit! :given, ___?
+    case ___
+    when :sub
+      invoke! 'sub'
+    end
+  end
+end
+
+coroutine 'sub' do
+  emit! :sub, 'called'
+end
+
+# `continue`       # When `___?` called, it stops until the next continue.
+# `continue`       => [ given ] signal emitted: <null>
+# `continue true`  => [ given ] signal emitted: true
+# `continue :sub`  => [ given ] signal emitted: :sub
+#                  => [ sub ] signal emitted: "called"
+# `continue 'sth'` => [ given ] signal emitted: 'sth'
+# `continue :sub`  => [ given ] signal emitted: :sub
+#                  => [ sub ] signal emitted: "called"
+```
+see more: [demo/test/mrblib/test_coroutine.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_coroutine.gd)
 
 
 ### math
@@ -349,6 +380,23 @@ func _on_game_over(actor_name: String) -> void:
 [![Live coding](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
 
 
+### 4. Dialog controller (Coroutine)
+
+I have created a DSL( [demo/addons/redscribe/mrblib/coroutine.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/coroutine.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
+
+`___?` is the syntactic sugar for calling `Fiber.yield`.
+
+Call `continue` from a GDScript, and the current coroutine will resume.
+
+```ruby
+# TODO
+```
+
+Then, create a GDScript file and set the `boot_file` property of the `controller` instance in the `ReDScribe` class to *boot.rb*.
+```gdscript
+# TODO
+```
+
 
 ## Roadmap
 
@@ -383,7 +431,6 @@ func _on_game_over(actor_name: String) -> void:
 * [ ] Editor
   * [ ] Support multiple files open
   * [ ] Support search text
-  * [ ] Fix Comment-out indent
   * [ ] Snippet
     * [ ] require
   * [ ] User definable theme
