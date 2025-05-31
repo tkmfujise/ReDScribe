@@ -60,10 +60,14 @@ class Coroutine
   def ___?
     self._last_input = Fiber.yield
   end
+  alias_method :_?,  :___?
+  alias_method :__?, :___?
 
   def ___
     _last_input
   end
+  alias_method :_,  :___
+  alias_method :__, :___ #
 end
 
 
@@ -79,6 +83,29 @@ def free(name)
     end
   end
   true
+end
+
+
+# = Start coroutines
+#
+#   start # start all coroutines
+#
+#   or
+#
+#   start 'target'
+#
+def start(name = nil)
+  if name
+    target = Coroutine.all.find{|c| c.name == name }
+    if target
+      target.recreate_fiber
+      target.resume
+    else
+      false
+    end
+  else
+    Coroutine.all.map{|c| c.recreate_fiber; c.resume }
+  end
 end
 
 
@@ -131,4 +158,3 @@ def coroutine(name = nil, &block)
   record.create_fiber(block)
   record
 end
-
