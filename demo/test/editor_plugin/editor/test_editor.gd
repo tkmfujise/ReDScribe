@@ -41,3 +41,33 @@ func test_toggle_comment_with_selection():
 		  # bar # test
 		# end
 	""")
+
+
+func test_toggle_commentout_with_selection():
+	scene.text = """
+		# do_something do
+		#   bar # test
+		# end
+	"""
+	scene.select(1, 0, 3, 0)
+	scene.toggle_comment()
+	assert_eq(scene.text, """
+		do_something do
+		  bar # test
+		end
+	""")
+
+
+func test_toggle_commentout_nospace_with_selection():
+	scene.text = """
+		#do_something do
+		#  bar # test
+		#end
+	"""
+	scene.select(1, 0, 3, 0)
+	scene.toggle_comment()
+	assert_eq(scene.text, """
+		do_something do
+		 bar # test
+		end
+	""")

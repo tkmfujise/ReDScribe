@@ -90,10 +90,12 @@ func toggle_comment_lines_in(from: int, to: int) -> void:
 		var matches = regex.search(get_line(i))
 		var indent  = matches.get_string(1)
 		var content = matches.get_string(2)
-		if content and content.begins_with("#"): # remove `#`
-			lines.push_back(indent + content.substr(1).strip_edges(false))
+		if content and content.begins_with('#'): # remove `#`
+			var n = 1
+			if content.begins_with('# '): n = 2
+			lines.push_back(indent + content.substr(n))
 		else: # add `#`
-			lines.push_back(indent + "# " + content)
+			lines.push_back(indent + '# ' + content)
 	for i in numbers.size():
 		set_line(numbers.pop_front(), lines.pop_front())
 	set_caret_column(get_line(get_caret_line(0)).length())
