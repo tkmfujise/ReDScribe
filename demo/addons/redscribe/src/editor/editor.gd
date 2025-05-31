@@ -91,7 +91,7 @@ func toggle_comment_lines_in(from: int, to: int) -> void:
 		var indent  = matches.get_string(1)
 		var content = matches.get_string(2)
 		if content and content.begins_with("#"): # remove `#`
-			lines.push_back(indent + content.substr(1).strip_edges())
+			lines.push_back(indent + content.substr(1).strip_edges(false))
 		else: # add `#`
 			lines.push_back(indent + "# " + content)
 	for i in numbers.size():
