@@ -7,7 +7,7 @@ class Resource
     self._mapping  = {}
     self._children = []
     instance_exec(&block) if block_given?
-	end
+  end
 
   def attribute_keys
     instance_variables.map{|k| k.to_s[1..-1] }.reject{|k| k.start_with? '_' }

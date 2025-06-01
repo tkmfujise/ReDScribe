@@ -94,7 +94,7 @@ end
 #
 def resume(name = nil, value = nil)
   if name
-    Coroutine.all.find{|c| c.name == name }&.resume(value) || true
+    Coroutine.all.find{|c| c.name == name }&.resume(value) || false
   else
     Coroutine.all.map(&:resume)
   end
@@ -109,7 +109,6 @@ end
 def continue(value = nil)
   if Coroutine.current
     Coroutine.current.resume(value)
-    true
   else
     false
   end

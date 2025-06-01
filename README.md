@@ -141,7 +141,9 @@ end
 #
 # `ask 'Counter', :number` # => 1
 ```
-see more: [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
+see more:
+* [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb)
+* [demo/test/mrblib/test_actor.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_actor.gd)
 
 
 ### coroutine
@@ -185,7 +187,9 @@ end
 # `resume 'foo', false` => [ foo ] signal emitted: &"finished"
 # `resume 'bar', false` => [ bar ] signal emitted: &"finished"
 ```
-see more: [demo/test/mrblib/test_coroutine.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_coroutine.gd)
+see more:
+* [demo/addons/redscribe/mrblib/coroutine.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/coroutine.rb)
+* [demo/test/mrblib/test_coroutine.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_coroutine.gd)
 
 
 ### math
@@ -195,7 +199,10 @@ require 'addons/redscribe/mrblib/math'
 sin(π) # => 0.0
 √(2)   # => 1.41421356237309
 ```
-see more: [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_math.gd)
+see more:
+* [demo/addons/redscribe/mrblib/math.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/math.rb)
+* [demo/test/mrblib/test_math.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_math.gd)
+
 
 ### resource
 ```ruby
@@ -219,7 +226,7 @@ stage 'First' do
   end
 
   chapter do
-    name 'Chapter2'
+    name  'Chapter2'
     image 'path/to/chapter2.png'
   end
 end
@@ -245,7 +252,9 @@ end
 #   ]
 # }
 ```
-see more: [demo/test/mrblib/test_resource.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_resource.gd)
+see more:
+* [demo/addons/redscribe/mrblib/resource.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/resource.rb)
+* [demo/test/mrblib/test_resource.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_resource.gd)
 
 
 ### shell
@@ -257,7 +266,9 @@ cd 'addons' do
 end
 # Execute the shell command `ls -lA` in the addons directory.
 ```
-see more: [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
+see more:
+* [demo/addons/redscribe/mrblib/shell.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/shell.rb)
+* [demo/test/mrblib/test_shell.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_shell.gd)
 
 
 ## Examples
