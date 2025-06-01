@@ -162,17 +162,17 @@ end
 require 'addons/redscribe/mrblib/coroutine'
 
 coroutine 'foo' do
-	emit! :foo, :started
+  emit! :foo, :started
   while ___?
-  	emit! :foo, :progress
+    emit! :foo, :progress
   end
   emit! :foo, :finished
 end
 
 coroutine 'bar' do
-	emit! :bar, :started
+  emit! :bar, :started
   while ___?
-  	emit! :bar, :progress
+    emit! :bar, :progress
   end
   emit! :bar, :finished
 end
