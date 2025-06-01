@@ -151,25 +151,39 @@ require 'addons/redscribe/mrblib/coroutine'
 coroutine do
   loop do
     emit! :given, ___?
-    case ___
-    when :sub
-      invoke! 'sub'
-    end
   end
 end
 
-coroutine 'sub' do
-  emit! :sub, 'called'
+# `start`         # When `___?` called, it stops until the next continue.
+# `continue true` => [ given ] signal emitted: true
+# `continue 123`  => [ given ] signal emitted: 123
+```
+```ruby
+require 'addons/redscribe/mrblib/coroutine'
+
+coroutine 'foo' do
+	emit! :foo, :started
+  while ___?
+  	emit! :foo, :progress
+  end
+  emit! :foo, :finished
 end
 
-# `continue`       # When `___?` called, it stops until the next continue.
-# `continue`       => [ given ] signal emitted: <null>
-# `continue true`  => [ given ] signal emitted: true
-# `continue :sub`  => [ given ] signal emitted: :sub
-#                  => [ sub ] signal emitted: "called"
-# `continue 'sth'` => [ given ] signal emitted: 'sth'
-# `continue :sub`  => [ given ] signal emitted: :sub
-#                  => [ sub ] signal emitted: "called"
+coroutine 'bar' do
+	emit! :bar, :started
+  while ___?
+  	emit! :bar, :progress
+  end
+  emit! :bar, :finished
+end
+
+# `start :all`          # all coroutine start
+#                       => [ foo ] signal emitted: &"started"
+#                       => [ bar ] signal emitted: &"started"
+# `resume 'foo', true`  => [ foo ] signal emitted: &"progress"
+# `resume 'bar', true`  => [ bar ] signal emitted: &"progress"
+# `resume 'foo', false` => [ foo ] signal emitted: &"finished"
+# `resume 'bar', false` => [ bar ] signal emitted: &"finished"
 ```
 see more: [demo/test/mrblib/test_coroutine.gd](https://github.com/tkmfujise/ReDScribe/blob/main/demo/test/mrblib/test_coroutine.gd)
 
@@ -441,7 +455,7 @@ Then, create a GDScript file and set the `boot_file` property of the `controller
   * [ ] core_ext like ActiveSupport
     * [ ] Duration (e.g. `1.day.ago`)
 * [ ] src/*.cpp
-  * [ ] Regexp support
+  * [ ] Regexp support (call Godot RegEx)
   * [ ] remove global variables
 * [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.

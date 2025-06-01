@@ -1,36 +1,36 @@
 extends GutTest
 
 var res : ReDScribe = null
-var result
+var result : Array
 
 
 func before_each():
 	res = ReDScribe.new()
 	res.perform('require "addons/redscribe/mrblib/coroutine"')
 	res.channel.connect(_subscribe)
-	result = null
+	result = []
 
 
 func perform(code):
-	result = null
+	result = []
 	res.perform(code)
 
 
 func _subscribe(key, payload):
-	result = { 'key': key, 'payload': payload }
+	result.append({ 'key': key, 'payload': payload })
 
 
 func test_start():
 	perform("""
-		coroutine 'Foo' do
+		coroutine do
 		  emit! :foo, 'bar'
 		end
 	""")
-	assert_null(result)
+	assert_eq(result, [])
 	perform('start')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], 'bar')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
 
 
 func test_start_name():
@@ -42,42 +42,14 @@ func test_start_name():
 		  emit! :bar, 'piyo'
 		end
 	""")
-	assert_null(result)
+	assert_eq(result, [])
 	perform('start "Foo"')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], 'bar')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
 
 
-func test_start_mutiple():
-	perform("""
-		coroutine 'Foo' do
-		  emit! :foo, 'bar'
-		end
-	""")
-	assert_null(result)
-	perform('start "Foo"')
-	assert_not_null(result)
-	perform('start "Foo"')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], 'bar')
-
-
-func test_resume():
-	perform("""
-		coroutine 'Foo' do
-		  emit! :foo, 'bar'
-		end
-	""")
-	assert_null(result)
-	perform('resume')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], 'bar')
-
-
-func test_resume_name():
+func test_start_multiple():
 	perform("""
 		coroutine 'Foo' do
 		  emit! :foo, 'bar'
@@ -86,72 +58,170 @@ func test_resume_name():
 		  emit! :bar, 'piyo'
 		end
 	""")
-	assert_null(result)
-	perform('resume "Foo"')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], 'bar')
+	assert_eq(result, [])
+	perform('start :all')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+	assert_eq(result[1]['key'], &'bar')
+	assert_eq(result[1]['payload'], 'piyo')
 
 
-func test_resume_mutiple():
+func test_start_multi_times():
 	perform("""
 		coroutine 'Foo' do
 		  emit! :foo, 'bar'
 		end
 	""")
-	assert_null(result)
+	assert_eq(result, [])
+	perform('start "Foo"')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+	perform('start "Foo"')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+
+
+func test_resume():
+	perform("""
+		coroutine do
+		  ___?
+		  emit! :foo, 'bar'
+		end
+	""")
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
+	perform('resume')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+
+
+func test_resume_name():
+	perform("""
+		coroutine 'Foo' do
+		  ___?
+		  emit! :foo, 'bar'
+		end
+		coroutine 'Bar' do
+		  ___?
+		  emit! :bar, 'piyo'
+		end
+	""")
+	assert_eq(result, [])
+	perform('start :all')
+	assert_eq(result, [])
 	perform('resume "Foo"')
-	assert_not_null(result)
-	perform('resume "Foo"')
-	assert_null(result)
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+
+
+func test_resume_multiple():
+	perform("""
+		coroutine 'Foo' do
+		  ___?
+		  emit! :foo, 'bar'
+		end
+		coroutine 'Bar' do
+		  ___?
+		  emit! :bar, 'piyo'
+		end
+	""")
+	assert_eq(result, [])
+	perform('start :all')
+	assert_eq(result, [])
+	perform('resume')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+	assert_eq(result[1]['key'], &'bar')
+	assert_eq(result[1]['payload'], 'piyo')
+
+
+func test_resume_multi_times():
+	perform("""
+		coroutine do
+		  ___?
+		  emit! :foo, 'bar'
+		end
+	""")
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
+	perform('resume')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+	perform('resume')
+	assert_eq(result, [])
 
 
 func test_yield():
 	perform("""
-		coroutine 'Foo' do
+		coroutine do
 		  val = ___?
 		  emit! :foo, val
 		end
 	""")
-	assert_null(result)
-	perform('resume')
-	assert_null(result)
-	perform('resume "Foo", true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], true)
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
+	perform('continue true')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], true)
+
+
+func test_yield_last_value():
+	perform("""
+		coroutine do
+		  ___?
+		  emit! :foo, ___
+		end
+	""")
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
+	perform('continue true')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], true)
 
 
 func test_yield_alias_1():
 	perform("""
-		coroutine 'Foo' do
+		coroutine do
 		  _?
 		  emit! :foo, _
 		end
 	""")
-	assert_null(result)
-	perform('resume')
-	assert_null(result)
-	perform('resume "Foo", true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], true)
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
+	perform('continue true')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], true)
 
 
 func test_yield_alias_2():
 	perform("""
-		coroutine 'Foo' do
+		coroutine do
 		  __?
 		  emit! :foo, __
 		end
 	""")
-	assert_null(result)
-	perform('resume')
-	assert_null(result)
-	perform('resume "Foo", true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'foo')
-	assert_eq(result['payload'], true)
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
+	perform('continue true')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], true)
 
 
 func test_yield_loop():
@@ -162,94 +232,76 @@ func test_yield_loop():
 		  end
 		end
 	""")
-	assert_null(result)
-	perform('continue')
-	assert_null(result)
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result, [])
 	perform('continue 1')
-	assert_not_null(result)
-	assert_eq(result['key'], &'given')
-	assert_eq(result['payload'], 1)
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'given')
+	assert_eq(result[0]['payload'], 1)
 	perform('continue 2')
-	assert_not_null(result)
-	assert_eq(result['key'], &'given')
-	assert_eq(result['payload'], 2)
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'given')
+	assert_eq(result[0]['payload'], 2)
+	perform('continue 3')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'given')
+	assert_eq(result[0]['payload'], 3)
 
 
-func test_invoke():
+func test_module_include():
 	perform("""
-		coroutine do
-		  until ___?
-			emit! :main, ___
-		  end
-		  invoke! 'sub'
-		end
-
-		coroutine 'sub' do
-		  emit! :sub, 'called'
-		end
-	""")
-	assert_null(result)
-	perform('continue')
-	assert_null(result)
-	perform('continue')
-	assert_not_null(result)
-	assert_eq(result['key'], &'main')
-	assert_eq(result['payload'], null)
-	perform('continue true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'sub')
-	assert_eq(result['payload'], 'called')
-
-
-func test_invoke_and_loop():
-	perform("""
-		coroutine do
-		  loop do
-			if ___?
-			  invoke! 'sub'
-			end
+		module Helper
+		  def foo!
+			emit! :foo, 'bar'
 		  end
 		end
+		Coroutine.include Helper
 
-		coroutine 'sub' do
-		  emit! :sub, 'called'
-		end
-	""")
-	assert_null(result)
-	perform('continue')
-	assert_null(result)
-	perform('continue')
-	assert_null(result)
-	perform('continue true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'sub')
-	assert_eq(result['payload'], 'called')
-	perform('continue true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'sub')
-	assert_eq(result['payload'], 'called')
-
-
-
-func test_yield_in_invoked_one():
-	perform("""
 		coroutine do
-		  invoke! 'sub'
-		  emit! :main, 'called'
-		end
-
-		coroutine 'sub' do
-		  emit! :sub, ___?
+		  foo!
 		end
 	""")
-	assert_null(result)
-	perform('continue')
-	assert_null(result)
-	perform('continue 1')
-	assert_not_null(result)
-	assert_eq(result['key'], &'sub')
-	assert_eq(result['payload'], 1)
-	perform('continue true')
-	assert_not_null(result)
-	assert_eq(result['key'], &'main')
-	assert_eq(result['payload'], 'called')
+	assert_eq(result, [])
+	perform('start')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'foo')
+	assert_eq(result[0]['payload'], 'bar')
+
+
+func test_control_flow():
+	perform("""
+		coroutine '1st' do
+		  while ___?
+			emit! :first, :progress
+		  end
+		  emit! :first, :finished
+		end
+
+		coroutine '2nd' do
+		  while ___?
+			emit! :second, :progress
+		  end
+		  emit! :second, :finished
+		end
+	""")
+	assert_eq(result, [])
+	perform('start :all')
+	assert_eq(result, [])
+	for i in 3:
+		perform('resume "1st", true')
+		assert_eq(result.size(), 1)
+		assert_eq(result[0]['key'], &'first')
+		assert_eq(result[0]['payload'], 'progress')
+		perform('resume "2nd", true')
+		assert_eq(result.size(), 1)
+		assert_eq(result[0]['key'], &'second')
+		assert_eq(result[0]['payload'], 'progress')
+	perform('resume "1st", false')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'first')
+	assert_eq(result[0]['payload'], 'finished')
+	perform('resume "2nd", false')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['key'], &'second')
+	assert_eq(result[0]['payload'], 'finished')
