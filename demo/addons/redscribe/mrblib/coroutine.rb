@@ -92,11 +92,11 @@ end
 #   resume 'target'
 #   resume 'target', value
 #
-def resume(name = nil, value = nil)
+def resume(name = nil, value = true)
   if name
     Coroutine.all.find{|c| c.name == name }&.resume(value) || false
   else
-    Coroutine.all.map(&:resume)
+    Coroutine.all.map{|c| c.resume(value) }
   end
 end
 
@@ -106,7 +106,7 @@ end
 #   continue
 #   continue value
 #
-def continue(value = nil)
+def continue(value = true)
   if Coroutine.current
     Coroutine.current.resume(value)
   else
