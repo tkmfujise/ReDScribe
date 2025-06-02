@@ -56,6 +56,8 @@ func _response(key: StringName, value: Variant) -> void:
 		&'asks':
 			show_messge(value[0], value[1])
 			setup_reply_choices(value[2])
+		&'battle':
+			print_debug('TODO: battle!')
 		_: print_debug('[%s] response: %s' % [key, value])
 
 

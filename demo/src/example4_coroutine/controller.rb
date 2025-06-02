@@ -4,7 +4,8 @@ module Helper
   def says(str)
     case str
     when Array
-      str.each{|s| says(s); ___? }
+      str[0..-2].each{|s| asks(s, true => 'Continue'); ___? }
+      says(str.last)
     else
       emit! :says, [name, str]
     end
@@ -20,16 +21,18 @@ module Helper
 end
 Coroutine.include Helper
 
+$people_spoken = Set.new
+
 
 coroutine 'Woman' do
-  asks "Hello traveler! Do you like Ruby?"
+  asks "Hi! Do you like Ruby?"
   if ___?
     says "Oh! Really? I love Ruby too!"
   else
     says ["Oh, I see. If you haven't used Ruby much,",
-          "Spend more time with it. I'm sure you'll love it!"]
+          "spend more time with it. I'm sure you'll love it!"]
   end
-  puts ___
+  $people_spoken.add(name)
 end
 
 
@@ -41,17 +44,21 @@ coroutine 'Man' do
   }
   case ___?
   when :jrpg
-    says "MOTHER2 is my origin."
+    says "I'm also love it. MOTHER2 is my origin."
   when :act_adv
-    says "The Legend of Zelda is a huge part of my life."
+    says "I'm also love it. The Legend of Zelda is a huge part of my life."
   when :pokemon
     says "When our eyes meet, it's time for a Pokémon battle!"
     battle!
   end
-  puts ___
+  $people_spoken.add(name)
 end
 
 
 coroutine 'Ninja' do
-  says "..."
+  if $people_spoken.size < 2
+    says ["...", "... #{$people_spoken.size}"]
+  else
+    says "Nin-nin!"
+  end
 end
