@@ -17,7 +17,7 @@ actor 'Rabbit' do
   --> { run unless @wait }
   :sunny   --> { @wait = false }
   :raining --> { @wait = true }
-  
+
   def run
     @position += @speed * rand
   end
@@ -29,7 +29,7 @@ actor 'Turtle' do
   @speed    = 1
   --> { run }
   :cheer --> { @speed += 1 }
-  
+
   def run
     @position += @speed
   end

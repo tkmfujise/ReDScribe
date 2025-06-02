@@ -1,8 +1,7 @@
 @tool
 extends Node2D
 
-@export var label : String :
-	set(s): label = s; %Label.text = s
+@export var label : String : set = set_label
 
 
 func update(dict: Dictionary) -> void:
@@ -10,6 +9,12 @@ func update(dict: Dictionary) -> void:
 		var dx = dict['position'] - position.x
 		position.x += dx
 		set_speech(dx)
+
+
+func set_label(_label: String) -> void:
+	label = _label
+	if not is_node_ready(): await ready
+	%Label.text = _label
 
 
 func set_speech(dx: int) -> void:
