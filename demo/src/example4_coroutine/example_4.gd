@@ -12,7 +12,7 @@ func start(_name: String) -> void:
 	controller.perform('start "%s"' % _name)
 
 
-func resume(value: Variant = null) -> void:
+func resume(value: Variant = true) -> void:
 	controller.perform('continue %s' % value)
 
 
