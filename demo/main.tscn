@@ -71,6 +71,16 @@ layout_mode = 2
 text = "Example3: Concurrency"
 alignment = 0
 
+[node name="ButtonContainer4" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button4" type="Button" parent="VBoxContainer/ButtonContainer4"]
+layout_mode = 2
+text = "Example4: Coroutine"
+alignment = 0
+
 [node name="Popup" type="Popup" parent="."]
 unique_name_in_owner = true
 initial_position = 1
@@ -119,5 +129,6 @@ size_flags_vertical = 3
 [connection signal="pressed" from="VBoxContainer/ButtonContainer1/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer2/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer3/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer4/Button4" to="." method="_on_button_4_pressed"]
 [connection signal="popup_hide" from="Popup" to="." method="_on_popup_popup_hide"]
 [connection signal="pressed" from="Popup/VBoxContainer/Navigation/BackButton" to="." method="_on_back_button_pressed"]

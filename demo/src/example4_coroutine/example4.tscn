@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://ppw3adk2dej6"]
+
+[ext_resource type="Script" uid="uid://lnf66yi2fppj" path="res://src/example4_coroutine/example_4.gd" id="1_j0xgu"]
+[ext_resource type="Theme" uid="uid://nnrkgoo1cbrj" path="res://themes/default.tres" id="1_jx85h"]
+[ext_resource type="PackedScene" uid="uid://dra00a41xses1" path="res://src/example4_coroutine/speaker/speaker.tscn" id="3_76ql6"]
+
+[sub_resource type="ReDScribe" id="ReDScribe_jx85h"]
+boot_file = "uid://78aubggkiha3"
+
+[node name="Example4" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jx85h")
+script = ExtResource("1_j0xgu")
+controller = SubResource("ReDScribe_jx85h")
+
+[node name="Woman" parent="." instance=ExtResource("3_76ql6")]
+position = Vector2(298, 41)
+label = "🦸‍♀️"
+
+[node name="Man" parent="." instance=ExtResource("3_76ql6")]
+position = Vector2(893, 40)
+label = "🦹‍♂️"
+
+[node name="Ninja" parent="." instance=ExtResource("3_76ql6")]
+position = Vector2(1489, 42)
+label = "🥷"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 86.0
+offset_top = -266.0
+offset_right = -106.0
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Message" type="RichTextLabel" parent="PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Let's talk to someone."
+fit_content = true
+
+[node name="Reply" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = 2.0
+offset_right = 250.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="Reply"]
+layout_mode = 2
+text = "TEST"
+
+[node name="TemplateButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -411.0
+offset_right = 53.0
+offset_bottom = -358.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Resume"
+
+[connection signal="start" from="Woman" to="." method="_on_speaker_start" binds= ["Woman"]]
+[connection signal="start" from="Man" to="." method="_on_speaker_start" binds= ["Man"]]
+[connection signal="start" from="Ninja" to="." method="_on_speaker_start" binds= ["Ninja"]]

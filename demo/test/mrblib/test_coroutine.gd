@@ -87,8 +87,9 @@ func test_start_multi_times():
 func test_resume():
 	perform("""
 		coroutine do
-		  ___?
-		  emit! :foo, 'bar'
+		  if ___?
+		  	emit! :foo, 'bar'
+		  end
 		end
 	""")
 	assert_eq(result, [])
@@ -170,7 +171,7 @@ func test_yield():
 	assert_eq(result, [])
 	perform('start')
 	assert_eq(result, [])
-	perform('continue true')
+	perform('continue')
 	assert_eq(result.size(), 1)
 	assert_eq(result[0]['key'], &'foo')
 	assert_eq(result[0]['payload'], true)
@@ -186,10 +187,10 @@ func test_yield_last_value():
 	assert_eq(result, [])
 	perform('start')
 	assert_eq(result, [])
-	perform('continue true')
+	perform('continue 123')
 	assert_eq(result.size(), 1)
 	assert_eq(result[0]['key'], &'foo')
-	assert_eq(result[0]['payload'], true)
+	assert_eq(result[0]['payload'], 123)
 
 
 func test_yield_alias_1():
@@ -202,10 +203,10 @@ func test_yield_alias_1():
 	assert_eq(result, [])
 	perform('start')
 	assert_eq(result, [])
-	perform('continue true')
+	perform('continue 123')
 	assert_eq(result.size(), 1)
 	assert_eq(result[0]['key'], &'foo')
-	assert_eq(result[0]['payload'], true)
+	assert_eq(result[0]['payload'], 123)
 
 
 func test_yield_alias_2():
@@ -218,10 +219,10 @@ func test_yield_alias_2():
 	assert_eq(result, [])
 	perform('start')
 	assert_eq(result, [])
-	perform('continue true')
+	perform('continue 123')
 	assert_eq(result.size(), 1)
 	assert_eq(result[0]['key'], &'foo')
-	assert_eq(result[0]['payload'], true)
+	assert_eq(result[0]['payload'], 123)
 
 
 func test_yield_loop():

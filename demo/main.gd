@@ -17,6 +17,10 @@ func _on_button_3_pressed() -> void:
 	show_popup("res://src/example3_concurrency/example3.tscn")
 
 
+func _on_button_4_pressed() -> void:
+	show_popup("res://src/example4_coroutine/example4.tscn")
+
+
 func show_popup(tscn_file: String) -> void:
 	var child = load(tscn_file).instantiate()
 	child.size_flags_horizontal = SIZE_EXPAND_FILL

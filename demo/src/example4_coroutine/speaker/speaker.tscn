@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dra00a41xses1"]
+
+[ext_resource type="Script" uid="uid://bdl8hbqdrvuu0" path="res://src/example4_coroutine/speaker/speaker.gd" id="1_xufl1"]
+
+[node name="Speaker" type="Node2D"]
+script = ExtResource("1_xufl1")
+label = "🦸🏻‍♀️"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "🦸🏻‍♀️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Talk"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
