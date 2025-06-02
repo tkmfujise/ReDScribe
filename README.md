@@ -460,23 +460,23 @@ coroutine 'Woman' do
   if ___?
     says "Oh! Really? I love Ruby too!"
   else
-    says ["Oh, I see. If you haven't used Ruby much,",
+    says ["I see. If you haven't used Ruby much,",
           "spend more time with it. I'm sure you'll love it!"]
   end
   $people_spoken.add(name)
 end
 
 coroutine 'Man' do
-  asks "Which one would you like?", {
+  asks "Which game do you like the most?", {
     jrpg:    "JRPG",
     act_adv: "Action-Adventure",
     pokemon: "Pokémon",
   }
   case ___?
   when :jrpg
-    says "I'm also love it. MOTHER2 is my origin."
+    says "I also love it. MOTHER2 is my origin."
   when :act_adv
-    says "I'm also love it. The Legend of Zelda is a huge part of my life."
+    says "I also love it. The Legend of Zelda is a huge part of my life."
   when :pokemon
     says "When our eyes meet, it's time for a Pokémon battle!"
     battle!
@@ -500,8 +500,8 @@ extends Control
 @export var controller : ReDScribe
 
 func _ready() -> void:
-    controller.channel.connect(_response)
-    setup_reply_choices()
+    controller.channel.connect(_handle)
+    setup_choices()
 
 func start(_name: String) -> void:
     controller.perform('start "%s"' % _name)
@@ -510,12 +510,15 @@ func resume(value: Variant = true) -> void:
     controller.perform('continue %s' % value)
 
 func show_messge(speaker_name: String, body: String) -> void:
-    hide_reply_choices()
+    hide_choices()
     %Message.text = "( %s )\n%s" % [speaker_name, body]
 
-func setup_reply_choices(dict: Dictionary = {}) -> void:
-    hide_reply_choices()
+func setup_choices(dict: Dictionary = {}) -> void:
+    hide_choices()
     for key in dict: add_choice(dict[key], key)
+
+func hide_choices() -> void:
+    for child in %Reply.get_children(): child.queue_free()
 
 func add_choice(label: String, value: Variant) -> void:
     var btn = %TemplateButton.duplicate()
@@ -524,9 +527,6 @@ func add_choice(label: String, value: Variant) -> void:
     btn.pressed.connect(resume.bind(_value_for_rb(value)))
     %Reply.add_child(btn)
 
-func hide_reply_choices() -> void:
-    for child in %Reply.get_children(): child.queue_free()
-
 func _value_for_rb(value: Variant) -> Variant:
     match typeof(value):
         TYPE_STRING_NAME: return ':%s' % value
@@ -534,15 +534,15 @@ func _value_for_rb(value: Variant) -> Variant:
         TYPE_NIL:         return 'nil'
         _: return value
 
-func _response(key: StringName, value: Variant) -> void:
-  match key:
-      &'says': show_messge(value[0], value[1])
-      &'asks':
-          show_messge(value[0], value[1])
-          setup_reply_choices(value[2])
-      &'battle':
-          print_debug('TODO: battle!')
-      _: print_debug('[%s] response: %s' % [key, value])
+func _handle(key: StringName, value: Variant) -> void:
+    match key:
+        &'says': show_messge(value[0], value[1])
+        &'asks':
+             show_messge(value[0], value[1])
+             setup_choices(value[2])
+        &'battle':
+             print_debug('TODO: battle!')
+        _: print_debug('[%s] response: %s' % [key, value])
 
 func _on_speaker_start(_name: String) -> void:
     start(_name)
