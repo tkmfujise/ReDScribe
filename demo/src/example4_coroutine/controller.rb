@@ -17,14 +17,14 @@ end
 
 coroutine 'Man' do
   asks "Which game do you like the most?", {
-    jrpg:    "JRPG",
-    act_adv: "Action-Adventure",
+    mother2: "MOTHER2",
+    zelda:   "The Legend of Zelda",
     pokemon: "Pokémon",
   }
   case ___?
-  when :jrpg
+  when :mother2
     says "I also love it. MOTHER2 is my origin."
-  when :act_adv
+  when :zelda
     says "I also love it. The Legend of Zelda is a huge part of my life."
   when :pokemon
     says "When our eyes meet, it's time for a Pokémon battle!"
@@ -38,6 +38,7 @@ coroutine 'Ninja' do
   if $people_spoken.size < 2
     says ["...", "... #{$people_spoken.size}"]
   else
-    says "Nin-nin!"
+    says "See you later."
+    hide!
   end
 end

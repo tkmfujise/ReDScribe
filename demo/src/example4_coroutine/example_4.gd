@@ -38,6 +38,10 @@ func add_choice(label: String, value: Variant) -> void:
 	%Reply.add_child(btn)
 
 
+func hide_speaker(speaker_name: String) -> void:
+	get_node(speaker_name).hide()
+
+
 # = Value for Ruby
 # 	&'key'   => ':key'
 # 	'string' => '"string"'
@@ -56,6 +60,7 @@ func _handle(key: StringName, value: Variant) -> void:
 		&'asks':
 			show_messge(value[0], value[1])
 			setup_choices(value[2])
+		&'hide': hide_speaker(value[0])
 		&'battle':
 			print_debug('TODO: battle!')
 		_: print_debug('[%s] response: %s' % [key, value])

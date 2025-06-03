@@ -18,5 +18,9 @@ module Helper
   def battle!
     emit! :battle, [name]
   end
+
+  def hide!
+    emit! :hide, [name]
+  end
 end
 Coroutine.include Helper

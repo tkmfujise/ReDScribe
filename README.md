@@ -449,6 +449,10 @@ module Helper
   def battle!
     emit! :battle, [name]
   end
+
+  def hide!
+    emit! :hide, [name]
+  end
 end
 
 Coroutine.include Helper
@@ -473,14 +477,14 @@ end
 
 coroutine 'Man' do
   asks "Which game do you like the most?", {
-    jrpg:    "JRPG",
-    act_adv: "Action-Adventure",
+    mother2: "MOTHER2",
+    zelda:   "The Legend of Zelda",
     pokemon: "Pokémon",
   }
   case ___?
-  when :jrpg
+  when :mother2
     says "I also love it. MOTHER2 is my origin."
-  when :act_adv
+  when :zelda
     says "I also love it. The Legend of Zelda is a huge part of my life."
   when :pokemon
     says "When our eyes meet, it's time for a Pokémon battle!"
@@ -493,7 +497,8 @@ coroutine 'Ninja' do
   if $people_spoken.size < 2
     says ["...", "... #{$people_spoken.size}"]
   else
-    says "Nin-nin!"
+    says "See you later."
+    hide!
   end
 end
 ```
@@ -532,6 +537,9 @@ func add_choice(label: String, value: Variant) -> void:
     btn.pressed.connect(resume.bind(_value_for_rb(value)))
     %Reply.add_child(btn)
 
+func hide_speaker(speaker_name: String) -> void:
+    get_node(speaker_name).hide()
+
 func _value_for_rb(value: Variant) -> Variant:
     match typeof(value):
         TYPE_STRING_NAME: return ':%s' % value
@@ -545,6 +553,7 @@ func _handle(key: StringName, value: Variant) -> void:
         &'asks':
              show_messge(value[0], value[1])
              setup_choices(value[2])
+        &'hide': hide_speaker(value[0])
         &'battle':
              print_debug('TODO: battle!')
         _: print_debug('[%s] response: %s' % [key, value])
