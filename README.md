@@ -274,6 +274,9 @@ see more:
 ## Examples
 
 ### 1. Live coding
+
+[![Live coding](http://img.youtube.com/vi/FUZ-38F44i4/0.jpg)](https://www.youtube.com/watch?v=FUZ-38F44i4)
+
 Create a scene as below. [ReDScribeEditor](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/src/editor/editor.gd) is a Node implementation for editing Ruby files in Godot.
 ```
 Control
@@ -311,7 +314,6 @@ func _method_missing(method_name: String, args: Array) -> void:
 func _on_re_d_scribe_editor_text_changed() -> void:
     perform()
 ```
-[![Live coding](http://img.youtube.com/vi/FUZ-38F44i4/0.jpg)](https://www.youtube.com/watch?v=FUZ-38F44i4)
 
 
 ### 2. Resource generator
@@ -329,6 +331,8 @@ I have created a DSL( [demo/addons/redscribe/mrblib/resource.rb](https://github.
 
 
 ### 3. Concurrency (like Agent-based model)
+
+[![Concurrency](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
 
 I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ).
 
@@ -413,10 +417,11 @@ func _on_game_over(actor_name: String) -> void:
     %Timer.stop()
     %Message.text = "The winner is %s!" % actor_name
 ```
-[![Concurrency](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
 
 
 ### 4. Dialog controller (Coroutine)
+
+[![Coroutine](http://img.youtube.com/vi/VKq8AaNgXIM/0.jpg)](https://www.youtube.com/watch?v=VKq8AaNgXIM)
 
 I have created a DSL( [demo/addons/redscribe/mrblib/coroutine.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/coroutine.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
 
@@ -547,7 +552,6 @@ func _handle(key: StringName, value: Variant) -> void:
 func _on_speaker_start(_name: String) -> void:
     start(_name)
 ```
-[![Coroutine](http://img.youtube.com/vi/VKq8AaNgXIM/0.jpg)](https://www.youtube.com/watch?v=VKq8AaNgXIM)
 
 
 ## Roadmap
@@ -574,7 +578,7 @@ func _on_speaker_start(_name: String) -> void:
   * [x] Example1: Live Coding
   * [ ] Example2: Resource generator
   * [x] Example3: Concurrency
-  * [ ] Example4: Coroutine
+  * [x] Example4: Coroutine
 
 
 ### v0.2.0 or later

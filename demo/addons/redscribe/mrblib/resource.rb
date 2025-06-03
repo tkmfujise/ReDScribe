@@ -57,7 +57,7 @@ end
 
 $main = self
 
-class DSL
+class ResourceDSL
   attr_accessor :key, :parent, :mapping, :children
 
   def initialize(key, parent = nil)
@@ -92,7 +92,7 @@ class DSL
 
   private
     def introduce(key, mapping, block)
-      dsl = DSL.new(key, self)
+      dsl = ResourceDSL.new(key, self)
       dsl.mapping = mapping
       self.children << dsl
       dsl.instance_exec(&block) if block
@@ -117,7 +117,7 @@ end
 #   resources :stage => :stages
 # end
 def resource(key, &block)
-  dsl = DSL.new(key)
+  dsl = ResourceDSL.new(key)
   if block_given?
     dsl.resource(key){ instance_exec(&block) }
   else
