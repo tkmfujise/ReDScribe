@@ -338,9 +338,6 @@ I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com
 
 `-->{ do_something }` is a unit of execution, and defined execution units run in a loop.
 
-`notify :message` broadcasts the message to all actors.
-`tell 'ActorName', :message` tells the message to the actor named ActorName.
-
 Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
