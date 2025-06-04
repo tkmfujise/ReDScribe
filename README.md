@@ -336,9 +336,9 @@ I have created a DSL( [demo/addons/redscribe/mrblib/resource.rb](https://github.
 
 I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ).
 
-`-->{ do_something }` is a unit of execution, and defined execution units run in a loop.
+`-->{ do_something }` is a unit of execution, and defined execution units execute one after another in a loop.
 
-Call `tick` from a GDScript, then each actor will execute the next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
+Call `tick` from a GDScript, then each actor will execute its next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
 
 Create a *boot.rb* file.

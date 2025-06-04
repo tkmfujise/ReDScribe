@@ -9,8 +9,13 @@ func before_each():
 	pod = ReDScribe.new()
 	pod.perform('require "addons/redscribe/mrblib/actor"')
 	pod.channel.connect(_observe)
-	result = null
+	result = []
 	fetched_value = null
+
+
+func perform(code) -> void:
+	result = []
+	pod.perform(code)
 
 
 func fetch(code) -> Variant:
@@ -24,45 +29,50 @@ func _observe(actor_name, attributes):
 		FETCH_SIGNAL:
 			fetched_value = attributes
 		_:
-			result = { 'actor_name': actor_name, 'attributes': attributes }
+			result.push_back({ 'actor_name': actor_name, 'attributes': attributes })
 
 
 func test_plain():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 0
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 0)
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 0)
 
 
 func test_simple():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 0
 		  -->{ @number += 1 }
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 2)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 3)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 1)
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 2)
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 3)
 
 
 func test_define_method():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 0
 		  -->{ succ }
@@ -71,36 +81,39 @@ func test_define_method():
 		  end
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 2)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 1)
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 2)
 
 
 func test_notify_from_outside():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 0
 		  :succ -->{ @number += 1 }
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('notify :succ')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 0)
+	perform('notify :succ')
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 1)
 
 
 func test_notify_from_another_actor():
-	pod.perform("""
+	perform("""
 		actor 'Bar' do
 		  --> { keep }
 		  --> { notify :succ }
@@ -111,42 +124,50 @@ func test_notify_from_another_actor():
 		  :succ -->{ @number += 1 }
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['actor_name'], 'Bar')
+	assert_eq(result[0]['attributes'], { &'name': 'Bar' })
+	assert_eq(result[1]['actor_name'], 'Foo')
+	assert_eq(result[1]['attributes']['number'], 0)
+	perform('tick')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['actor_name'], 'Bar')
+	assert_eq(result[0]['attributes'], { &'name': 'Bar' })
+	assert_eq(result[1]['actor_name'], 'Foo')
+	assert_eq(result[1]['attributes']['number'], 1)
 
 
 func test_notify_if_nothing():
-	pod.perform('notify :foo')
+	perform('notify :foo')
 	assert_eq(pod.exception, '')
 
 
 
 func test_tell_from_outside():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 0
 		  :succ -->{ @number += 1 }
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tell "Foo", :succ')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 0)
+	assert_eq(result.size(), 1)
+	perform('tell "Foo", :succ')
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 1)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 1)
 
 
 func test_tell_from_another_actor():
-	pod.perform("""
+	perform("""
 		actor 'Bar' do
 		  --> { keep }
 		  --> { tell 'Foo', :succ }
@@ -157,33 +178,39 @@ func test_tell_from_another_actor():
 		  :succ -->{ @number += 1 }
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 0)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Foo')
-	assert_eq(result['attributes']['number'], 1)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['actor_name'], 'Bar')
+	assert_eq(result[0]['attributes'], { &'name': 'Bar' })
+	assert_eq(result[1]['actor_name'], 'Foo')
+	assert_eq(result[1]['attributes']['number'], 0)
+	perform('tick')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['actor_name'], 'Bar')
+	assert_eq(result[0]['attributes'], { &'name': 'Bar' })
+	assert_eq(result[1]['actor_name'], 'Foo')
+	assert_eq(result[1]['attributes']['number'], 1)
 
 
 func test_tell_if_nothing():
-	pod.perform('tell "Foo", :bar')
+	perform('tell "Foo", :bar')
 	assert_eq(pod.exception, '')
 
 
 
 func test_ask_from_outside():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 0
 		end
 	""")
-	assert_eq(result, null)
+	assert_eq(result, [])
 	assert_eq(fetch('ask "Foo", :number'), 0)
 
 
 func test_ask_from_another_actor():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  @number = 1
 		end
@@ -192,20 +219,23 @@ func test_ask_from_another_actor():
 		  --> { @value = ask 'Foo', :number }
 		end
 	""")
-	assert_eq(result, null)
-	pod.perform('tick')
-	assert_eq(result['actor_name'], 'Bar')
-	assert_eq(result['attributes']['value'], 1)
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['actor_name'], 'Foo')
+	assert_eq(result[0]['attributes']['number'], 1)
+	assert_eq(result[1]['actor_name'], 'Bar')
+	assert_eq(result[1]['attributes']['value'], 1)
 
 
 func test_ask_if_nothing():
-	pod.perform('ask "Foo", :bar')
+	perform('ask "Foo", :bar')
 	assert_eq(pod.exception, '')
 
 
 
 func test_free():
-	pod.perform("""
+	perform("""
 		actor 'Foo' do
 		  :bar --> {}
 		end
@@ -221,22 +251,22 @@ func test_free():
 	assert_eq(fetch('Actor.all.size'), 3)
 	assert_eq(fetch('Actor.listeners[:bar].size'), 2)
 	assert_eq(fetch('Actor.listeners[:foo].size'), 1)
-	pod.perform('free "Foo"')
+	perform('free "Foo"')
 	assert_eq(fetch('Actor.all.size'), 2)
 	assert_eq(fetch('Actor.listeners[:bar].size'), 1)
 	assert_eq(fetch('Actor.listeners[:foo].size'), 1)
-	pod.perform('free "Bar"')
+	perform('free "Bar"')
 	assert_eq(fetch('Actor.all.size'), 1)
 	assert_eq(fetch('Actor.listeners[:bar].size'), 0)
 	assert_eq(fetch('Actor.listeners[:foo].size'), 1)
-	pod.perform('free "Buz"')
+	perform('free "Buz"')
 	assert_eq(fetch('Actor.all.size'), 0)
 	assert_eq(fetch('Actor.listeners[:bar].size'), 0)
 	assert_eq(fetch('Actor.listeners[:foo].size'), 0)
-	pod.perform('free "Test"')
+	perform('free "Test"')
 	assert_eq(pod.exception, '')
 
 
 func test_free_if_nothing():
-	pod.perform('free "Test"')
+	perform('free "Test"')
 	assert_eq(pod.exception, '')
