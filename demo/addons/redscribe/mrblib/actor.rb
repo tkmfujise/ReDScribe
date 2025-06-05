@@ -3,28 +3,21 @@ class Actor
     attr_accessor :all, :binding_receiver, :listeners
   end
 
-  attr_accessor :name, :_fiber, :_procs
+  attr_accessor :name, :_procs
 
   def initialize(name)
     self.name   = name
     self._procs = []
   end
 
-  def create_fiber
+  def create_cycle
     _procs << proc{} if _procs.none?
     @_cycle = _procs.cycle
-    self._fiber = begin
-      Fiber.new do
-        loop do
-          @_cycle.next.call
-          Fiber.yield emit
-        end
-      end
-    end
   end
 
   def tick
-    _fiber.resume if _fiber&.alive?
+    @_cycle.next.call
+    emit
   end
 
   def keep
@@ -106,7 +99,7 @@ def actor(name, &block)
   record = Actor.new(name)
   Actor.binding_receiver = record
   record.instance_exec(&block)
-  record.create_fiber
+  record.create_cycle
   Actor.all << record
   record
 end

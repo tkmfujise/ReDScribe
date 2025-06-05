@@ -96,7 +96,7 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 
 ## Installation
 1. Download the zip from the release.
-2. Extract the zip and place the `(Your godot project root)/addons/redscribe` directory.
+2. Extract the zip and place the `redscribe` directory into the `(Your godot project root)/addons` directory.
 3. Open the project settings and enable `ReDScribe`.
 
 
@@ -336,7 +336,7 @@ I have created a DSL( [demo/addons/redscribe/mrblib/resource.rb](https://github.
 
 I have created a DSL( [demo/addons/redscribe/mrblib/actor.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/actor.rb) ).
 
-`-->{ do_something }` is a unit of execution, and defined execution units execute one after another in a loop.
+`-->{ do_something }` is a unit of execution, and each actor's process runs sequentially within a loop.
 
 Call `tick` from a GDScript, then each actor will execute its next step in the cycle and emit a signal containing all instance variables (e.g., `@speed`) as a Dictionary.
 
