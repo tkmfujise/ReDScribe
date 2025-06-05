@@ -348,7 +348,7 @@ func update(attributes: Dictionary) -> Resource:
                     set(prop.name, image)
             _: if attributes.has(prop.name):
                 assign(prop.name, attributes[prop.name])
-                return self
+    return self
 ```
 *chapter.gd*
 ```gdscript
