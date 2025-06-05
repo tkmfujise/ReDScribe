@@ -23,14 +23,7 @@ func read_file() -> String:
 
 func build(klass, attributes: Dictionary) -> Resource:
 	var res = klass.new()
-	for prop in res.get_property_list():
-		match prop.class_name:
-			&'Image':
-				var image = Image.new()
-				image.load(attributes[prop.name].path)
-				res.set(prop.name, image)
-			_: if attributes.has(prop.name):
-				res.set(prop.name, attributes[prop.name])
+	res.update(attributes)
 	return res
 
 
@@ -39,5 +32,4 @@ func _handle(key: StringName, payload: Variant) -> void:
 		&'chapter':
 			var chapter = build(Chapter, payload)
 			ResourceSaver.save(chapter, RESOURCE_DIST)
-			print_debug(chapter)
 		_: print_debug('[ %s ] signal emitted: %s' % [key, payload])

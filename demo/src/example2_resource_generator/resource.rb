@@ -8,11 +8,11 @@ chapter 'First' do
     path 'assets/images/icon.svg'
   end
 
-  (1..3).map do |i|
+  (1..3).each do |i|
     stage do
       name  "Stage#{i}"
       image do
-        "assets/images/stage_#{i}.svg"
+        path "assets/images/stage_#{i}.svg"
       end
     end
   end
