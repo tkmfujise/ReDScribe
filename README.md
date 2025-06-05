@@ -68,7 +68,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 | mruby                             | description                          |
 |-----------------------------------|--------------------------------------|
 | `require 'path/to/file'`          | loads `res://path/to/file.rb` file.  |
-| `puts 'something'`                | prints `something` in Godot console. |
+| `puts 'something'`                | prints `something` to the Output panel in Godot. |
 | Object#method_missing             | emits `method_missing` signal.<br> `(method_name: String, args: Array)` |
 | `Godot.emit_signal(key, payload)` | emits `channel` signal.<br> `(key: StringName, payload: Variant)`       |
 | `Godot::VERSION`                  | Godot version                        |
@@ -96,7 +96,7 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 
 ## Installation
 1. Download the zip from the release.
-2. Extract the zip and place the `redscribe` directory into the `(Your godot project root)/addons` directory.
+2. Extract the zip and place the `redscribe` directory into `(Your godot project root)/addons` directory.
 3. Open the project settings and enable `ReDScribe`.
 
 
@@ -679,6 +679,16 @@ func _handle(key: StringName, value: Variant) -> void:
 func _on_speaker_start(_name: String) -> void:
     start(_name)
 ```
+
+## Development
+
+### build
+
+After installing the required packages, run the following command.
+```
+$ rake
+```
+see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
 
 
 ## Roadmap
