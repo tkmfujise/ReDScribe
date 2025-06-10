@@ -75,5 +75,12 @@ end
 
 desc 'create addon zip'
 task :package do
-  # TODO
+  src_path = ['demo/', 'addons/redscribe']
+  zip_path = ['../', 'tmp/addons.tar.gz']
+
+  cd src_path[0] do
+    sh "tar cfz #{zip_path.join} --exclude='.DS_Store' --exclude='*.uid' #{src_path[1]}"
+  end
+
+  puts "=> #{zip_path[1]}"
 end

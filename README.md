@@ -95,7 +95,7 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 
 
 ## Installation
-1. Download the zip from the release.
+1. Download the zip from the [release](https://github.com/tkmfujise/ReDScribe/releases).
 2. Extract the zip and place the `redscribe` directory into `(Your godot project root)/addons` directory.
 3. Open the project settings and enable `ReDScribe`.
 
@@ -135,16 +135,16 @@ see more: [doc/examples/1_live_coding.md](https://github.com/tkmfujise/ReDScribe
 
 ### 2. Resource generator
 
-[![Concurrency](http://img.youtube.com/vi/NS4m7VBYJNk/0.jpg)](https://www.youtube.com/watch?v=NS4m7VBYJNk)
+[![Resource generator](http://img.youtube.com/vi/NS4m7VBYJNk/0.jpg)](https://www.youtube.com/watch?v=NS4m7VBYJNk)
 
 see more: [doc/examples/2_resource_generator.md](https://github.com/tkmfujise/ReDScribe/blob/main/doc/examples/2_resource_generator.md)
 
 
-### 3. Concurrency (like Agent-based model)
+### 3. Actor (like Agent-based model)
 
-[![Concurrency](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
+[![Actor](http://img.youtube.com/vi/zzF-uahzZ10/0.jpg)](https://www.youtube.com/watch?v=zzF-uahzZ10)
 
-see more: [doc/examples/3_concurrency.md](https://github.com/tkmfujise/ReDScribe/blob/main/doc/examples/3_concurrency.md)
+see more: [doc/examples/3_actor.md](https://github.com/tkmfujise/ReDScribe/blob/main/doc/examples/3_actor.md)
 
 
 ### 4. Dialog controller (Coroutine)
@@ -188,7 +188,7 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
   * [x] Example0: Basic
   * [x] Example1: Live Coding
   * [x] Example2: Resource generator
-  * [x] Example3: Concurrency
+  * [x] Example3: Actor
   * [x] Example4: Coroutine
 
 

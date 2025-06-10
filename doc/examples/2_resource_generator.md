@@ -1,6 +1,6 @@
 # 2. Resource generator
 
-[![Concurrency](http://img.youtube.com/vi/NS4m7VBYJNk/0.jpg)](https://www.youtube.com/watch?v=NS4m7VBYJNk)
+[![Resource generator](http://img.youtube.com/vi/NS4m7VBYJNk/0.jpg)](https://www.youtube.com/watch?v=NS4m7VBYJNk)
 
 I have created a DSL( [demo/addons/redscribe/mrblib/resource.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/resource.rb) ).
 

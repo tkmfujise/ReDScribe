@@ -24,6 +24,10 @@ demo/addons/redscribe/**/*.uid
 demo/addons/redscribe/**/*.import
 demo/addons/redscribe/bin/windows/**/~*.dll
 
+# Ignore tmp
+tmp/*
+!tmp/.keep
+
 # Ignore custom.py
 custom.py
 

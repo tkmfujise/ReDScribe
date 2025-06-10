@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://i1carvblk0up"]
 
-[ext_resource type="Script" uid="uid://cjdjadqda3owx" path="res://src/example3_concurrency/actor/actor.gd" id="1_ktpj7"]
+[ext_resource type="Script" uid="uid://cjdjadqda3owx" path="res://src/example3_actor/actor/actor.gd" id="1_ktpj7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktpj7"]
 radius = 32.0
