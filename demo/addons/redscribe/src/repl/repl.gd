@@ -137,7 +137,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 		REPL_CHANNEL: last_result = payload
 		_: output_color(
 			("[ %s ] signal emitted: " % key) + format_output_val(payload),
-			'#0070FF') # Brandies Blue
+			'#0066FF') # Vivid Blue
 
 
 func _on_input_gui_input(event: InputEvent) -> void:
