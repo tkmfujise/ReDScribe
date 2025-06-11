@@ -74,6 +74,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
 scroll_past_end_of_file = true
 syntax_highlighter = SubResource("CodeHighlighter_s6nb6")
 line_folding = true

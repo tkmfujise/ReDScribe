@@ -19,6 +19,7 @@ func _ready() -> void:
 func set_code_theme(_theme: ReDScribeEditorTheme) -> void:
 	current_theme = _theme
 	add_theme_color_override("background_color", _theme.background_color)
+	add_theme_color_override("caret_color", _theme.caret_color)
 	add_theme_color_override("font_color", _theme.foreground_color)
 	if current_syntax: apply_syntax_theme()
 

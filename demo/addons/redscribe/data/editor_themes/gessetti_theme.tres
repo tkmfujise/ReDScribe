@@ -6,6 +6,7 @@
 script = ExtResource("1_aui2r")
 background_color = "#062037"
 foreground_color = "#FFFFFF"
+caret_color = "#FFFFFF"
 symbol_color = "#FBFBD3"
 number_color = "#FFFFFF"
 function_color = "#F8A9D5"
