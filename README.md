@@ -198,6 +198,7 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
 * [ ] Editor
   * [ ] Support multiple files open
   * [ ] Support search text
+  * [ ] Code completion
   * [ ] Snippet
     * [ ] require
   * [ ] User definable theme
