@@ -17,7 +17,6 @@ class Actor
 
   def tick
     @_cycle.next.call
-    emit
   end
 
   def keep
@@ -65,7 +64,9 @@ end
 
 
 def tick
-  Actor.all.each(&:tick); true
+  Actor.all.each(&:tick)
+  Actor.all.each(&:emit)
+  true
 end
 
 

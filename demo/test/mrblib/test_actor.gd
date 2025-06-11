@@ -139,6 +139,29 @@ func test_notify_from_another_actor():
 	assert_eq(result[1]['attributes']['number'], 1)
 
 
+func test_notify_each_other():
+	perform("""
+		actor 'Bar' do
+		  @bar = false
+		  --> { notify :bar }
+		  :foo --> { @bar = true }
+		end
+
+		actor 'Foo' do
+		  @foo = false
+		  --> { notify :foo }
+		  :bar --> { @foo = true }
+		end
+	""")
+	assert_eq(result, [])
+	perform('tick')
+	assert_eq(result.size(), 2)
+	assert_eq(result[0]['actor_name'], 'Bar')
+	assert_eq(result[0]['attributes']['bar'], true)
+	assert_eq(result[1]['actor_name'], 'Foo')
+	assert_eq(result[1]['attributes']['foo'], true)
+
+
 func test_notify_if_nothing():
 	perform('notify :foo')
 	assert_eq(pod.exception, '')
