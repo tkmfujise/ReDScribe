@@ -65,3 +65,6 @@ compile_commands.json
 
 # Jetbrains
 .idea/
+
+# dotenv
+.env

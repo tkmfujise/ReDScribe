@@ -1,3 +1,4 @@
+require 'dotenv/tasks'
 require 'tempfile'
 require 'ostruct'
 
@@ -70,6 +71,64 @@ end
 
 task :update do
   sh 'git submodule update --remote --recursive'
+end
+
+
+task apple_cert: :dotenv do
+  dylib_paths = Dir['bin/**/libredscribe*.universal']
+  dylib_paths.each do |path|
+    puts "codesign --sign xxx #{path}"
+    %x[ codesign --remove-signature #{path} ]
+    %x[
+      codesign -s '#{ENV['APPLE_DEV_CERT_NAME']}' \
+        --options runtime \
+        --timestamp \
+        #{path}
+    ]
+  end
+  archive_path = 'tmp/redscribe_release.zip'
+  release_path = dylib_paths.find{|p| p.include? 'template_release' }
+  puts "creating zip: #{archive_path}"
+  %x[
+    ditto -ck -rsrc --sequesterRsrc --keepParent \
+      '#{release_path}' '#{archive_path}'
+  ]
+  puts "xcrun notarytool submit"
+  output = %x[
+      xcrun notarytool submit #{archive_path} \
+        --apple-id '#{ENV['APPLE_DEV_ID']}'  \
+        --team-id '#{ENV['APPLE_DEV_TEAM_ID']}'  \
+        --password '#{ENV['APPLE_CERT_PASSWORD']}'  \
+        --wait
+    ]
+  puts output
+
+  log_id = output[/((\d|[a-z])+-(\d|[a-z])+-(\d|[a-z])+-(\d|[a-z])+-(\d|[a-z])+)/, 1]
+  if log_id
+    puts "xcrun notarytool log"
+    ENV['LOG_ID'] = log_id
+    Rake::Task['apple_cert_log'].invoke
+  end
+end
+
+
+task apple_cert_log: :dotenv do
+  puts %x[
+    xcrun notarytool log #{ENV['LOG_ID']} \
+      --apple-id '#{ENV['APPLE_DEV_ID']}' \
+      --team-id '#{ENV['APPLE_DEV_TEAM_ID']}' \
+      --password '#{ENV['APPLE_CERT_PASSWORD']}'
+  ]
+end
+
+
+task apple_cert_history: :dotenv do
+  puts %x[
+    xcrun notarytool history \
+      --apple-id '#{ENV['APPLE_DEV_ID']}' \
+      --team-id '#{ENV['APPLE_DEV_TEAM_ID']}' \
+      --password '#{ENV['APPLE_CERT_PASSWORD']}'
+  ]
 end
 
 
