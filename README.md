@@ -149,7 +149,7 @@ see more: [doc/examples/3_actor.md](https://github.com/tkmfujise/ReDScribe/blob/
 
 ### 4. Dialog controller (Coroutine)
 
-[![Coroutine](http://img.youtube.com/vi/VKq8AaNgXIM/0.jpg)](https://www.youtube.com/watch?v=VKq8AaNgXIM)
+[![Coroutine](http://img.youtube.com/vi/DyUpIB97xpg/0.jpg)](https://www.youtube.com/watch?v=DyUpIB97xpg)
 
 see more: [doc/examples/4_coroutine.md](https://github.com/tkmfujise/ReDScribe/blob/main/doc/examples/4_coroutine.md)
 

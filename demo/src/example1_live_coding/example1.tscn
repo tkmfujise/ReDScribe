@@ -30,6 +30,7 @@ keyword_colors = {
 "end": Color(0.956863, 0.690196, 0.262745, 1),
 "extend": Color(0.956863, 0.690196, 0.262745, 1),
 "false": Color(0.596078, 0.882353, 1, 1),
+"for": Color(0.956863, 0.690196, 0.262745, 1),
 "if": Color(0.956863, 0.690196, 0.262745, 1),
 "include": Color(0.956863, 0.690196, 0.262745, 1),
 "initialize": Color(0.956863, 0.690196, 0.262745, 1),
@@ -42,16 +43,20 @@ keyword_colors = {
 "protected": Color(0.466667, 0.941176, 1, 1),
 "public": Color(0.466667, 0.941176, 1, 1),
 "raise": Color(0.956863, 0.690196, 0.262745, 1),
+"redo": Color(0.956863, 0.690196, 0.262745, 1),
 "require": Color(0.956863, 0.690196, 0.262745, 1),
 "rescue": Color(0.956863, 0.690196, 0.262745, 1),
+"retry": Color(0.956863, 0.690196, 0.262745, 1),
 "return": Color(0.956863, 0.690196, 0.262745, 1),
 "self": Color(0.466667, 0.941176, 1, 1),
 "super": Color(0.466667, 0.941176, 1, 1),
 "throw": Color(0.956863, 0.690196, 0.262745, 1),
 "true": Color(0.596078, 0.882353, 1, 1),
 "unless": Color(0.956863, 0.690196, 0.262745, 1),
+"until": Color(0.956863, 0.690196, 0.262745, 1),
 "using": Color(0.956863, 0.690196, 0.262745, 1),
 "when": Color(0.956863, 0.690196, 0.262745, 1),
+"while": Color(0.956863, 0.690196, 0.262745, 1),
 "yield": Color(0.466667, 0.941176, 1, 1)
 }
 color_regions = {
@@ -86,6 +91,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
 text = "3.times do
   circle
 end

@@ -1,6 +1,6 @@
 require 'src/example4_coroutine/helper'
 
-$people_spoken = Set.new
+$people_spoken_with = Set.new
 
 
 coroutine 'Woman' do
@@ -11,7 +11,7 @@ coroutine 'Woman' do
     says ["I see. If you haven't used Ruby much,",
           "spend more time with it. I'm sure you'll love it!"]
   end
-  $people_spoken.add(name)
+  $people_spoken_with.add(name)
 end
 
 
@@ -30,13 +30,13 @@ coroutine 'Man' do
     says "When our eyes meet, it's time for a Pokémon battle!"
     battle!
   end
-  $people_spoken.add(name)
+  $people_spoken_with.add(name)
 end
 
 
 coroutine 'Ninja' do
-  if $people_spoken.size < 2
-    says ["...", "... #{$people_spoken.size}"]
+  if $people_spoken_with.size < 2
+    says ["...", "... #{$people_spoken_with.size}"]
   else
     says "See you later."
     hide!

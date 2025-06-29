@@ -1,6 +1,6 @@
 # 4. Dialog controller (Coroutine)
 
-[![Coroutine](http://img.youtube.com/vi/VKq8AaNgXIM/0.jpg)](https://www.youtube.com/watch?v=VKq8AaNgXIM)
+[![Coroutine](http://img.youtube.com/vi/DyUpIB97xpg/0.jpg)](https://www.youtube.com/watch?v=DyUpIB97xpg)
 
 I have created a DSL( [demo/addons/redscribe/mrblib/coroutine.rb](https://github.com/tkmfujise/ReDScribe/blob/main/demo/addons/redscribe/mrblib/coroutine.rb) ) using [Fiber](https://docs.ruby-lang.org/en/3.4/Fiber.html).
 
@@ -41,7 +41,7 @@ And, create a *controller.rb* file for coroutines.
 ```ruby
 require 'path/to/helper'
 
-$people_spoken = Set.new
+$people_spoken_with = Set.new
 
 coroutine 'Woman' do
   asks "Hi! Do you like Ruby?"
@@ -51,7 +51,7 @@ coroutine 'Woman' do
     says ["I see. If you haven't used Ruby much,",
           "spend more time with it. I'm sure you'll love it!"]
   end
-  $people_spoken.add(name)
+  $people_spoken_with.add(name)
 end
 
 coroutine 'Man' do
@@ -69,12 +69,12 @@ coroutine 'Man' do
     says "When our eyes meet, it's time for a Pokémon battle!"
     battle!
   end
-  $people_spoken.add(name)
+  $people_spoken_with.add(name)
 end
 
 coroutine 'Ninja' do
-  if $people_spoken.size < 2
-    says ["...", "... #{$people_spoken.size}"]
+  if $people_spoken_with.size < 2
+    says ["...", "... #{$people_spoken_with.size}"]
   else
     says "See you later."
     hide!
