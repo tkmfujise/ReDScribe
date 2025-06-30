@@ -138,7 +138,7 @@ task :package do
   zip_path = ['../', 'tmp/addons.tar.gz']
 
   cd src_path[0] do
-    sh "tar cfz #{zip_path.join} --exclude='.DS_Store' --exclude='*.uid' #{src_path[1]}"
+    sh "COPYFILE_DISABLE=1 tar cfz #{zip_path.join} --exclude='.DS_Store' #{src_path[1]}"
   end
 
   puts "=> #{zip_path[1]}"
