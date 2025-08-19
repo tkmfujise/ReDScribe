@@ -19,6 +19,7 @@ func new_file() -> void:
 	exit_confirm_if(file_dirty, func():
 		current_file = ''
 		%Editor.text = ''
+		%Editor.clear_undo_history()
 		file_dirty = false
 	)
 
@@ -29,6 +30,7 @@ func load_file(path: String) -> void:
 		var f = FileAccess.open(path, FileAccess.READ)
 		%Editor.text = f.get_as_text()
 		f.close()
+		%Editor.clear_undo_history()
 		file_dirty = false
 	)
 

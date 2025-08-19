@@ -154,6 +154,13 @@ see more: [doc/examples/3_actor.md](https://github.com/tkmfujise/ReDScribe/blob/
 see more: [doc/examples/4_coroutine.md](https://github.com/tkmfujise/ReDScribe/blob/main/doc/examples/4_coroutine.md)
 
 
+## Documentation
+
+English : https://tkmfujise.github.io/redscribe-docs
+
+日本語 : https://tkmfujise.github.io/redscribe-docs/ja
+
+
 ## Development
 
 ### build
