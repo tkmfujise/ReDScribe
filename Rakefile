@@ -61,6 +61,23 @@ task :clean do
 end
 
 
+desc 'Run gdscript tests'
+task :test do
+  cd 'demo' do
+    if ENV['WSL_DISTRO_NAME'] # for Windows WSL
+      sh 'godot -s addons/gut/gut_cmdln.gd -d --path "$(wslpath -wa $PWD)" -gexit'
+    else
+      case RbConfig::CONFIG['host_os']
+      when /mswin|mingw|cygwin/
+        # TODO
+      else
+        # TODO
+      end
+    end
+  end
+end
+
+
 desc 'Generate doc_classes/*'
 task :doc do
   cd 'demo' do
