@@ -226,7 +226,7 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
     * [x] windows.x86_64
     * [ ] windows.x86_32
     * [x] macos
-    * [ ] linux.x86_64
+    * [x] linux.x86_64
     * [ ] linux.arm64
     * [ ] linux.rv64
     * [ ] android.x86_64
