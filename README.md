@@ -1,4 +1,4 @@
-<img src="icon/icon_with_title.png" alt="logo">
+<img src="icon/icon_with_title.svg" alt="logo">
 
 # ReDScribe
 Let’s re-describe your code as your own friendly domain-specific language.
