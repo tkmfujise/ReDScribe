@@ -1,70 +1,70 @@
 [gd_scene load_steps=7 format=3 uid="uid://bpw0bre4t1p5c"]
 
-[ext_resource type="Script" uid="uid://cgdn18hsa4ar3" path="res://addons/redscribe/src/repl/repl.gd" id="1_0w4vm"]
-[ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/editor.gd" id="1_8sa6y"]
+[ext_resource type="Script" uid="uid://bbumlrnl7okqh" path="res://addons/redscribe/src/repl/repl.gd" id="1_0w4vm"]
+[ext_resource type="Script" uid="uid://ckioqktr386u3" path="res://addons/redscribe/src/editor/editor.gd" id="1_8sa6y"]
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="3_0w4vm"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="4_0b1gp"]
-[ext_resource type="FontFile" uid="uid://hp4ljcfknxir" path="res://addons/redscribe/fonts/FiraCode/FiraCode-Regular.ttf" id="5_0b1gp"]
+[ext_resource type="FontFile" uid="uid://bsgwdr3qbahjp" path="res://addons/redscribe/fonts/FiraCode/FiraCode-Regular.ttf" id="5_0b1gp"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_0b1gp"]
 number_color = Color(1, 1, 1, 1)
-symbol_color = Color(0.984314, 0.984314, 0.827451, 1)
-function_color = Color(0.972549, 0.662745, 0.835294, 1)
+symbol_color = Color(0.9843137, 0.9843137, 0.827451, 1)
+function_color = Color(0.972549, 0.6627451, 0.8352941, 1)
 member_variable_color = Color(1, 1, 1, 1)
 keyword_colors = {
-"alias": Color(0.466667, 0.941176, 1, 1),
-"alias_method": Color(0.466667, 0.941176, 1, 1),
-"attr": Color(0.466667, 0.941176, 1, 1),
-"attr_accessor": Color(0.466667, 0.941176, 1, 1),
-"attr_reader": Color(0.466667, 0.941176, 1, 1),
-"attr_writer": Color(0.466667, 0.941176, 1, 1),
-"begin": Color(0.956863, 0.690196, 0.262745, 1),
-"break": Color(0.956863, 0.690196, 0.262745, 1),
-"case": Color(0.956863, 0.690196, 0.262745, 1),
-"catch": Color(0.956863, 0.690196, 0.262745, 1),
-"class": Color(0.956863, 0.690196, 0.262745, 1),
-"def": Color(0.956863, 0.690196, 0.262745, 1),
-"do": Color(0.956863, 0.690196, 0.262745, 1),
-"else": Color(0.956863, 0.690196, 0.262745, 1),
-"elsif": Color(0.956863, 0.690196, 0.262745, 1),
-"end": Color(0.956863, 0.690196, 0.262745, 1),
-"extend": Color(0.956863, 0.690196, 0.262745, 1),
-"false": Color(0.596078, 0.882353, 1, 1),
-"for": Color(0.956863, 0.690196, 0.262745, 1),
-"if": Color(0.956863, 0.690196, 0.262745, 1),
-"include": Color(0.956863, 0.690196, 0.262745, 1),
-"initialize": Color(0.956863, 0.690196, 0.262745, 1),
-"module": Color(0.956863, 0.690196, 0.262745, 1),
-"new": Color(0.956863, 0.690196, 0.262745, 1),
-"next": Color(0.956863, 0.690196, 0.262745, 1),
-"nil": Color(0.596078, 0.882353, 1, 1),
-"prepend": Color(0.956863, 0.690196, 0.262745, 1),
-"private": Color(0.466667, 0.941176, 1, 1),
-"protected": Color(0.466667, 0.941176, 1, 1),
-"public": Color(0.466667, 0.941176, 1, 1),
-"raise": Color(0.956863, 0.690196, 0.262745, 1),
-"redo": Color(0.956863, 0.690196, 0.262745, 1),
-"require": Color(0.956863, 0.690196, 0.262745, 1),
-"rescue": Color(0.956863, 0.690196, 0.262745, 1),
-"retry": Color(0.956863, 0.690196, 0.262745, 1),
-"return": Color(0.956863, 0.690196, 0.262745, 1),
-"self": Color(0.466667, 0.941176, 1, 1),
-"super": Color(0.466667, 0.941176, 1, 1),
-"throw": Color(0.956863, 0.690196, 0.262745, 1),
-"true": Color(0.596078, 0.882353, 1, 1),
-"unless": Color(0.956863, 0.690196, 0.262745, 1),
-"until": Color(0.956863, 0.690196, 0.262745, 1),
-"using": Color(0.956863, 0.690196, 0.262745, 1),
-"when": Color(0.956863, 0.690196, 0.262745, 1),
-"while": Color(0.956863, 0.690196, 0.262745, 1),
-"yield": Color(0.466667, 0.941176, 1, 1)
+"alias": Color(0.46666667, 0.9411765, 1, 1),
+"alias_method": Color(0.46666667, 0.9411765, 1, 1),
+"attr": Color(0.46666667, 0.9411765, 1, 1),
+"attr_accessor": Color(0.46666667, 0.9411765, 1, 1),
+"attr_reader": Color(0.46666667, 0.9411765, 1, 1),
+"attr_writer": Color(0.46666667, 0.9411765, 1, 1),
+"begin": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"break": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"case": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"catch": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"class": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"def": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"do": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"else": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"elsif": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"end": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"extend": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"false": Color(0.59607846, 0.88235295, 1, 1),
+"for": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"if": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"include": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"initialize": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"module": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"new": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"next": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"nil": Color(0.59607846, 0.88235295, 1, 1),
+"prepend": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"private": Color(0.46666667, 0.9411765, 1, 1),
+"protected": Color(0.46666667, 0.9411765, 1, 1),
+"public": Color(0.46666667, 0.9411765, 1, 1),
+"raise": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"redo": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"require": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"rescue": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"retry": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"return": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"self": Color(0.46666667, 0.9411765, 1, 1),
+"super": Color(0.46666667, 0.9411765, 1, 1),
+"throw": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"true": Color(0.59607846, 0.88235295, 1, 1),
+"unless": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"until": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"using": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"when": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"while": Color(0.95686275, 0.6901961, 0.2627451, 1),
+"yield": Color(0.46666667, 0.9411765, 1, 1)
 }
 color_regions = {
-"\" \"": Color(0.27451, 0.941176, 0.0352941, 1),
-"#": Color(0.364706, 0.662745, 0.92549, 1),
-"' '": Color(0.27451, 0.941176, 0.0352941, 1),
-":  ": Color(0.862745, 0.968627, 0.0627451, 1),
-"@  ": Color(0.466667, 0.941176, 1, 1)
+"\" \"": Color(0.27450982, 0.9411765, 0.03529412, 1),
+"#": Color(0.3647059, 0.6627451, 0.9254902, 1),
+"' '": Color(0.27450982, 0.9411765, 0.03529412, 1),
+":  ": Color(0.8627451, 0.96862745, 0.0627451, 1),
+"@  ": Color(0.46666667, 0.9411765, 1, 1)
 }
 
 [node name="REPL" type="VBoxContainer"]
@@ -78,9 +78,9 @@ script = ExtResource("1_0w4vm")
 [node name="Input" type="CodeEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/background_color = Color(0.0235294, 0.12549, 0.215686, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/background_color = Color(0.023529412, 0.1254902, 0.21568628, 1)
 placeholder_text = "Execute: Ctrl + Enter "
 scroll_fit_content_height = true
 syntax_highlighter = SubResource("CodeHighlighter_0b1gp")
