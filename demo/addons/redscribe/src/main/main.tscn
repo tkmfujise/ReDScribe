@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://byyypft7sfdhq"]
 
 [ext_resource type="Theme" uid="uid://b7i768o1myrh3" path="res://addons/redscribe/themes/redscribe_theme.tres" id="1_wcadp"]
-[ext_resource type="Script" uid="uid://d2q1nqfc24ve" path="res://addons/redscribe/src/main/main.gd" id="2_nul35"]
+[ext_resource type="Script" uid="uid://0iaaleg4ehp5" path="res://addons/redscribe/src/main/main.gd" id="2_nul35"]
 [ext_resource type="PackedScene" uid="uid://b8nb1wlpa30qv" path="res://addons/redscribe/src/editor/editor_area.tscn" id="3_nul35"]
 [ext_resource type="PackedScene" uid="uid://bpw0bre4t1p5c" path="res://addons/redscribe/src/repl/repl.tscn" id="4_xuyvw"]
-[ext_resource type="Texture2D" uid="uid://bvb7i3xj30k35" path="res://addons/redscribe/assets/icons/Editor_tab.svg" id="5_1suwp"]
-[ext_resource type="Texture2D" uid="uid://1egadao6byai" path="res://addons/redscribe/assets/icons/REPL_tab.svg" id="6_b8n4o"]
+[ext_resource type="Texture2D" uid="uid://bgxj4n4bne35p" path="res://addons/redscribe/assets/icons/Editor_tab.svg" id="5_1suwp"]
+[ext_resource type="Texture2D" uid="uid://kbx3y4sb1nq3" path="res://addons/redscribe/assets/icons/REPL_tab.svg" id="6_b8n4o"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_nul35"]
 device = -1
@@ -94,7 +94,7 @@ uri = "https://github.com/tkmfujise/ReDScribe"
 [node name="VersionLabel" type="Label" parent="TopContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "v0.1.0"
+text = "v0.1.1"
 
 [node name="BodyContainer" type="HSplitContainer" parent="."]
 unique_name_in_owner = true
