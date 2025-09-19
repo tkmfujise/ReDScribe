@@ -71,7 +71,7 @@ task :test do
       when /mswin|mingw|cygwin/
         # TODO
       else
-	      sh 'godot -s addons/gut/gut_cmdln.gd -d -gexit'
+      	sh 'godot -s addons/gut/gut_cmdln.gd -d -gexit'
       end
     end
   end
