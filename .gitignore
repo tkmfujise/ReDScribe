@@ -23,6 +23,8 @@ demo/bin/windows/*
 !demo/bin/*.gdextension
 .sconsign*.dblite
 
+!demo/addons/redscribe/*
+
 # Ignore addon import
 demo/addons/redscribe/**/*.import
 demo/addons/redscribe/bin/windows/**/~*.dll
