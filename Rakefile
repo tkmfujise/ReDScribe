@@ -103,13 +103,15 @@ task apple_cert: :dotenv do
         #{path}
     ]
   end
-  archive_path = 'tmp/redscribe_release.zip'
-  release_path = dylib_paths.find{|p| p.include? 'template_release' }
+  archive_path   = 'tmp/redscribe_macos.zip'
+  dylibs_tmp_dir = Dir.mktmpdir
+  dylib_paths.each{|path| cp path, dylibs_tmp_dir }
   puts "creating zip: #{archive_path}"
   %x[
     ditto -ck -rsrc --sequesterRsrc --keepParent \
-      '#{release_path}' '#{archive_path}'
+      '#{dylibs_tmp_dir}' '#{archive_path}'
   ]
+
   puts "xcrun notarytool submit"
   output = %x[
       xcrun notarytool submit #{archive_path} \
