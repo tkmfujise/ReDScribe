@@ -27,6 +27,9 @@ demo/bin/windows/*
 demo/addons/redscribe/**/*.import
 demo/addons/redscribe/bin/windows/**/~*.dll
 
+# Ignore demo/export
+demo/export
+
 # Ignore tmp
 tmp/*
 !tmp/.keep
