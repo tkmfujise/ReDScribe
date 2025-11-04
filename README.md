@@ -95,8 +95,8 @@ see: [demo/test/gdextension/test_variant.gd](https://github.com/tkmfujise/ReDScr
 
 
 ## Installation
-1. Download the zip from the [release](https://github.com/tkmfujise/ReDScribe/releases).
-2. Extract the zip and place the `redscribe` directory into `(Your godot project root)/addons` directory.
+1. Download the addons.tar.gz from the [release](https://github.com/tkmfujise/ReDScribe/releases).
+2. Extract the addons.tar.gz and place the `redscribe` directory into `(Your godot project root)/addons` directory.
 3. Open the project settings and enable `ReDScribe`.
 
 
