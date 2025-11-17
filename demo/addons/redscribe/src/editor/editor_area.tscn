@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8nb1wlpa30qv"]
 
-[ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor_area.gd" id="1_vjpta"]
+[ext_resource type="Script" uid="uid://yxr836q23cog" path="res://addons/redscribe/src/editor/editor_area.gd" id="1_vjpta"]
 [ext_resource type="PackedScene" uid="uid://c4um2sg1dyj6c" path="res://addons/redscribe/src/editor/editor.tscn" id="2_0etm3"]
 [ext_resource type="PackedScene" uid="uid://hxw2waev5bbh" path="res://addons/redscribe/src/file_dialog/file_dialog.tscn" id="3_imusf"]
 

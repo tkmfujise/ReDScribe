@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b0gmaxvt8ugv8" path="res://addons/redscribe/assets/icons/Folder.svg" id="3_1et1m"]
 
 [node name="Dialog" type="ConfirmationDialog"]
+oversampling_override = 1.0
 title = "ReDScribe: New file"
 initial_position = 2
 size = Vector2i(1080, 640)
