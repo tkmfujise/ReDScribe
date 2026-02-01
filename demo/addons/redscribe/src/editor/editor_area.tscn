@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8nb1wlpa30qv"]
+[gd_scene format=3 uid="uid://b8nb1wlpa30qv"]
 
-[ext_resource type="Script" uid="uid://yxr836q23cog" path="res://addons/redscribe/src/editor/editor_area.gd" id="1_vjpta"]
+[ext_resource type="Script" uid="uid://k2m1kdt5xswn" path="res://addons/redscribe/src/editor/editor_area.gd" id="1_vjpta"]
 [ext_resource type="PackedScene" uid="uid://c4um2sg1dyj6c" path="res://addons/redscribe/src/editor/editor.tscn" id="2_0etm3"]
 [ext_resource type="PackedScene" uid="uid://hxw2waev5bbh" path="res://addons/redscribe/src/file_dialog/file_dialog.tscn" id="3_imusf"]
 
@@ -65,7 +65,7 @@ color_regions = {
 "@  ": Color(0.46666667, 0.9411765, 1, 1)
 }
 
-[node name="ReDScribeEditorArea" type="VBoxContainer"]
+[node name="ReDScribeEditorArea" type="VBoxContainer" unique_id=224039579]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,29 +75,29 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_vjpta")
 
-[node name="Editor" parent="." instance=ExtResource("2_0etm3")]
+[node name="Editor" parent="." unique_id=1738064475 instance=ExtResource("2_0etm3")]
 unique_name_in_owner = true
 layout_mode = 2
 syntax_highlighter = SubResource("CodeHighlighter_imusf")
 
-[node name="Footer" type="MarginContainer" parent="."]
+[node name="Footer" type="MarginContainer" parent="." unique_id=1744449225]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 10
 
-[node name="FooterContainer" type="HBoxContainer" parent="Footer"]
+[node name="FooterContainer" type="HBoxContainer" parent="Footer" unique_id=329211922]
 layout_mode = 2
 size_flags_vertical = 8
 alignment = 2
 
-[node name="FilePath" type="Label" parent="Footer/FooterContainer"]
+[node name="FilePath" type="Label" parent="Footer/FooterContainer" unique_id=574372792]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Untitled"
 
-[node name="LanguageButton" type="MenuButton" parent="Footer/FooterContainer"]
+[node name="LanguageButton" type="MenuButton" parent="Footer/FooterContainer" unique_id=1650760755]
 layout_mode = 2
 disabled = true
 text = "Ruby"
@@ -108,7 +108,7 @@ popup/item_0/id = 0
 popup/item_1/text = "JSON"
 popup/item_1/id = 1
 
-[node name="IndentButton" type="MenuButton" parent="Footer/FooterContainer"]
+[node name="IndentButton" type="MenuButton" parent="Footer/FooterContainer" unique_id=1501776184]
 layout_mode = 2
 disabled = true
 text = "Indent: 2"
@@ -121,7 +121,7 @@ popup/item_1/id = 4
 popup/item_2/text = "tab"
 popup/item_2/id = 0
 
-[node name="SaveFileDialog" parent="." instance=ExtResource("3_imusf")]
+[node name="SaveFileDialog" parent="." unique_id=1719291111 instance=ExtResource("3_imusf")]
 unique_name_in_owner = true
 title = "Save a File"
 visible = false
@@ -129,7 +129,7 @@ ok_button_text = "Save"
 file_mode = 4
 filters = PackedStringArray("*.rb")
 
-[node name="ExitConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="ExitConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=87911968]
 unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(292, 100)

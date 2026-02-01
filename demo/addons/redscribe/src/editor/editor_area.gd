@@ -11,7 +11,7 @@ func _ready() -> void:
 	update_labels()
 
 
-func grab_focus() -> void:
+func grab_focus(hide_focus: bool = false) -> void:
 	%Editor.grab_focus()
 
 

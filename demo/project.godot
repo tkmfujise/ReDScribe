@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="godot cpp template"
 run/main_scene="uid://bk2ofed5aex75"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
@@ -23,7 +27,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdscript_input_field/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/redscribe/plugin.cfg")
+enabled=PackedStringArray("res://addons/redscribe/plugin.cfg")
 
 [godot_idea_board]
 

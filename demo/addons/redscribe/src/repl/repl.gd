@@ -17,7 +17,7 @@ func _ready() -> void:
 	pass
 
 
-func grab_focus() -> void:
+func grab_focus(hide_focus: bool = false) -> void:
 	%Input.grab_focus()
 
 

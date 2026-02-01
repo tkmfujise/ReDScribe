@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpw0bre4t1p5c"]
+[gd_scene format=3 uid="uid://bpw0bre4t1p5c"]
 
-[ext_resource type="Script" uid="uid://bbumlrnl7okqh" path="res://addons/redscribe/src/repl/repl.gd" id="1_0w4vm"]
-[ext_resource type="Script" uid="uid://ckioqktr386u3" path="res://addons/redscribe/src/editor/editor.gd" id="1_8sa6y"]
+[ext_resource type="Script" uid="uid://cgdn18hsa4ar3" path="res://addons/redscribe/src/repl/repl.gd" id="1_0w4vm"]
+[ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/editor.gd" id="1_8sa6y"]
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="3_0w4vm"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="4_0b1gp"]
-[ext_resource type="FontFile" uid="uid://bsgwdr3qbahjp" path="res://addons/redscribe/fonts/FiraCode/FiraCode-Regular.ttf" id="5_0b1gp"]
+[ext_resource type="FontFile" uid="uid://dick7sihb7bpe" path="res://addons/redscribe/fonts/FiraCode/FiraCode-Regular.ttf" id="5_0b1gp"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_0b1gp"]
 number_color = Color(1, 1, 1, 1)
@@ -67,7 +67,7 @@ color_regions = {
 "@  ": Color(0.46666667, 0.9411765, 1, 1)
 }
 
-[node name="REPL" type="VBoxContainer"]
+[node name="REPL" type="VBoxContainer" unique_id=147953994]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,7 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0w4vm")
 
-[node name="Input" type="CodeEdit" parent="."]
+[node name="Input" type="CodeEdit" parent="." unique_id=3711272]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
@@ -91,7 +91,7 @@ script = ExtResource("1_8sa6y")
 current_syntax = ExtResource("3_0w4vm")
 current_theme = ExtResource("4_0b1gp")
 
-[node name="Result" type="RichTextLabel" parent="."]
+[node name="Result" type="RichTextLabel" parent="." unique_id=515090821]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

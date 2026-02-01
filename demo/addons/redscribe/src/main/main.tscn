@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://byyypft7sfdhq"]
+[gd_scene format=3 uid="uid://byyypft7sfdhq"]
 
 [ext_resource type="Theme" uid="uid://b7i768o1myrh3" path="res://addons/redscribe/themes/redscribe_theme.tres" id="1_wcadp"]
-[ext_resource type="Script" uid="uid://0iaaleg4ehp5" path="res://addons/redscribe/src/main/main.gd" id="2_nul35"]
+[ext_resource type="Script" uid="uid://d2q1nqfc24ve" path="res://addons/redscribe/src/main/main.gd" id="2_nul35"]
 [ext_resource type="PackedScene" uid="uid://b8nb1wlpa30qv" path="res://addons/redscribe/src/editor/editor_area.tscn" id="3_nul35"]
 [ext_resource type="PackedScene" uid="uid://bpw0bre4t1p5c" path="res://addons/redscribe/src/repl/repl.tscn" id="4_xuyvw"]
-[ext_resource type="Texture2D" uid="uid://bgxj4n4bne35p" path="res://addons/redscribe/assets/icons/Editor_tab.svg" id="5_1suwp"]
-[ext_resource type="Texture2D" uid="uid://kbx3y4sb1nq3" path="res://addons/redscribe/assets/icons/REPL_tab.svg" id="6_b8n4o"]
+[ext_resource type="Texture2D" uid="uid://belp6btwnqski" path="res://addons/redscribe/assets/icons/Editor_tab.svg" id="5_1suwp"]
+[ext_resource type="Texture2D" uid="uid://b2rwmpla18547" path="res://addons/redscribe/assets/icons/REPL_tab.svg" id="6_b8n4o"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_nul35"]
 device = -1
@@ -31,7 +31,7 @@ keycode = 83
 [sub_resource type="Shortcut" id="Shortcut_cgn3h"]
 events = [SubResource("InputEventKey_b8n4o")]
 
-[node name="ReDScribeMain" type="VBoxContainer"]
+[node name="ReDScribeMain" type="VBoxContainer" unique_id=517583678]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -44,15 +44,15 @@ filemenu_shortcuts = Array[Shortcut]([SubResource("Shortcut_xuyvw"), SubResource
 EditorArea = ExtResource("3_nul35")
 REPL = ExtResource("4_xuyvw")
 
-[node name="TopContainer" type="HBoxContainer" parent="."]
+[node name="TopContainer" type="HBoxContainer" parent="." unique_id=234502695]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="TopContainer"]
+[node name="MenuBar" type="MenuBar" parent="TopContainer" unique_id=1597683048]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="FileMenu" type="MenuButton" parent="TopContainer/MenuBar"]
+[node name="FileMenu" type="MenuButton" parent="TopContainer/MenuBar" unique_id=712146664]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 8.0
@@ -66,7 +66,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Save"
 popup/item_2/id = 2
 
-[node name="TabBar" type="TabBar" parent="TopContainer"]
+[node name="TabBar" type="TabBar" parent="TopContainer" unique_id=1022712152]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -79,24 +79,24 @@ tab_1/title = "REPL"
 tab_1/tooltip = "Shortcut: (Ctrl+])"
 tab_1/icon = ExtResource("6_b8n4o")
 
-[node name="LinkButtonContainer" type="MarginContainer" parent="TopContainer"]
+[node name="LinkButtonContainer" type="MarginContainer" parent="TopContainer" unique_id=1002796406]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="GithubLinkButton" type="LinkButton" parent="TopContainer/LinkButtonContainer"]
+[node name="GithubLinkButton" type="LinkButton" parent="TopContainer/LinkButtonContainer" unique_id=1165134936]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Open the github repository."
 text = "ReDScribe"
 uri = "https://github.com/tkmfujise/ReDScribe"
 
-[node name="VersionLabel" type="Label" parent="TopContainer"]
+[node name="VersionLabel" type="Label" parent="TopContainer" unique_id=153026784]
 unique_name_in_owner = true
 layout_mode = 2
-text = "v0.1.2"
+text = "v0.1.3"
 
-[node name="BodyContainer" type="HSplitContainer" parent="."]
+[node name="BodyContainer" type="HSplitContainer" parent="." unique_id=1515827846]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

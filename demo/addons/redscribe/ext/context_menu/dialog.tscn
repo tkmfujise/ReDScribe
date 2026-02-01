@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv7m0y32d11aq"]
+[gd_scene format=3 uid="uid://cv7m0y32d11aq"]
 
-[ext_resource type="Texture2D" uid="uid://bcojqllb8k50d" path="res://addons/redscribe/assets/icons/editor_icon_gray.svg" id="1_4w8dh"]
-[ext_resource type="Script" uid="uid://0h67qusaimh7" path="res://addons/redscribe/ext/context_menu/dialog.gd" id="1_nk23u"]
-[ext_resource type="Texture2D" uid="uid://b4dyxuqor4jij" path="res://addons/redscribe/assets/icons/editor_icon_outline.svg" id="2_1et1m"]
-[ext_resource type="Texture2D" uid="uid://b0gmaxvt8ugv8" path="res://addons/redscribe/assets/icons/Folder.svg" id="3_1et1m"]
+[ext_resource type="Texture2D" uid="uid://nww0yx1u2o76" path="res://addons/redscribe/assets/icons/editor_icon_gray.svg" id="1_4w8dh"]
+[ext_resource type="Script" uid="uid://m8f8bhu5pgg7" path="res://addons/redscribe/ext/context_menu/dialog.gd" id="1_nk23u"]
+[ext_resource type="Texture2D" uid="uid://cg1cxdopf3but" path="res://addons/redscribe/assets/icons/editor_icon_outline.svg" id="2_1et1m"]
+[ext_resource type="Texture2D" uid="uid://btvedgaf2wmg8" path="res://addons/redscribe/assets/icons/Folder.svg" id="3_1et1m"]
 
-[node name="Dialog" type="ConfirmationDialog"]
+[node name="Dialog" type="ConfirmationDialog" unique_id=191230418]
 oversampling_override = 1.0
 title = "ReDScribe: New file"
 initial_position = 2
@@ -13,7 +13,7 @@ size = Vector2i(1080, 640)
 visible = true
 script = ExtResource("1_nk23u")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1600623119]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,15 +24,15 @@ offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TemplateContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TemplateContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1537086766]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/TemplateContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/TemplateContainer" unique_id=48507418]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Template:"
 
-[node name="Template" type="OptionButton" parent="VBoxContainer/TemplateContainer"]
+[node name="Template" type="OptionButton" parent="VBoxContainer/TemplateContainer" unique_id=1324361386]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -45,28 +45,28 @@ popup/item_1/text = "ReDScribe *.gd"
 popup/item_1/icon = ExtResource("2_1et1m")
 popup/item_1/id = 1
 
-[node name="PathContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PathContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1176341945]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/PathContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PathContainer" unique_id=650892927]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Path:"
 
-[node name="Path" type="LineEdit" parent="VBoxContainer/PathContainer"]
+[node name="Path" type="LineEdit" parent="VBoxContainer/PathContainer" unique_id=2002300251]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="VBoxContainer/PathContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/PathContainer" unique_id=1007120685]
 layout_mode = 2
 icon = ExtResource("3_1et1m")
 
-[node name="Bottom" type="Panel" parent="VBoxContainer"]
+[node name="Bottom" type="Panel" parent="VBoxContainer" unique_id=1910078062]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Description" type="RichTextLabel" parent="VBoxContainer/Bottom"]
+[node name="Description" type="RichTextLabel" parent="VBoxContainer/Bottom" unique_id=556630934]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15

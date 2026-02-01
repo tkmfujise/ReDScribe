@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4um2sg1dyj6c"]
+[gd_scene format=3 uid="uid://c4um2sg1dyj6c"]
 
-[ext_resource type="Script" uid="uid://ckioqktr386u3" path="res://addons/redscribe/src/editor/editor.gd" id="1_mg613"]
+[ext_resource type="Script" uid="uid://d2wxnoe48t23a" path="res://addons/redscribe/src/editor/editor.gd" id="1_mg613"]
 [ext_resource type="Resource" uid="uid://bgane4ws868g8" path="res://addons/redscribe/data/editor_syntaxes/ruby_syntax.tres" id="2_s6nb6"]
 [ext_resource type="Resource" uid="uid://ckp73hvmxuqqi" path="res://addons/redscribe/data/editor_themes/gessetti_theme.tres" id="3_73q2q"]
 
@@ -65,7 +65,7 @@ color_regions = {
 "@  ": Color(0.46666667, 0.9411765, 1, 1)
 }
 
-[node name="ReDScribeEditor" type="CodeEdit"]
+[node name="ReDScribeEditor" type="CodeEdit" unique_id=1317174288]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
