@@ -27,7 +27,10 @@ env = localEnv.Clone()
 # mruby
 env.Append(CPPPATH=[mruby_include_path])
 env.Append(LIBPATH=[mruby_library_path])
-env.Append(LIBS=["libmruby"])
+if os.name == 'posix':
+    env.Append(LIBS=["libmruby"])
+else:
+    env.Append(LIBS=[os.path.join(mruby_library_path, "libmruby.a")])
 
 # for Windows
 if (os.name != 'posix'):
