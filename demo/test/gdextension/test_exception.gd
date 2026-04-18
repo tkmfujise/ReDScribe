@@ -18,12 +18,12 @@ func test_simple_calc():
 
 func test_syntax_error():
 	res.perform('1 +')
-	assert_eq(res.exception, 'syntax error (SyntaxError)')
+	assert_eq(res.exception, '#<SyntaxError: syntax error>')
 
 
 func test_raise():
 	res.perform('raise "テスト"')
-	assert_eq(res.exception, 'テスト (RuntimeError)')
+	assert_eq(res.exception, '#<RuntimeError: テスト>')
 
 
 func test_multiple_instances():

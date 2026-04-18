@@ -49,11 +49,6 @@ func test_load():
 	assert_eq(undefined_method, 'load')
 
 
-func test_putc():
-	res.perform('putc "1"')
-	assert_eq(undefined_method, 'putc')
-
-
 func test_require_relative():
 	res.perform('require_relative "path/to/file"')
 	assert_eq(undefined_method, 'require_relative')

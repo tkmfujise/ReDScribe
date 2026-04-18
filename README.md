@@ -40,7 +40,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 #
 #   [method_missing] Alice: [{ &"says": "Hello Ruby! ❤️" }]
 #
-#   Welcome to the world of Ruby v3.4, powered by mruby 💎
+#   Welcome to the world of Ruby v4.0, powered by mruby 💎
 #
 #   [subscribe] spawn: { &"name": "Alice", &"job": "wizard", &"level": 1 }
 #
