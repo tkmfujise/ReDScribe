@@ -86,10 +86,10 @@ jobs:
           if ("${{ matrix.target.mruby_config }}") {
             Push-Location mruby
             $env:MRUBY_CONFIG = "../../build_config/${{ matrix.target.mruby_config }}"
-            rake
+            rake --trace --verbose
             Pop-Location
           } else {
-            rake mruby_build
+            rake mruby_build --trace --verbose
           }
 
       - name: Build GDExtension
