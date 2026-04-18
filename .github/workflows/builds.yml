@@ -40,6 +40,10 @@ jobs:
           windows-compiler: ${{ matrix.target.windows_compiler }}
           em-version: 3.1.62
 
+      - name: Setup MSVC environment
+        if: ${{ matrix.target.platform == 'windows' && matrix.target.windows_compiler == 'msvc' }}
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Install Ruby tools
         shell: bash
         run: gem install rake dotenv --no-document
