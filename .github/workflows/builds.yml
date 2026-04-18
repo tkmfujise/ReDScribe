@@ -45,7 +45,13 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Ruby tools
+        if: ${{ matrix.target.platform != 'windows' }}
         shell: bash
+        run: gem install rake dotenv --no-document
+
+      - name: Install Ruby tools (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        shell: pwsh
         run: gem install rake dotenv --no-document
 
       - name: Cache .scons_cache
@@ -55,6 +61,7 @@ jobs:
           key: ${{ matrix.target.platform }}_${{ matrix.target.arch }}_${{ matrix.target-type }}_cache
 
       - name: Build mruby
+        if: ${{ matrix.target.platform != 'windows' }}
         shell: bash
         run: |
           if [ -n "${{ matrix.target.mruby_config }}" ]; then
@@ -64,7 +71,21 @@ jobs:
             rake mruby_build
           fi
 
+      - name: Build mruby (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        shell: pwsh
+        run: |
+          if ("${{ matrix.target.mruby_config }}") {
+            Push-Location mruby
+            $env:MRUBY_CONFIG = "../../build_config/${{ matrix.target.mruby_config }}"
+            rake
+            Pop-Location
+          } else {
+            rake mruby_build
+          }
+
       - name: Build GDExtension
+        if: ${{ matrix.target.platform != 'windows' }}
         shell: bash
         env:
           SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
@@ -73,6 +94,18 @@ jobs:
             target=${{ matrix.target-type }} \
             platform=${{ matrix.target.platform }} \
             arch=${{ matrix.target.arch }} \
+            mruby_build=${{ matrix.target.mruby_build }}
+
+      - name: Build GDExtension (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        shell: pwsh
+        env:
+          SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
+        run: |
+          scons `
+            target=${{ matrix.target-type }} `
+            platform=${{ matrix.target.platform }} `
+            arch=${{ matrix.target.arch }} `
             mruby_build=${{ matrix.target.mruby_build }}
 
       - name: Mac Sign
