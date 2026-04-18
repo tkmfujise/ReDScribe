@@ -40,14 +40,6 @@ jobs:
           platform: ${{ matrix.target.platform }}
           em-version: 3.1.62
 
-      - name: Setup godot-cpp (Windows)
-        if: ${{ matrix.target.platform == 'windows' }}
-        uses: ./godot-cpp/.github/actions/setup-godot-cpp
-        with:
-          platform: ${{ matrix.target.platform }}
-          windows-compiler: msvc
-          em-version: 3.1.62
-
       - name: Setup MSVC environment
         if: ${{ matrix.target.platform == 'windows' }}
         uses: ilammy/msvc-dev-cmd@v1
@@ -91,6 +83,14 @@ jobs:
           } else {
             rake mruby_build --trace --verbose
           }
+
+      - name: Setup godot-cpp (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        uses: ./godot-cpp/.github/actions/setup-godot-cpp
+        with:
+          platform: ${{ matrix.target.platform }}
+          windows-compiler: msvc
+          em-version: 3.1.62
 
       - name: Build GDExtension
         if: ${{ matrix.target.platform != 'windows' }}
