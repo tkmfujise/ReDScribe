@@ -7,9 +7,10 @@ from methods import print_error
 
 libname = "redscribe"
 projectdir = "demo"
+mruby_build_name = ARGUMENTS.get("mruby_build", os.environ.get("MRUBY_BUILD_NAME", "host"))
 
-mruby_include_path = "mruby/build/host/include"
-mruby_library_path = "mruby/build/host/lib"
+mruby_include_path = f"mruby/build/{mruby_build_name}/include"
+mruby_library_path = f"mruby/build/{mruby_build_name}/lib"
 
 localEnv = Environment(tools=["default"], PLATFORM="")
 
