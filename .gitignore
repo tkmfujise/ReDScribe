@@ -27,7 +27,12 @@ demo/bin/windows/*
 
 # Ignore addon import
 demo/addons/redscribe/**/*.import
-demo/addons/redscribe/bin/windows/**/~*.dll
+
+# Keep only the GDExtension manifest files under the addon bin directory.
+demo/addons/redscribe/bin/**
+!demo/addons/redscribe/bin/
+!demo/addons/redscribe/bin/redscribe.gdextension
+!demo/addons/redscribe/bin/redscribe.gdextension.uid
 
 # Ignore demo/export
 demo/export

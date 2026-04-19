@@ -138,7 +138,7 @@ jobs:
         with:
           name: redscribe-bin-${{ matrix.target.platform }}-${{ matrix.target.arch }}-${{ matrix.target-type }}
           path: |
-            ${{ github.workspace }}/demo/addons/redscribe/bin/${{ matrix.target.platform }}/**
+            ${{ github.workspace }}/demo/addons/redscribe/bin/${{ matrix.target.platform }}
           if-no-files-found: error
 
   package:
