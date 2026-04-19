@@ -34,7 +34,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: '3.4'
 
       - name: Setup godot-cpp
         if: ${{ matrix.target.platform != 'windows' }}
@@ -71,7 +71,7 @@ jobs:
             rake mruby_build
           else
             cd mruby
-            MRUBY_CONFIG=../../build_config/${{ matrix.target.mruby_config }}.rb rake
+            MRUBY_CONFIG=../build_config/${{ matrix.target.mruby_config }}.rb rake
           fi
 
       - name: Build mruby (Windows)
@@ -85,7 +85,7 @@ jobs:
             rake mruby_build
           } else {
             Push-Location mruby
-            $env:MRUBY_CONFIG = "../../build_config/${{ matrix.target.mruby_config }}.rb"
+            $env:MRUBY_CONFIG = "../build_config/${{ matrix.target.mruby_config }}.rb"
             rake
             Pop-Location
           }
@@ -152,7 +152,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: '3.4'
 
       - name: Install Ruby tools
         shell: bash
