@@ -28,10 +28,7 @@ func _find_editor_log(start: Node = null) -> Node:
 ## Our desired parent should be the second child of the EditorLog.
 func _find_parent_for_field() -> VBoxContainer:
 	var editor_log := _find_editor_log()
-	if editor_log:
-		return editor_log.get_child(1) as VBoxContainer
-	else:
-		return null
+	return editor_log.get_child(1).get_child(0)
 
 
 ## Executes and clears the field.
@@ -114,6 +111,7 @@ func _enter_tree() -> void:
 	_field.gui_input.connect(_on_field_gui_input)
 	_field.caret_blink = true
 	_field.scroll_fit_content_height = true
+	_field.auto_brace_completion_enabled = true
 	_field.placeholder_text = "Evaluate GDScript"
 	# Create other vars.
 	_session = load(

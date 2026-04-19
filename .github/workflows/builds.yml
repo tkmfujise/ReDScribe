@@ -1,91 +1,131 @@
 name: Build GDExtension
 on:
   workflow_call:
-  push:
-    branches: ['main-dummy']
-  pull_request:
-    branches: ['main-dummy']
-  merge_group:
+  workflow_dispatch:
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        # A build is made for every possible combination of parameters
-        # You can add or remove entries from the arrays of each parameter to custimize which builds you want to run
-        # See https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/running-variations-of-jobs-in-a-workflow
         target:
           [
-            { platform: linux, arch: x86_64, os: ubuntu-22.04 },
-            { platform: windows, arch: x86_64, os: windows-latest },
-            { platform: windows, arch: x86_32, os: windows-latest },
-            { platform: macos, arch: universal, os: macos-latest },
-            { platform: android, arch: arm64, os: ubuntu-22.04 },
-            { platform: android, arch: arm32, os: ubuntu-22.04 },
-            { platform: android, arch: x86_64, os: ubuntu-22.04 },
-            { platform: android, arch: x86_32, os: ubuntu-22.04 },
-            { platform: ios, arch: arm64, os: macos-latest },
-            { platform: web, arch: wasm32, os: ubuntu-22.04 }
+            { platform: linux, arch: x86_64, os: ubuntu-22.04, mruby_config: host },
+            { platform: linux, arch: arm64, os: ubuntu-24.04-arm, mruby_config: host },
+            { platform: windows, arch: x86_64, os: windows-latest, mruby_config: host },
+            { platform: windows, arch: arm64, os: windows-11-arm, mruby_config: host },
+            { platform: macos, arch: universal, os: macos-latest, mruby_config: host },
+            { platform: android, arch: x86_64, os: ubuntu-22.04, mruby_config: 'android-x86_64' },
+            { platform: android, arch: arm64, os: ubuntu-22.04, mruby_config: 'android-arm64-v8a' },
+            { platform: ios, arch: arm64, os: macos-latest, mruby_config: 'ios-arm64' }
           ]
-        target-type: [template_debug]
-        float-precision: [single, double]
-        include: # Also build a release version for these specific targets. Remove if you add template_release above.
-          - target: { platform: linux, arch: x86_64, os: ubuntu-22.04 }
-            target-type: template_release
-            float-precision: single
-
-          - target: { platform: linux, arch: x86_64, os: ubuntu-22.04 }
-            target-type: template_release
-            float-precision: double
+        target-type: [template_debug, template_release]
 
     runs-on: ${{ matrix.target.os }}
     steps:
-      # Clone this repository
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: true
 
-      # Lint
-      #- name: Setup clang-format
-      #  shell: bash
-      #  run: |
-      #    python -m pip install clang-format
-      #- name: Run clang-format
-      #  shell: bash
-      #  run: |
-      #    clang-format src/** --dry-run --Werror
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
 
-      # Setup dependencies
       - name: Setup godot-cpp
+        if: ${{ matrix.target.platform != 'windows' }}
         uses: ./godot-cpp/.github/actions/setup-godot-cpp
         with:
           platform: ${{ matrix.target.platform }}
           em-version: 3.1.62
 
-      # Build GDExtension (with caches)
+      - name: Setup MSVC environment
+        if: ${{ matrix.target.platform == 'windows' }}
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.target.arch == 'arm64' && 'amd64_arm64' || 'amd64' }}
+
+      - name: Install Ruby tools
+        if: ${{ matrix.target.platform != 'windows' }}
+        shell: bash
+        run: gem install rake dotenv --no-document
+
+      - name: Install Ruby tools (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        shell: pwsh
+        run: gem install rake dotenv --no-document
+
       - name: Cache .scons_cache
         uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/.scons-cache/
-          key: ${{ matrix.target.platform }}_${{ matrix.target.arch }}_${{ matrix.float-precision }}_${{ matrix.target-type }}_cache
-      - name: Build GDExtension Debug Build
-        shell: sh
+          key: ${{ matrix.target.platform }}_${{ matrix.target.arch }}_${{ matrix.target-type }}_cache
+
+      - name: Build mruby
+        if: ${{ matrix.target.platform != 'windows' }}
+        shell: bash
+        run: |
+          if [ "${{ matrix.target.mruby_config }}" = "host" ]; then
+            rake mruby_build
+          else
+            cd mruby
+            MRUBY_CONFIG=../build_config/${{ matrix.target.mruby_config }}.rb rake
+          fi
+
+      - name: Build mruby (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        shell: pwsh
+        run: |
+          $env:PATH = (($env:PATH -split ';') | Where-Object {
+            $_ -and $_ -notmatch '(^|\\)(msys64|ucrt64|mingw64|mingw32)(\\|$)'
+          }) -join ';'
+          if ("${{ matrix.target.mruby_config }}" -eq "host") {
+            rake mruby_build
+          } else {
+            Push-Location mruby
+            $env:MRUBY_CONFIG = "../build_config/${{ matrix.target.mruby_config }}.rb"
+            rake
+            Pop-Location
+          }
+
+      - name: Setup godot-cpp (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        uses: ./godot-cpp/.github/actions/setup-godot-cpp
+        with:
+          platform: ${{ matrix.target.platform }}
+          windows-compiler: msvc
+          em-version: 3.1.62
+
+      - name: Build GDExtension
+        if: ${{ matrix.target.platform != 'windows' }}
+        shell: bash
         env:
           SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
         run: |
-          scons target=${{ matrix.target-type }} platform=${{ matrix.target.platform }} arch=${{ matrix.target.arch }} precision=${{ matrix.float-precision }}
+          scons \
+            target=${{ matrix.target-type }} \
+            platform=${{ matrix.target.platform }} \
+            arch=${{ matrix.target.arch }} \
+            mruby_config=${{ matrix.target.mruby_config }}
 
-      # Sign the binary (macOS only)
-      - name: Mac Sign
-        # Disable sign if secrets are not set
-        if: ${{ matrix.target.platform == 'macos' && env.APPLE_CERT_BASE64 }}
+      - name: Build GDExtension (Windows)
+        if: ${{ matrix.target.platform == 'windows' }}
+        shell: pwsh
         env:
-          APPLE_CERT_BASE64: ${{ secrets.APPLE_CERT_BASE64 }}
+          SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
+        run: |
+          scons `
+            target=${{ matrix.target-type }} `
+            platform=${{ matrix.target.platform }} `
+            arch=${{ matrix.target.arch }} `
+            mruby_config=${{ matrix.target.mruby_config }}
+
+      - name: Mac Sign
+        if: ${{ matrix.target.platform == 'macos' }}
         uses: ./.github/actions/sign
         with:
-          FRAMEWORK_PATH: bin/macos/macos.framework
+          FRAMEWORK_PATH: demo/addons/redscribe/bin/macos/macos.framework
           APPLE_CERT_BASE64: ${{ secrets.APPLE_CERT_BASE64 }}
           APPLE_CERT_PASSWORD: ${{ secrets.APPLE_CERT_PASSWORD }}
           APPLE_DEV_PASSWORD: ${{ secrets.APPLE_DEV_PASSWORD }}
@@ -93,30 +133,59 @@ jobs:
           APPLE_DEV_TEAM_ID: ${{ secrets.APPLE_DEV_TEAM_ID }}
           APPLE_DEV_APP_ID: ${{ secrets.APPLE_DEV_APP_ID }}
 
-      # Clean up compilation files
-      - name: Windows - Delete compilation files
-        if: ${{ matrix.target.platform == 'windows' }}
-        shell: pwsh
-        run: |
-          Remove-Item bin/* -Include *.exp,*.lib,*.pdb -Force
-
-      # Upload the build
-      - name: Upload Artifact
+      - name: Upload platform binaries
         uses: actions/upload-artifact@v4
         with:
-          name: godot-cpp-template-${{ matrix.target.platform }}-${{ matrix.target.arch }}-${{ matrix.float-precision }}-${{ matrix.target-type }}
+          name: redscribe-bin-${{ matrix.target.platform }}-${{ matrix.target.arch }}-${{ matrix.target-type }}
           path: |
-            ${{ github.workspace }}/bin/**
+            ${{ github.workspace }}/demo/addons/redscribe/bin/${{ matrix.target.platform }}
+          if-no-files-found: error
 
-  # Merges all the build artifacts together into a single godot-cpp-template artifact.
-  # If you comment out this step, all the builds will be uploaded individually.
-  merge:
+  package:
     runs-on: ubuntu-22.04
     needs: build
     steps:
-      - name: Merge Artifacts
-        uses: actions/upload-artifact/merge@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          name: godot-cpp-template
-          pattern: godot-cpp-template-*
-          delete-merged: true
+          ruby-version: '3.4'
+
+      - name: Install Ruby tools
+        shell: bash
+        run: gem install rake dotenv --no-document
+
+      - name: Download platform binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: redscribe-bin-*
+          path: tmp/redscribe-bin-artifacts
+
+      - name: Arrange platform binaries
+        shell: bash
+        run: |
+          rm -rf demo/addons/redscribe/bin/{linux,windows,android,ios,macos}
+          mkdir -p demo/addons/redscribe/bin
+          find tmp/redscribe-bin-artifacts -mindepth 1 -maxdepth 1 -type d | while read -r artifact_dir; do
+            artifact_name="$(basename "$artifact_dir")"
+            platform="${artifact_name#redscribe-bin-}"
+            platform="${platform%%-*}"
+            target_dir="demo/addons/redscribe/bin/$platform"
+
+            mkdir -p "$target_dir"
+            cp -R "$artifact_dir"/. "$target_dir"/
+          done
+
+      - name: Package addon
+        shell: bash
+        run: rake package
+
+      - name: Upload addon package
+        uses: actions/upload-artifact@v4
+        with:
+          name: redscribe-addon-package
+          path: |
+            ${{ github.workspace }}/tmp/addons.tar.gz
+          if-no-files-found: error

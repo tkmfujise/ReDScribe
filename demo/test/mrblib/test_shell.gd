@@ -39,7 +39,7 @@ func test_ls():
 	var result = fetch('ls "foobar"')
 	assert_null(result)
 	assert_eq(res.exception,
-		'ls: foobar: No such file or directory (RuntimeError)')
+		'#<RuntimeError: ls: foobar: No such file or directory>')
 
 
 func test_cat():
@@ -48,7 +48,7 @@ func test_cat():
 	var result = fetch('cat "foobar"')
 	assert_null(result)
 	assert_eq(res.exception,
-		'cat: foobar: No such file or directory (RuntimeError)')
+		'#<RuntimeError: cat: foobar: No such file or directory>')
 
 
 func test_pwd():

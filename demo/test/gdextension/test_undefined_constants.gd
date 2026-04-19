@@ -9,7 +9,7 @@ func before_each():
 
 
 func assert_execption(constant: String):
-	assert_eq(res.exception, "uninitialized constant %s (NameError)" % constant)
+	assert_eq(res.exception, "#<NameError: uninitialized constant %s>" % constant)
 
 
 func test_ARGV():

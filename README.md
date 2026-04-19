@@ -40,7 +40,7 @@ func _subscribe(key: StringName, payload: Variant) -> void:
 #
 #   [method_missing] Alice: [{ &"says": "Hello Ruby! ❤️" }]
 #
-#   Welcome to the world of Ruby v3.4, powered by mruby 💎
+#   Welcome to the world of Ruby v4.0, powered by mruby 💎
 #
 #   [subscribe] spawn: { &"name": "Alice", &"job": "wizard", &"level": 1 }
 #
@@ -199,7 +199,21 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
   * [x] Example4: Coroutine
 
 
-### v0.2.0 or later
+### v0.2.0
+* [x] compile
+  * [x] use github workflow
+  * [x] target
+    * [x] windows.x86_64
+    * [x] windows.arm64
+    * [x] macos
+    * [x] linux.x86_64
+    * [x] linux.arm64
+    * [x] android.x86_64
+    * [x] android.arm64
+    * [x] ios
+
+
+### v0.3.0 or later
 * [ ] Document
   * [ ] Wiki
 * [ ] Editor
@@ -221,15 +235,6 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
 * [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
 * [ ] compile
-  * [ ] use github workflow
   * [ ] target
-    * [x] windows.x86_64
-    * [ ] windows.x86_32
-    * [x] macos
-    * [x] linux.x86_64
-    * [ ] linux.arm64
-    * [ ] linux.rv64
-    * [ ] android.x86_64
-    * [ ] android.arm64
-    * [ ] ios
+    * [ ] web
 

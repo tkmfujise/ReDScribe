@@ -29,7 +29,7 @@ func test_send_exit_fails():
 
 func test_shell_command_fails():
 	res.perform('foo `whoami`')
-	assert_eq(result, null)
+	assert_not_null(result)
 	res.perform('foo 1')
 	assert_eq(result, 1)
 

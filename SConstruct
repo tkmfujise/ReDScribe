@@ -7,9 +7,10 @@ from methods import print_error
 
 libname = "redscribe"
 projectdir = "demo"
+mruby_build_name = ARGUMENTS.get("mruby_config", os.environ.get("MRUBY_CONFIG_NAME", "host"))
 
-mruby_include_path = "mruby/build/host/include"
-mruby_library_path = "mruby/build/host/lib"
+mruby_include_path = f"mruby/build/{mruby_build_name}/include"
+mruby_library_path = f"mruby/build/{mruby_build_name}/lib"
 
 localEnv = Environment(tools=["default"], PLATFORM="")
 
@@ -60,18 +61,44 @@ if env["target"] in ["editor", "template_debug"]:
 
 file = "{}{}{}".format(libname, env["suffix"], env["SHLIBSUFFIX"])
 filepath = ""
+library_builder = env.SharedLibrary
+install_name = "lib{}".format(file)
+library_output = None
 
-if env["platform"] == "macos" or env["platform"] == "ios":
+if env["platform"] == "macos":
     filepath = "{}.framework/".format(env["platform"])
     file = "{}{}".format(libname, env["suffix"])
+    install_name = "lib{}".format(file)
+elif env["platform"] == "ios":
+    file = "{}{}".format(libname, env["suffix"])
+    library_builder = env.StaticLibrary
+    install_name = "lib{}.a".format(file)
 
 libraryfile = "bin/{}/{}{}".format(env["platform"], filepath, file)
-library = env.SharedLibrary(
-    libraryfile,
+library_target = libraryfile
+if env["platform"] == "ios":
+    library_target = "bin/{}/intermediate/{}".format(env["platform"], install_name)
+
+library = library_builder(
+    library_target,
     source=sources,
 )
 
-copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}lib{}".format(projectdir, env["platform"], filepath, file), library)
+if env["platform"] == "ios":
+    godot_cpp_lib = "godot-cpp/bin/libgodot-cpp{}{}".format(env["suffix"], env["LIBSUFFIX"])
+    mruby_lib = "{}/libmruby.a".format(mruby_library_path)
+    library_output = env.Command(
+        "bin/{}/{}".format(env["platform"], install_name),
+        [library, godot_cpp_lib, mruby_lib],
+        [
+            Delete("$TARGET"),
+            "libtool -static -o $TARGET $SOURCES",
+        ],
+    )
+else:
+    library_output = library
 
-default_args = [library, copy]
+copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}{}".format(projectdir, env["platform"], filepath, install_name), library_output)
+
+default_args = [library_output, copy]
 Default(*default_args)
