@@ -200,15 +200,15 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
 
 
 ### v0.2.0
-* [ ] compile
+* [x] compile
   * [x] use github workflow
-  * [ ] target
+  * [x] target
     * [x] windows.x86_64
-    * [ ] windows.arm64
+    * [x] windows.arm64
     * [x] macos
     * [x] linux.x86_64
-    * [ ] linux.arm64
-    * [ ] android.x86_64
+    * [x] linux.arm64
+    * [x] android.x86_64
     * [x] android.arm64
     * [x] ios
 
