@@ -1,0 +1,9 @@
+name: Build GDExtension on stable
+on:
+  push:
+    branches:
+      - stable
+
+jobs:
+  call-builds:
+    uses: ./.github/workflows/builds.yml

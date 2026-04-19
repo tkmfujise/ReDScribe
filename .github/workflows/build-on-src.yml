@@ -1,0 +1,15 @@
+name: Build GDExtension on src changes
+on:
+  push:
+    paths:
+      - 'src/**'
+  pull_request:
+    paths:
+      - 'src/**'
+  merge_group:
+    paths:
+      - 'src/**'
+
+jobs:
+  call-builds:
+    uses: ./.github/workflows/builds.yml
