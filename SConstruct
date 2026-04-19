@@ -61,18 +61,25 @@ if env["target"] in ["editor", "template_debug"]:
 
 file = "{}{}{}".format(libname, env["suffix"], env["SHLIBSUFFIX"])
 filepath = ""
+library_builder = env.SharedLibrary
+install_name = "lib{}".format(file)
 
-if env["platform"] == "macos" or env["platform"] == "ios":
+if env["platform"] == "macos":
     filepath = "{}.framework/".format(env["platform"])
     file = "{}{}".format(libname, env["suffix"])
+    install_name = "lib{}".format(file)
+elif env["platform"] == "ios":
+    file = "{}{}".format(libname, env["suffix"])
+    library_builder = env.StaticLibrary
+    install_name = "lib{}.a".format(file)
 
 libraryfile = "bin/{}/{}{}".format(env["platform"], filepath, file)
-library = env.SharedLibrary(
+library = library_builder(
     libraryfile,
     source=sources,
 )
 
-copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}lib{}".format(projectdir, env["platform"], filepath, file), library)
+copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}{}".format(projectdir, env["platform"], filepath, install_name), library)
 
 default_args = [library, copy]
 Default(*default_args)
