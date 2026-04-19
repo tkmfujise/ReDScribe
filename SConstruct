@@ -63,6 +63,7 @@ file = "{}{}{}".format(libname, env["suffix"], env["SHLIBSUFFIX"])
 filepath = ""
 library_builder = env.SharedLibrary
 install_name = "lib{}".format(file)
+library_output = None
 
 if env["platform"] == "macos":
     filepath = "{}.framework/".format(env["platform"])
@@ -74,12 +75,30 @@ elif env["platform"] == "ios":
     install_name = "lib{}.a".format(file)
 
 libraryfile = "bin/{}/{}{}".format(env["platform"], filepath, file)
+library_target = libraryfile
+if env["platform"] == "ios":
+    library_target = "bin/{}/intermediate/{}".format(env["platform"], install_name)
+
 library = library_builder(
-    libraryfile,
+    library_target,
     source=sources,
 )
 
-copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}{}".format(projectdir, env["platform"], filepath, install_name), library)
+if env["platform"] == "ios":
+    godot_cpp_lib = "godot-cpp/bin/libgodot-cpp{}{}".format(env["suffix"], env["LIBSUFFIX"])
+    mruby_lib = "{}/lib/libmruby.a".format(mruby_library_path)
+    library_output = env.Command(
+        "bin/{}/{}".format(env["platform"], install_name),
+        [library, godot_cpp_lib, mruby_lib],
+        [
+            Delete("$TARGET"),
+            "libtool -static -o $TARGET $SOURCES",
+        ],
+    )
+else:
+    library_output = library
 
-default_args = [library, copy]
+copy = env.InstallAs("{}/addons/redscribe/bin/{}/{}{}".format(projectdir, env["platform"], filepath, install_name), library_output)
+
+default_args = [library_output, copy]
 Default(*default_args)
