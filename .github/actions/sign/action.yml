@@ -156,7 +156,12 @@ runs:
 
       foreach ($Target in $SignTargets) {
         Write-Output "Signing '$Target'..."
-        & $CodesignPath --force --timestamp --options runtime --verbose "$SignFlags" --sign $SigningIdentity "$Target"
+        $CodesignArgs = @("--force", "--timestamp", "--options", "runtime", "--verbose")
+        if ($SignFlags) {
+          $CodesignArgs += $SignFlags -split '\s+'
+        }
+        $CodesignArgs += @("--sign", $SigningIdentity, $Target)
+        & $CodesignPath @CodesignArgs
       }
 
       Write-Output "Verifying signing..."
