@@ -8,8 +8,6 @@ on:
 
 jobs:
   build:
-    env:
-      APPLE_CERT_BASE64: ${{ secrets.APPLE_CERT_BASE64 }}
     strategy:
       fail-fast: false
       matrix:
@@ -122,7 +120,7 @@ jobs:
             mruby_build=${{ matrix.target.mruby_build }}
 
       - name: Mac Sign
-        if: ${{ matrix.target.platform == 'macos' && env.APPLE_CERT_BASE64 != '' }}
+        if: ${{ matrix.target.platform == 'macos' }}
         uses: ./.github/actions/sign
         with:
           FRAMEWORK_PATH: demo/addons/redscribe/bin/macos/macos.framework
@@ -168,8 +166,14 @@ jobs:
         run: |
           rm -rf demo/addons/redscribe/bin/{linux,windows,android,ios,macos}
           mkdir -p demo/addons/redscribe/bin
-          find tmp/redscribe-bin-artifacts -mindepth 2 -maxdepth 2 -type d | while read -r dir; do
-            cp -R "$dir" demo/addons/redscribe/bin/
+          find tmp/redscribe-bin-artifacts -mindepth 1 -maxdepth 1 -type d | while read -r artifact_dir; do
+            artifact_name="$(basename "$artifact_dir")"
+            platform="${artifact_name#redscribe-bin-}"
+            platform="${platform%%-*}"
+            target_dir="demo/addons/redscribe/bin/$platform"
+
+            mkdir -p "$target_dir"
+            cp -R "$artifact_dir"/. "$target_dir"/
           done
 
       - name: Package addon
