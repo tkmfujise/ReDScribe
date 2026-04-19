@@ -1,6 +1,8 @@
 name: Build GDExtension on src changes
 on:
   push:
+    branches:
+      - '**'
     paths:
       - 'src/**'
   pull_request:
