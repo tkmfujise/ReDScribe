@@ -13,3 +13,4 @@ on:
 jobs:
   call-builds:
     uses: ./.github/workflows/builds.yml
+    secrets: inherit
