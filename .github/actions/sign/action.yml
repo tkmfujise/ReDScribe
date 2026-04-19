@@ -131,7 +131,7 @@ runs:
         -T $CodesignPath
       Write-Output "Check identities..."
 
-      security find-identity
+      security find-identity -v -p codesigning ~/Library/Keychains/$Keychain
 
       Write-Output "Granting access to keychain..."
 
@@ -140,14 +140,30 @@ runs:
       $Framework = "${{ inputs.FRAMEWORK_PATH }}"
       $SignFlags = "${{ inputs.SIGN_FLAGS }}"
       $Archive = [IO.Path]::ChangeExtension((New-TemporaryFile), "zip")
+      $IdentityMatch = security find-identity -v -p codesigning ~/Library/Keychains/$Keychain | Select-String -Pattern '"([^"]+)"' | Select-Object -First 1
+      if (!$IdentityMatch) { throw "No codesigning identity found in imported keychain" }
+      $SigningIdentity = $IdentityMatch.Matches[0].Groups[1].Value
 
-      Write-Output "Signing '$Framework'..."
+      Write-Output "Using signing identity '$SigningIdentity'..."
 
-      & $CodesignPath --verify --timestamp --verbose "$SignFlags" --sign $DeveloperIdApplication "$Framework"
+      $SignTargets = @()
+      if (Test-Path $Framework -PathType Container) {
+        $SignTargets = Get-ChildItem -Path $Framework -File -Recurse | ForEach-Object { $_.FullName }
+      } else {
+        $SignTargets = @($Framework)
+      }
+      if ($SignTargets.Count -eq 0) { throw "No signable files found under '$Framework'" }
+
+      foreach ($Target in $SignTargets) {
+        Write-Output "Signing '$Target'..."
+        & $CodesignPath --force --timestamp --options runtime --verbose "$SignFlags" --sign $SigningIdentity "$Target"
+      }
 
       Write-Output "Verifying signing..."
-
-      & $CodesignPath --verify -dvvv "$Framework"
+      foreach ($Target in $SignTargets) {
+        & $CodesignPath --verify --verbose=4 "$Target"
+        & $CodesignPath -dvvv "$Target"
+      }
 
       Get-ChildItem -Force -Recurse -Path "$Framework"
 
@@ -173,10 +189,9 @@ runs:
         --password $DevPassword `
         developer_log.json
       get-content developer_log.json
-
-      Write-Output "Stapling notarization ticket..."
-      xcrun stapler staple "$Framework"
-      xcrun stapler validate "$Framework"
+      $NotaryLog = Get-Content developer_log.json | ConvertFrom-Json
+      if ($NotaryLog.status -ne "Accepted") {
+        throw "Notarization failed with status '$($NotaryLog.status)'"
+      }
 
       echo "path=$Archive" >> $env:GITHUB_OUTPUT
-
