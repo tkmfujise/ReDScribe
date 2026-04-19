@@ -86,7 +86,7 @@ library = library_builder(
 
 if env["platform"] == "ios":
     godot_cpp_lib = "godot-cpp/bin/libgodot-cpp{}{}".format(env["suffix"], env["LIBSUFFIX"])
-    mruby_lib = "{}/lib/libmruby.a".format(mruby_library_path)
+    mruby_lib = "{}/libmruby.a".format(mruby_library_path)
     library_output = env.Command(
         "bin/{}/{}".format(env["platform"], install_name),
         [library, godot_cpp_lib, mruby_lib],
