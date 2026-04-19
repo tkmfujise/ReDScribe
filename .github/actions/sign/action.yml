@@ -148,7 +148,7 @@ runs:
 
       $SignTargets = @()
       if (Test-Path $Framework -PathType Container) {
-        $SignTargets = Get-ChildItem -Path $Framework -File -Recurse | ForEach-Object { $_.FullName }
+        $SignTargets = @(Get-ChildItem -Path $Framework -File -Recurse | ForEach-Object { $_.FullName })
       } else {
         $SignTargets = @($Framework)
       }
