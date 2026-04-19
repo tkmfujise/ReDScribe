@@ -46,6 +46,8 @@ jobs:
       - name: Setup MSVC environment
         if: ${{ matrix.target.platform == 'windows' }}
         uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.target.arch == 'arm64' && 'amd64_arm64' || 'amd64' }}
 
       - name: Install Ruby tools
         if: ${{ matrix.target.platform != 'windows' }}
