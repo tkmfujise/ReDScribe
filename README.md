@@ -199,7 +199,21 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
   * [x] Example4: Coroutine
 
 
-### v0.2.0 or later
+### v0.2.0
+* [ ] compile
+  * [x] use github workflow
+  * [ ] target
+    * [x] windows.x86_64
+    * [ ] windows.arm64
+    * [x] macos
+    * [x] linux.x86_64
+    * [ ] linux.arm64
+    * [ ] android.x86_64
+    * [x] android.arm64
+    * [x] ios
+
+
+### v0.3.0 or later
 * [ ] Document
   * [ ] Wiki
 * [ ] Editor
@@ -221,15 +235,6 @@ see: [Rakefile](https://github.com/tkmfujise/ReDScribe/blob/main/Rakefile)
 * [ ] fix bugs
   * [ ] `.rb` files cannot be displayed on the first launch.
 * [ ] compile
-  * [ ] use github workflow
   * [ ] target
-    * [x] windows.x86_64
-    * [ ] windows.x86_32
-    * [x] macos
-    * [x] linux.x86_64
-    * [ ] linux.arm64
-    * [ ] linux.rv64
-    * [ ] android.x86_64
-    * [ ] android.arm64
-    * [ ] ios
+    * [ ] web
 

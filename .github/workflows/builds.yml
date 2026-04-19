@@ -13,11 +13,14 @@ jobs:
       matrix:
         target:
           [
-            { platform: linux, arch: x86_64, os: ubuntu-22.04, mruby_config: '', mruby_build: host },
-            { platform: windows, arch: x86_64, os: windows-latest, mruby_config: '', mruby_build: host },
-            { platform: macos, arch: universal, os: macos-latest, mruby_config: '', mruby_build: host },
-            { platform: android, arch: arm64, os: ubuntu-22.04, mruby_config: 'android_arm64', mruby_build: 'android-arm64-v8a' },
-            { platform: ios, arch: arm64, os: macos-latest, mruby_config: 'ios_arm64', mruby_build: 'ios-arm64' }
+            { platform: linux, arch: x86_64, os: ubuntu-22.04, mruby_config: host },
+            { platform: linux, arch: arm64, os: ubuntu-24.04-arm, mruby_config: host },
+            { platform: windows, arch: x86_64, os: windows-latest, mruby_config: host },
+            { platform: windows, arch: arm64, os: windows-11-arm, mruby_config: host },
+            { platform: macos, arch: universal, os: macos-latest, mruby_config: host },
+            { platform: android, arch: x86_64, os: ubuntu-22.04, mruby_config: 'android-x86_64' },
+            { platform: android, arch: arm64, os: ubuntu-22.04, mruby_config: 'android-arm64-v8a' },
+            { platform: ios, arch: arm64, os: macos-latest, mruby_config: 'ios-arm64' }
           ]
         target-type: [template_debug, template_release]
 
@@ -64,11 +67,11 @@ jobs:
         if: ${{ matrix.target.platform != 'windows' }}
         shell: bash
         run: |
-          if [ -n "${{ matrix.target.mruby_config }}" ]; then
-            cd mruby
-            MRUBY_CONFIG=../../build_config/${{ matrix.target.mruby_config }} rake
-          else
+          if [ "${{ matrix.target.mruby_config }}" = "host" ]; then
             rake mruby_build
+          else
+            cd mruby
+            MRUBY_CONFIG=../../build_config/${{ matrix.target.mruby_config }}.rb rake
           fi
 
       - name: Build mruby (Windows)
@@ -78,13 +81,13 @@ jobs:
           $env:PATH = (($env:PATH -split ';') | Where-Object {
             $_ -and $_ -notmatch '(^|\\)(msys64|ucrt64|mingw64|mingw32)(\\|$)'
           }) -join ';'
-          if ("${{ matrix.target.mruby_config }}") {
-            Push-Location mruby
-            $env:MRUBY_CONFIG = "../../build_config/${{ matrix.target.mruby_config }}"
-            rake --trace --verbose
-            Pop-Location
+          if ("${{ matrix.target.mruby_config }}" -eq "host") {
+            rake mruby_build
           } else {
-            rake mruby_build --trace --verbose
+            Push-Location mruby
+            $env:MRUBY_CONFIG = "../../build_config/${{ matrix.target.mruby_config }}.rb"
+            rake
+            Pop-Location
           }
 
       - name: Setup godot-cpp (Windows)
@@ -105,7 +108,7 @@ jobs:
             target=${{ matrix.target-type }} \
             platform=${{ matrix.target.platform }} \
             arch=${{ matrix.target.arch }} \
-            mruby_build=${{ matrix.target.mruby_build }}
+            mruby_config=${{ matrix.target.mruby_config }}
 
       - name: Build GDExtension (Windows)
         if: ${{ matrix.target.platform == 'windows' }}
@@ -117,7 +120,7 @@ jobs:
             target=${{ matrix.target-type }} `
             platform=${{ matrix.target.platform }} `
             arch=${{ matrix.target.arch }} `
-            mruby_build=${{ matrix.target.mruby_build }}
+            mruby_config=${{ matrix.target.mruby_config }}
 
       - name: Mac Sign
         if: ${{ matrix.target.platform == 'macos' }}
